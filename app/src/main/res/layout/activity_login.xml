@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".usuario.gui.LoginActivity">
+
+    <Button
+        android:id="@+id/Gotoregistrar_button"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="140dp"
+        android:background="#FFFFFF"
+        android:fontFamily="sans-serif-condensed-light"
+        android:text="Ainda não é cadastrado? fazer cadastro!"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logar_button"
+        app:layout_constraintVertical_bias="0.254" />
+
+    <EditText
+        android:id="@+id/editEmail_login"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="55dp"
+        android:layout_marginTop="56dp"
+        android:layout_marginEnd="55dp"
+        android:ems="10"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <EditText
+        android:id="@+id/editSenha_login"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="55dp"
+        android:layout_marginTop="84dp"
+        android:layout_marginEnd="56dp"
+        android:ems="10"
+        android:hint="Senha"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editEmail_login" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="196dp"
+        android:layout_height="77dp"
+        android:layout_marginStart="115dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="116dp"
+        android:fontFamily="cursive"
+        android:text="Logar-se"
+        android:textColor="#B12B73"
+        android:textSize="55sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Logar-se" />
+
+    <Button
+        android:id="@+id/logar_button"
+        android:layout_width="217dp"
+        android:layout_height="58dp"
+        android:layout_marginStart="97dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="97dp"
+        android:background="#DF097B"
+        android:fontFamily="sans-serif"
+        android:text="Logar"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editSenha_login" />
+
+</android.support.constraint.ConstraintLayout>
