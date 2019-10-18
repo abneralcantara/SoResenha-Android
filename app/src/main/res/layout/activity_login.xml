@@ -8,9 +8,9 @@
 
     <Button
         android:id="@+id/Gotoregistrar_button"
-        android:layout_width="match_parent"
+        android:layout_width="409dp"
         android:layout_height="55dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="491dp"
         android:layout_marginBottom="140dp"
         android:background="#FFFFFF"
         android:fontFamily="sans-serif-condensed-light"
@@ -18,10 +18,10 @@
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/logar_button"
-        app:layout_constraintVertical_bias="0.254" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.609" />
 
     <EditText
         android:id="@+id/editEmail_login"
@@ -34,7 +34,7 @@
         android:hint="Email"
         android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
@@ -43,27 +43,31 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="55dp"
-        android:layout_marginTop="84dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="56dp"
         android:ems="10"
         android:hint="Senha"
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editEmail_login" />
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="196dp"
-        android:layout_height="77dp"
+        android:layout_width="410dp"
+        android:layout_height="84dp"
         android:layout_marginStart="115dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="52dp"
         android:layout_marginEnd="116dp"
         android:fontFamily="cursive"
+        android:paddingLeft="0dp"
         android:text="Logar-se"
+        android:textAlignment="center"
         android:textColor="#B12B73"
         android:textSize="55sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Logar-se" />
@@ -82,7 +86,7 @@
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editSenha_login" />
 

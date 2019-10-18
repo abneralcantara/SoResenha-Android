@@ -15,6 +15,7 @@ import com.ufrpe.bsi.soresenha.R;
 import com.ufrpe.bsi.soresenha.infra.persistencia.DBHelper;
 import com.ufrpe.bsi.soresenha.usuario.dominio.Usuario;
 import com.ufrpe.bsi.soresenha.usuario.negocio.UsuarioServices;
+import com.ufrpe.bsi.soresenha.usuario.persistencia.UsuarioDAO;
 
 public class RegisterActivity extends AppCompatActivity {
     private boolean task = false;
@@ -23,7 +24,7 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText editSenha;
     private EditText editConfSenha;
     private Button registrar_Button;
-    DBHelper db = new DBHelper(this);
+    UsuarioServices usuarioServices = new UsuarioServices(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,8 +104,8 @@ public class RegisterActivity extends AppCompatActivity {
         String confSenha = editConfSenha.getText().toString();
         if (validarCampos()) {
             Usuario usuario = new Usuario(nome, email, senha);
-            if (db.checarEmail(usuario)) {
-                db.cadastraUsuario(usuario);
+            if (usuarioServices.checarEmail(email)) {
+                usuarioServices.cadastraUsuario(usuario);
                 Toast.makeText(RegisterActivity.this, "Cadastro realizado com sucesso", Toast.LENGTH_LONG).show();
                 task = false;
                 callloginIntent();
