@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/opca0"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:layout_marginBottom="3dp"
+    android:background="#610031"
+    android:padding="20dp">
+
+    <TextView
+        android:id="@+id/title_Festacard"
+        android:layout_width="201dp"
+        android:layout_height="26dp"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Nome festa" />
+
+    <TextView
+        android:id="@+id/desc_Festacard"
+        android:layout_width="250dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="5dp"
+        android:text="descricao festa"
+        android:textColor="#FF0B8F"
+        android:textSize="13sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title_Festacard" />
+
+</android.support.constraint.ConstraintLayout>
