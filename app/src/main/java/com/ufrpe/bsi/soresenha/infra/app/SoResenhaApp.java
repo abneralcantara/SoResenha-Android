@@ -4,15 +4,15 @@ import android.app.Application;
 import android.content.Context;
 
 public class SoResenhaApp extends Application {
-    private static android.content.Context Context;
+    private android.content.Context context;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        Context = this;
+        context = this;
     }
 
-    public static Context getContext(){
-        return Context;
+    public Context getContext(){
+        return context;
     }
 }

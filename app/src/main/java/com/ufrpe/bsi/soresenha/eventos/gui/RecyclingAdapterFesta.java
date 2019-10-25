@@ -1,4 +1,4 @@
-package com.ufrpe.bsi.soresenha.eventos.negocio;
+package com.ufrpe.bsi.soresenha.eventos.gui;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,10 +12,7 @@ import android.widget.TextView;
 
 import com.ufrpe.bsi.soresenha.R;
 import com.ufrpe.bsi.soresenha.eventos.dominio.Evento;
-import com.ufrpe.bsi.soresenha.eventos.gui.ConsultarEventoActivity;
-import com.ufrpe.bsi.soresenha.eventos.gui.CriarEventoActivity;
-import com.ufrpe.bsi.soresenha.eventos.gui.EditarEventoActivity;
-import com.ufrpe.bsi.soresenha.eventos.gui.ListaEventoActivity;
+import com.ufrpe.bsi.soresenha.eventos.negocio.EventoServices;
 
 import java.util.List;
 
@@ -77,7 +74,7 @@ public class RecyclingAdapterFesta extends RecyclerView.Adapter<RecyclingAdapter
 
     @Override
     public int getItemCount() {
-        return (opcoesEventos != null && (opcoesEventos.size() > 0) ? opcoesEventos.size() : 0) ;
+        return (opcoesEventos != null && (!opcoesEventos.isEmpty()) ? opcoesEventos.size() : 0) ;
     }
 
     static class RecyViewHolder extends RecyclerView.ViewHolder {

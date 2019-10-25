@@ -11,7 +11,6 @@ import android.view.View;
 import com.ufrpe.bsi.soresenha.R;
 import com.ufrpe.bsi.soresenha.eventos.dominio.Evento;
 import com.ufrpe.bsi.soresenha.eventos.negocio.EventoServices;
-import com.ufrpe.bsi.soresenha.eventos.negocio.RecyclingAdapterFesta;
 
 import java.util.List;
 
@@ -25,8 +24,8 @@ public class ListaEventoActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         RecyclerView recyclerView = findViewById(R.id.recyclerfestas);
 
-        RecyclerView.LayoutManager LinearLayoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(LinearLayoutManager);
+        RecyclerView.LayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(linearLayoutManager);
 
         recyclerView.setAdapter(new RecyclingAdapterFesta(createList(), this));
 

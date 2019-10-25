@@ -3,10 +3,9 @@ package com.ufrpe.bsi.soresenha.infra.persistencia;
 import android.app.Application;
 
 public class SessaoUser extends Application {
-    private static String user;
-    private static String email;
-    private static String senha;
-
+    private String user;
+    private String email;
+    private String senha;
 
     @Override
     public void onCreate() {
@@ -16,33 +15,27 @@ public class SessaoUser extends Application {
         senha = "";
     }
 
-    public static String getUser() {
+    public String getUser() {
         return user;
     }
 
-    public static void setUser(String user) {
-        SessaoUser.user = user;
+    public void setUser(String user) {
+        this.user = user;
     }
 
-    public static String getEmail() {
+    public String getEmail() {
         return email;
     }
 
-    public static void setEmail(String email) {
-        SessaoUser.email = email;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public static String getSenha() {
+    public String getSenha() {
         return senha;
     }
 
-    public static void setSenha(String senha) {
-        SessaoUser.senha = senha;
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
-
-
-
-
-
-
 }

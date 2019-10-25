@@ -3,7 +3,6 @@ package com.ufrpe.bsi.soresenha.eventos.gui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 import android.widget.TextView;
 
 import com.ufrpe.bsi.soresenha.R;
@@ -12,7 +11,6 @@ import com.ufrpe.bsi.soresenha.eventos.negocio.EventoServices;
 
 public class ConsultarEventoActivity extends AppCompatActivity {
 
-    private TextView precoFesta, nomeFesta, descricaoFesta;
     private EventoServices eventoServices = new EventoServices(this);
 
     @Override
@@ -26,9 +24,9 @@ public class ConsultarEventoActivity extends AppCompatActivity {
     private void configurarTela(Intent intent) {
         Bundle extras = intent.getExtras();
         final Evento eventoOld = eventoServices.getEvento(extras.getLong("EventId"));
-        precoFesta = findViewById(R.id.precoFesta);
-        nomeFesta = findViewById(R.id.nomeFesta);
-        descricaoFesta = findViewById(R.id.descricaoFesta);
+        TextView precoFesta = findViewById(R.id.precoFesta);
+        TextView nomeFesta = findViewById(R.id.nomeFesta);
+        TextView descricaoFesta = findViewById(R.id.descricaoFesta);
         nomeFesta.setText(eventoOld.getNome());
         descricaoFesta.setText(eventoOld.getDescricao());
         precoFesta.setText("R$ " + eventoOld.getPreco());

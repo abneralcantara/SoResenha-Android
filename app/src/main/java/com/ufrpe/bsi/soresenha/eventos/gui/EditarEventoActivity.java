@@ -13,8 +13,9 @@ import com.ufrpe.bsi.soresenha.eventos.negocio.EventoServices;
 
 public class EditarEventoActivity extends AppCompatActivity {
 
-    private EditText editNome, editDesc, editPreco;
-    private Button criarBtn;
+    private EditText editNome;
+    private EditText editDesc;
+    private EditText editPreco;
     private EventoServices eventoServices = new EventoServices(this);
 
     @Override
@@ -31,7 +32,7 @@ public class EditarEventoActivity extends AppCompatActivity {
         editNome = findViewById(R.id.nomeFestaedit);
         editDesc = findViewById(R.id.descFestaEdit);
         editPreco = findViewById(R.id.precoFestaedit);
-        criarBtn = findViewById(R.id.criarFestabutton);
+        Button criarBtn = findViewById(R.id.criarFestabutton);
         editNome.setText(eventoOld.getNome());
         editDesc.setText(eventoOld.getDescricao());
         editPreco.setText(eventoOld.getPreco());

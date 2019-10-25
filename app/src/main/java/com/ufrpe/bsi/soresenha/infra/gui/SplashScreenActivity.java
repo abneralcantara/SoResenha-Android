@@ -1,14 +1,13 @@
 package com.ufrpe.bsi.soresenha.infra.gui;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.WindowManager;
 
 import com.ufrpe.bsi.soresenha.R;
 import com.ufrpe.bsi.soresenha.usuario.gui.LoginActivity;
-import com.ufrpe.bsi.soresenha.usuario.gui.RegisterActivity;
 
 public class SplashScreenActivity extends AppCompatActivity {
 

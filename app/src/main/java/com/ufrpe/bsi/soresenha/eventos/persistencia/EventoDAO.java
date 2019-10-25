@@ -7,7 +7,6 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.ufrpe.bsi.soresenha.eventos.dominio.Evento;
 import com.ufrpe.bsi.soresenha.infra.persistencia.DBHelper;
-import com.ufrpe.bsi.soresenha.usuario.dominio.Usuario;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,15 +31,16 @@ public class EventoDAO {
     }
 
     public Evento getEvento(long eventId){
+        Evento result = null;
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         String sql = "SELECT * FROM " + DBHelper.TABELA_FESTA + " U WHERE U." + DBHelper.COLUNA_IDFESTA + " = ?;";
         Cursor cursor = db.rawQuery(sql, new String[]{String.valueOf(eventId)});
         if (cursor.moveToFirst()) {
-            return createEvento(cursor);
+            result = createEvento(cursor);
         }
         cursor.close();
         db.close();
-        return null;
+        return result;
     }
 
     public void save(Evento evento) {
@@ -64,18 +64,6 @@ public class EventoDAO {
         String[] argumentos = {String.valueOf(evento.getId())};
         db.delete(DBHelper.TABELA_FESTA, DBHelper.COLUNA_IDFESTA + " =?", argumentos);
         db.close();
-    }
-
-    public boolean checarEvento(String nomeEvento){
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-        Cursor cursor = db.rawQuery("Select * from " + DBHelper.TABELA_FESTA + " where " + DBHelper.COLUNA_NOMEFESTA + "=?", new String[]{nomeEvento});
-        long count = cursor.getCount();
-        cursor.close();
-        if (count>0){
-            return false;
-        } else {
-            return true;
-        }
     }
 
     public List<Evento> list() {

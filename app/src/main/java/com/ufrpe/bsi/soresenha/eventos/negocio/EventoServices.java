@@ -4,7 +4,6 @@ import android.content.Context;
 
 import com.ufrpe.bsi.soresenha.eventos.dominio.Evento;
 import com.ufrpe.bsi.soresenha.eventos.persistencia.EventoDAO;
-import com.ufrpe.bsi.soresenha.usuario.persistencia.UsuarioDAO;
 
 import java.util.List;
 
@@ -21,10 +20,6 @@ public class EventoServices {
 
     public void save(Evento evento) {
         eventoDAO.save(evento);
-    }
-
-    public boolean checarEvento(String nomeEvento) {
-        return eventoDAO.checarEvento(nomeEvento);
     }
 
     public long criarEvento(Evento evento) {
