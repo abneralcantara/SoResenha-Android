@@ -1,0 +1,20 @@
+
+usquid:S1450"^Remove the "registrarButton" field and declare it as a local variable in the relevant methods.(¨ßÀÖ
+Ysquid:S1854P"=Remove this useless assignment to local variable "focusView".(ú¸İ®øÿÿÿÿ
+Jsquid:S14818".Remove this unused "focusView" local variable.(ú­œüÿÿÿÿ
+Esquid:S1481e".Remove this unused "focusView" local variable.(Æìš¾
+Ysquid:S1854L"=Remove this useless assignment to local variable "focusView".(ú¸İ®øÿÿÿÿ
+Tsquid:S1854h"=Remove this useless assignment to local variable "focusView".(€ıŠÏ
+osquid:S1450"SRemove the "task" field and declare it as a local variable in the relevant methods.(éßà‡ÿÿÿÿÿ
+Ysquid:S1854Z"=Remove this useless assignment to local variable "focusView".(ôµ™íûÿÿÿÿ
+Esquid:S1481E".Remove this unused "focusView" local variable.(Æìš¾
+Jsquid:S1481}".Remove this unused "confSenha" local variable.(ƒ€×Ïşÿÿÿÿ
+]squid:UnusedPrivateMethod"7Remove this unused private "showExceptionToast" method.(›Şòı
+Ysquid:S1854}"=Remove this useless assignment to local variable "confSenha".(ƒ€×Ïşÿÿÿÿ
+Dsquid:S1068"(Remove this unused "task" private field.(éßà‡ÿÿÿÿÿ
+Xsquid:S1126@"AReplace this if-then-else statement by a single return statement.(Ó”˜¯
+Ysquid:S1854H"=Remove this useless assignment to local variable "focusView".(ú¸İ®øÿÿÿÿ
+Ysquid:S1854^"=Remove this useless assignment to local variable "focusView".(ôµ™íûÿÿÿÿ
+Xsquid:S11269"AReplace this if-then-else statement by a single return statement.(Éˆœ¸
+Esquid:S1481W".Remove this unused "focusView" local variable.(Æìš¾
+Tsquid:S1854l"=Remove this useless assignment to local variable "focusView".(€ıŠÏ

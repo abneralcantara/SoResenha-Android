@@ -17,9 +17,10 @@ import com.ufrpe.bsi.soresenha.usuario.dominio.Usuario;
 import com.ufrpe.bsi.soresenha.usuario.negocio.UsuarioServices;
 
 public class LoginActivity extends AppCompatActivity {
-    private EditText editEmail, editSenha;
-    private Button buttonEntrar;
+    private EditText editEmail;
+    private EditText editSenha;
     private UsuarioServices usuarioServices = new UsuarioServices(this);
+    private SessaoUser sessaoUser ;
 
 
     @Override
@@ -31,7 +32,7 @@ public class LoginActivity extends AppCompatActivity {
 
         editEmail = findViewById(R.id.editEmail_login);
         editSenha = findViewById(R.id.editSenha_login);
-        buttonEntrar = findViewById(R.id.logar_button);
+        Button buttonEntrar = findViewById(R.id.logar_button);
 
         buttonEntrar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,8 +41,8 @@ public class LoginActivity extends AppCompatActivity {
             String senha = editSenha.getText().toString();
             Usuario res = usuarioServices.getUsuario(email,senha);
             if (res != null){
-                SessaoUser.setEmail(email);
-                SessaoUser.setSenha(senha);
+                sessaoUser.setEmail(email);
+                sessaoUser.setSenha(senha);
                 Toast.makeText(LoginActivity.this,"Login efetuado com sucesso", Toast.LENGTH_LONG).show();
                 Intent inicioIntent = new Intent(getApplicationContext(), MenuActivity.class);
                 startActivity(inicioIntent);

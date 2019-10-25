@@ -12,7 +12,6 @@ import com.ufrpe.bsi.soresenha.usuario.negocio.UsuarioServices;
 
 public class ConfigurationActivity extends AppCompatActivity {
 
-    private Button editnome, editemail, editsenha, deletuser;
     private UsuarioServices usuarioServices = new UsuarioServices(this);
     private String emailatual = SessaoUser.getEmail();
     private String senhaatual = SessaoUser.getSenha();
@@ -22,7 +21,7 @@ public class ConfigurationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_configuration);
 
-        editnome = (Button) findViewById(R.id.editNome_button);
+        Button editnome = (Button) findViewById(R.id.editNome_button);
         editnome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -31,7 +30,7 @@ public class ConfigurationActivity extends AppCompatActivity {
             }
         });
 
-        editemail = (Button) findViewById(R.id.editEmail_button);
+        Button editemail = (Button) findViewById(R.id.editEmail_button);
         editemail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -40,7 +39,7 @@ public class ConfigurationActivity extends AppCompatActivity {
             }
         });
 
-        editsenha = (Button) findViewById(R.id.editSenha_button);
+        Button editsenha = (Button) findViewById(R.id.editSenha_button);
         editsenha.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -49,7 +48,7 @@ public class ConfigurationActivity extends AppCompatActivity {
             }
         });
 
-        deletuser = (Button) findViewById(R.id.deletaruser_button);
+        Button deletuser = (Button) findViewById(R.id.deletaruser_button);
         deletuser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

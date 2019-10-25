@@ -4,7 +4,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 
 import com.ufrpe.bsi.soresenha.infra.persistencia.DBHelper;
 import com.ufrpe.bsi.soresenha.usuario.dominio.Usuario;
@@ -28,7 +27,7 @@ public class UsuarioDAO {
         return res;
     }
 
-    public Usuario getUsuario(String email, String password){
+    public Usuario getUsuario(String email){
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         String sql = "SELECT * FROM " + DBHelper.TABELA_USUARIO+ " U WHERE U." + DBHelper.COLUNA_EMAIL + " LIKE ?;";
         Cursor cursor = db.rawQuery(sql, new String[]{email});
