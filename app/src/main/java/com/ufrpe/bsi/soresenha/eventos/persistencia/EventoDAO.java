@@ -9,58 +9,61 @@ import com.ufrpe.bsi.soresenha.eventos.dominio.Evento;
 import com.ufrpe.bsi.soresenha.infra.persistencia.DBHelper;
 import com.ufrpe.bsi.soresenha.usuario.dominio.Usuario;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class EventoDAO {
     private DBHelper dbHelper;
 
     public EventoDAO(Context context) {
         this.dbHelper = new DBHelper(context);
     }
+
     public long cadastrarEvento(Evento evento){
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(DBHelper.COLUNA_NOMEFESTA, evento.getNome());
-        values.put(DBHelper.COLUNA_CRIADORFESTA, evento.getCriador());
+        values.put(DBHelper.COLUNA_CRIADORFESTA, evento.getIdCriador());
+        values.put(DBHelper.COLUNA_PRECOFESTA, evento.getPreco());
         values.put(DBHelper.COLUNA_DESCRICAOFESTA, evento.getDescricao());
-
         long res = db.insert(DBHelper.TABELA_FESTA, null, values);
         db.close();
         return res;
     }
 
-    public Evento getEvento(String nomeEvento){
+    public Evento getEvento(long eventId){
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-        String sql = "SELECT * FROM " + DBHelper.TABELA_FESTA + " U WHERE U." + DBHelper.COLUNA_NOMEFESTA + " LIKE ?;";
-        Cursor cursor = db.rawQuery(sql, new String[]{nomeEvento});
-
+        String sql = "SELECT * FROM " + DBHelper.TABELA_FESTA + " U WHERE U." + DBHelper.COLUNA_IDFESTA + " = ?;";
+        Cursor cursor = db.rawQuery(sql, new String[]{String.valueOf(eventId)});
         if (cursor.moveToFirst()) {
             return createEvento(cursor);
         }
-
         cursor.close();
         db.close();
         return null;
     }
 
-    public Evento getEventobyid(String idevento){
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-        String sql = "SELECT * FROM " + DBHelper.TABELA_FESTA + " U WHERE U." + DBHelper.COLUNA_IDFESTA + " LIKE ?;";
-       Cursor cursor = db.rawQuery(sql, new String[]{idevento});
-//essa função não esta completa ainda falta alterala pra entrar em forma de long
-        if (cursor.moveToFirst()) {
-            return createEvento(cursor);
-        }
-
-        cursor.close();
+    public void save(Evento evento) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        String sql = "UPDATE "+ DBHelper.TABELA_FESTA + " SET " +
+                DBHelper.COLUNA_NOMEFESTA  + "=?, " +
+                DBHelper.COLUNA_PRECOFESTA  + "=?, " +
+                DBHelper.COLUNA_DESCRICAOFESTA + "=? " +
+                " WHERE " + DBHelper.COLUNA_IDFESTA + "=?;";
+        db.execSQL(sql, new String[]{
+                evento.getNome(),
+                evento.getPreco(),
+                evento.getDescricao(),
+                String.valueOf(evento.getId())
+        });
         db.close();
-        return null;
     }
 
     public void deletar(Evento evento) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-        String[] argumentos = {evento.getNome()};
-        db.delete("tb_festa", "nome_festa=?", argumentos);
+        String[] argumentos = {String.valueOf(evento.getId())};
+        db.delete(DBHelper.TABELA_FESTA, DBHelper.COLUNA_IDFESTA + " =?", argumentos);
         db.close();
-
     }
 
     public boolean checarEvento(String nomeEvento){
@@ -75,12 +78,26 @@ public class EventoDAO {
         }
     }
 
+    public List<Evento> list() {
+        ArrayList<Evento> eventoList = new ArrayList<>();
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        String sql = "SELECT * FROM " + DBHelper.TABELA_FESTA;
+        Cursor cursor = db.rawQuery(sql, new String[]{});
+        while (cursor.moveToNext()) {
+            eventoList.add(createEvento(cursor));
+        }
+        cursor.close();
+        db.close();
+        return eventoList;
+    }
+
     private Evento createEvento(Cursor cursor) {
         Evento evento = new Evento();
         evento.setNome(cursor.getString(cursor.getColumnIndex(DBHelper.COLUNA_NOMEFESTA)));
         evento.setId(cursor.getInt(cursor.getColumnIndex(DBHelper.COLUNA_IDFESTA)));
         evento.setDescricao(cursor.getString(cursor.getColumnIndex(DBHelper.COLUNA_DESCRICAOFESTA)));
-        evento.setCriador(cursor.getString(cursor.getColumnIndex(DBHelper.COLUNA_CRIADORFESTA)));
+        evento.setIdCriador(cursor.getInt(cursor.getColumnIndex(DBHelper.COLUNA_CRIADORFESTA)));
+        evento.setPreco(cursor.getString(cursor.getColumnIndex(DBHelper.COLUNA_PRECOFESTA)));
         return evento;
     }
 

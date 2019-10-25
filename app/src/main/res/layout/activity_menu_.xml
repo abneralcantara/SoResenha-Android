@@ -4,97 +4,55 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#8F2B75"
+    android:background="#F7FFFFFF"
     tools:context=".infra.gui.MenuActivity">
 
     <TextView
         android:id="@+id/textView3"
-        android:layout_width="409dp"
-        android:layout_height="49dp"
-        android:layout_marginStart="176dp"
-        android:layout_marginEnd="187dp"
-        android:layout_marginBottom="276dp"
-        android:fontFamily="cursive"
-        android:paddingLeft="10dp"
-        android:text="Menu de festas"
-        android:textAlignment="center"
-        android:textColor="#FFFFFF"
-        android:textSize="36sp"
-        android:textStyle="bold"
-
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.484"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/btnConfigMenu"
-        android:layout_width="222dp"
-        android:layout_height="86dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="92dp"
-        android:layout_marginBottom="206dp"
-        android:background="@drawable/buttonroundpurple"
-        android:text="Configurações(Beta)"
-        app:layout_constraintBottom_toTopOf="@+id/textView3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/icoconfig" />
-
-    <Button
-        android:id="@+id/createParty_Button"
-        android:layout_width="159dp"
-        android:layout_height="191dp"
+        android:layout_width="304dp"
+        android:layout_height="53dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:fontFamily="sans-serif-smallcaps"
-        android:text="Criar evento"
-        android:textSize="24sp"
-        android:background="@drawable/configoptions"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnConfigMenu" />
+        android:fontFamily="sans-serif"
+        android:text="Menu de Festas"
+        android:textAlignment="center"
 
-    <Button
-        android:id="@+id/deletePartybutton"
-        android:layout_width="159dp"
-        android:layout_height="191dp"
-        android:layout_marginStart="56dp"
+        android:textColor="#000000"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/btnConfigMenu"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/btnConfigMenu"
+        android:layout_width="53dp"
+        android:layout_height="53dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="21dp"
-        android:fontFamily="sans-serif-smallcaps"
-        android:text="Deletar evento"
-        android:textSize="24sp"
-        android:background="@drawable/configoptions"
+        android:layout_marginEnd="16dp"
+        android:background="#26FFFFFF"
+        android:contentDescription="settings"
+        android:padding="4dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/createParty_Button"
-        app:layout_constraintTop_toBottomOf="@+id/btnConfigMenu" />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textView3"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/ic_menu_preferences" />
 
     <Button
         android:id="@+id/consultPartybutton"
-        android:layout_width="159dp"
-        android:layout_height="191dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="96dp"
-        android:fontFamily="sans-serif-smallcaps"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="311dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/buttonroundpurple"
+        android:fontFamily="sans-serif-smallcaps"
         android:text="ver eventos"
+        android:textColor="#FFFFFF"
         android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/createParty_Button" />
-
-    <Button
-        android:id="@+id/updatePartybutton"
-        android:layout_width="159dp"
-        android:layout_height="191dp"
-        android:layout_marginStart="56dp"
-        android:layout_marginTop="96dp"
-        android:fontFamily="sans-serif-smallcaps"
-        android:text="atualizar eventos"
-        android:textSize="24sp"
-        android:background="@drawable/buttonroundpurple"
-        app:layout_constraintStart_toEndOf="@+id/consultPartybutton"
-        app:layout_constraintTop_toBottomOf="@+id/deletePartybutton" />
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
 </android.support.constraint.ConstraintLayout>

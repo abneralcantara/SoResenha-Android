@@ -5,17 +5,36 @@ public class Evento {
     private long id;
     private String nome;
     private String descricao;
-    private String criador;
+    private String preco;
+    private int idCriador;
 
     public Evento(){}
-    public Evento(String nome, String descricao, String criador){
+
+    public Evento(String nome, String descricao, int idCriador){
         this.nome = nome;
         this.descricao = descricao;
+        this.idCriador = idCriador;
     }
 
-    public Evento(String nome, String descricao){
+    public Evento(String nome, String descricao, String preco){
         this.nome = nome;
-        this.criador = criador;
+        this.descricao = descricao;
+        this.preco = preco;
+    }
+
+    public Evento(long id, String nome, String descricao, String preco){
+        this.id = id;
+        this.nome = nome;
+        this.descricao = descricao;
+        this.preco = preco;
+    }
+
+    public String getPreco() {
+        return preco;
+    }
+
+    public void setPreco(String preco) {
+        this.preco = preco;
     }
 
     public String getNome() {
@@ -34,13 +53,6 @@ public class Evento {
         this.descricao = descricao;
     }
 
-    public String getCriador() {
-        return criador;
-    }
-
-    public void setCriador(String criador) {
-        this.criador = criador;
-    }
     public long getId() {
         return id;
     }
@@ -49,4 +61,11 @@ public class Evento {
         this.id = id;
     }
 
+    public int getIdCriador() {
+        return idCriador;
+    }
+
+    public void setIdCriador(int idCriador) {
+        this.idCriador = idCriador;
+    }
 }

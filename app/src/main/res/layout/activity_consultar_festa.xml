@@ -4,12 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".eventos.gui.ConsultarFestaActivity">
+    tools:context=".eventos.gui.ConsultarEventoActivity">
 
     <TextView
         android:id="@+id/nomeFesta"
-        android:layout_width="401dp"
-        android:layout_height="30dp"
+        android:layout_width="355dp"
+        android:layout_height="29dp"
         android:layout_marginTop="53dp"
         android:background="#3BCCBFBF"
         android:fontFamily="monospace"
@@ -17,19 +17,20 @@
         android:textAlignment="center"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.082"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/descricaoFesta"
-        android:layout_width="395dp"
-        android:layout_height="150dp"
+        android:layout_width="350dp"
+        android:layout_height="149dp"
         android:layout_marginTop="16dp"
         android:background="#22D5D4D4"
         android:text="TextView"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nomeFesta" />
 
@@ -45,13 +46,4 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/descricaoFesta" />
 
-    <TextView
-        android:id="@+id/dataFesta"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="191dp"
-        android:layout_marginTop="52dp"
-        android:text="Hoje"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/precoFesta" />
 </android.support.constraint.ConstraintLayout>

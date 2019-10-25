@@ -6,6 +6,8 @@ import com.ufrpe.bsi.soresenha.eventos.dominio.Evento;
 import com.ufrpe.bsi.soresenha.eventos.persistencia.EventoDAO;
 import com.ufrpe.bsi.soresenha.usuario.persistencia.UsuarioDAO;
 
+import java.util.List;
+
 public class EventoServices {
     private EventoDAO eventoDAO;
 
@@ -13,13 +15,13 @@ public class EventoServices {
         this.eventoDAO = new EventoDAO(context);
     }
 
-    public Evento getEvento(String nomeEvento) {
-        return eventoDAO.getEvento(nomeEvento);
+    public Evento getEvento(long eventId) {
+        return eventoDAO.getEvento(eventId);
     }
-//essa função eh para buscar o evento pelo id
-  //  public Evento getEventobyId(int numberId) {
-//        return eventoDAO.getEvento(numberId);
-  //  }
+
+    public void save(Evento evento) {
+        eventoDAO.save(evento);
+    }
 
     public boolean checarEvento(String nomeEvento) {
         return eventoDAO.checarEvento(nomeEvento);
@@ -30,5 +32,9 @@ public class EventoServices {
     }
 
     public void deletarEvento(Evento evento) { eventoDAO.deletar(evento);}
+
+    public List<Evento> list() {
+        return eventoDAO.list();
+    }
 
 }

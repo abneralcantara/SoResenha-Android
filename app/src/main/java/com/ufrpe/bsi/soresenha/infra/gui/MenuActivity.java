@@ -5,12 +5,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import com.ufrpe.bsi.soresenha.R;
-import com.ufrpe.bsi.soresenha.eventos.gui.DeletarFestaActivity;
-import com.ufrpe.bsi.soresenha.eventos.gui.ListaFestaActivity;
-import com.ufrpe.bsi.soresenha.usuario.gui.LoginActivity;
-import com.ufrpe.bsi.soresenha.usuario.gui.RegisterActivity;
+import com.ufrpe.bsi.soresenha.eventos.gui.ListaEventoActivity;
 
 public class MenuActivity extends AppCompatActivity {
 
@@ -18,34 +16,24 @@ public class MenuActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_);
+        setMenuButtonClickListeners();
+    }
 
-        Button btnconfig = (Button)findViewById(R.id.btnConfigMenu);
+    private void setMenuButtonClickListeners() {
+        ImageButton btnConfig = (ImageButton)findViewById(R.id.btnConfigMenu);
+        Button btnList = (Button)findViewById(R.id.consultPartybutton);
         getSupportActionBar().hide();
-
-        btnconfig.setOnClickListener(new View.OnClickListener() {
+        btnConfig.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent configIntent = new Intent(MenuActivity.this, ConfigurationActivity.class);
                 startActivity(configIntent);
             }
         });
-
-        Button btndeletar = (Button)findViewById(R.id.deletePartybutton);
-
-        btndeletar.setOnClickListener(new View.OnClickListener() {
+        btnList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent delIntent = new Intent(MenuActivity.this, DeletarFestaActivity.class);
-                startActivity(delIntent);
-            }
-        });
-
-        Button btnlist = (Button)findViewById(R.id.consultPartybutton);
-
-        btnlist.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent conIntent = new Intent(MenuActivity.this, ListaFestaActivity.class);
+                Intent conIntent = new Intent(MenuActivity.this, ListaEventoActivity.class);
                 startActivity(conIntent);
             }
         });

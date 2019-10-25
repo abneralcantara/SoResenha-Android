@@ -10,9 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".eventos.gui.CriarEventoActivity"></activity>
-        <activity android:name=".eventos.gui.ListaFestaActivity" />
-        <activity android:name=".eventos.gui.DeletarFestaActivity" />
-        <activity android:name=".eventos.gui.ConsultarFestaActivity" />
+        <activity android:name=".eventos.gui.ListaEventoActivity" />
+        <activity android:name=".eventos.gui.ConsultarEventoActivity" />
+        <activity android:name=".eventos.gui.EditarEventoActivity" />
         <activity android:name=".infra.gui.ConfigurationActivity" />
         <activity android:name=".infra.gui.MenuActivity" />
         <activity android:name=".usuario.gui.RegisterActivity" />

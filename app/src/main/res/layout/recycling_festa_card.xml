@@ -6,11 +6,11 @@
     android:layout_width="match_parent"
     android:layout_height="100dp"
     android:layout_marginBottom="3dp"
-    android:background="#610031"
+    android:background="#000000"
     android:padding="20dp">
 
     <TextView
-        android:id="@+id/title_Festacard"
+        android:id="@+id/eventTitle"
         android:layout_width="201dp"
         android:layout_height="26dp"
         android:textColor="#FFFFFF"
@@ -20,14 +20,37 @@
         tools:text="Nome festa" />
 
     <TextView
-        android:id="@+id/desc_Festacard"
-        android:layout_width="250dp"
-        android:layout_height="24dp"
+        android:id="@+id/eventDescription"
+        android:layout_width="261dp"
+        android:layout_height="17dp"
         android:layout_marginTop="5dp"
         android:text="descricao festa"
-        android:textColor="#FF0B8F"
+        android:textColor="#FFF3F8"
+        android:textColorLink="#00FFFFFF"
         android:textSize="13sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title_Festacard" />
+        app:layout_constraintTop_toBottomOf="@+id/eventTitle" />
+
+    <ImageButton
+        android:id="@+id/deleteEventList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:background="#000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
+
+    <ImageButton
+        android:id="@+id/editEventList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:background="#000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/deleteEventList"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/ic_menu_edit" />
 
 </android.support.constraint.ConstraintLayout>

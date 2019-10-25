@@ -3,8 +3,8 @@ package com.ufrpe.bsi.soresenha.usuario.gui;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -127,22 +127,22 @@ public class RegisterActivity extends AppCompatActivity {
             Usuario usuario = new Usuario(nome, email, senha);
             if (usuarioServices.checarEmail(email)) {
                 usuarioServices.cadastraUsuario(usuario);
-                Toast.makeText(RegisterActivity.this, "Cadastro realizado com sucesso", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Cadastro realizado com sucesso", Toast.LENGTH_LONG).show();
                 task = false;
                 callloginIntent();
             } else {
-                Toast.makeText(RegisterActivity.this, "Usuário já cadastrado", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Usuário já cadastrado", Toast.LENGTH_LONG).show();
             }
         }
     }
 
     private void callloginIntent() {
-        startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+        startActivity(new Intent(this, LoginActivity.class));
     }
 
 
     private void showExceptionToast(Exception e) {
-        Toast.makeText(RegisterActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+        Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
     }
 
     private boolean validarNome(String nome) {
