@@ -15,50 +15,43 @@ public class UsuarioDAO {
         this.dbHelper = new DBHelper(context);
     }
 
-    public long cadastrarUsuario(Usuario usuario){
+    public long cadastrar(Usuario usuario){
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(DBHelper.COLUNA_NOME, usuario.getNome());
         values.put(DBHelper.COLUNA_EMAIL, usuario.getEmail());
         values.put(DBHelper.COLUNA_SENHA, usuario.getSenha());
-
         long res = db.insert(DBHelper.TABELA_USUARIO, null, values);
         db.close();
         return res;
     }
 
-    public Usuario getUsuario(String email){
+    public Usuario get(String email, String password){
+        Usuario result = null;
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-        String sql = "SELECT * FROM " + DBHelper.TABELA_USUARIO+ " U WHERE U." + DBHelper.COLUNA_EMAIL + " LIKE ?;";
-        Cursor cursor = db.rawQuery(sql, new String[]{email});
-
+        String sql = "SELECT * FROM " + DBHelper.TABELA_USUARIO
+                + " U WHERE U." + DBHelper.COLUNA_EMAIL + "=? AND "
+                + "U." + DBHelper.COLUNA_SENHA + "=?;";
+        Cursor cursor = db.rawQuery(sql, new String[]{email, password});
         if (cursor.moveToFirst()) {
-            return createUsuario(cursor);
+            result =  createUsuario(cursor);
         }
-
         cursor.close();
         db.close();
-        return null;
+        return result;
     }
 
     public void deletar(Usuario usuario) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         String[] argumentos = {usuario.getEmail()};
-        db.delete("tb_usuario", "email=?", argumentos);
+        db.delete(DBHelper.TABELA_USUARIO, DBHelper.COLUNA_EMAIL + "=?", argumentos);
         db.close();
-
     }
 
     public boolean checarEmail(String email){
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-        Cursor cursor = db.rawQuery("Select * from " + DBHelper.TABELA_USUARIO + " where " + DBHelper.COLUNA_EMAIL + "=?", new String[]{email});
-        long count = cursor.getCount();
-        cursor.close();
-        if (count>0){
-            return false;
-        } else {
-            return true;
-        }
+        Cursor cursor = db.rawQuery("SELECT * FROM " + DBHelper.TABELA_USUARIO + " WHERE " + DBHelper.COLUNA_EMAIL + "=?", new String[]{email});
+        return !cursor.moveToNext();
     }
 
     private Usuario createUsuario(Cursor cursor) {
@@ -69,6 +62,4 @@ public class UsuarioDAO {
         usuario.setNome(cursor.getString(cursor.getColumnIndex(DBHelper.COLUNA_NOME)));
         return usuario;
     }
-
-
 }

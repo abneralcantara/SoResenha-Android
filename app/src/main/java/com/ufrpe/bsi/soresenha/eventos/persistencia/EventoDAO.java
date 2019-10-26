@@ -18,7 +18,7 @@ public class EventoDAO {
         this.dbHelper = new DBHelper(context);
     }
 
-    public long cadastrarEvento(Evento evento){
+    public long cadastrar(Evento evento){
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(DBHelper.COLUNA_NOMEFESTA, evento.getNome());
@@ -30,7 +30,7 @@ public class EventoDAO {
         return res;
     }
 
-    public Evento getEvento(long eventId){
+    public Evento get(long eventId){
         Evento result = null;
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         String sql = "SELECT * FROM " + DBHelper.TABELA_FESTA + " U WHERE U." + DBHelper.COLUNA_IDFESTA + " = ?;";
@@ -43,7 +43,7 @@ public class EventoDAO {
         return result;
     }
 
-    public void save(Evento evento) {
+    public void update(Evento evento) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         String sql = "UPDATE "+ DBHelper.TABELA_FESTA + " SET " +
                 DBHelper.COLUNA_NOMEFESTA  + "=?, " +

@@ -13,7 +13,7 @@ public class UsuarioServices {
     }
 
     public Usuario getUsuario(String email, String password) {
-        return usuarioDAO.getUsuario(email, password);
+        return usuarioDAO.get(email, password);
     }
 
     public boolean checarEmail(String email) {
@@ -21,7 +21,7 @@ public class UsuarioServices {
     }
 
     public long cadastraUsuario(Usuario usuario) {
-        return usuarioDAO.cadastrarUsuario(usuario);
+        return usuarioDAO.cadastrar(usuario);
     }
 
     public void deletarUser(Usuario usuario) { usuarioDAO.deletar(usuario);}

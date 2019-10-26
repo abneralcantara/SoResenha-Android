@@ -26,6 +26,10 @@ public class CriarEventoActivity extends AppCompatActivity {
         editPreco = findViewById(R.id.precoFestaedit);
         editDesc = findViewById(R.id.descFestaEdit);
         Button criarBtn = findViewById(R.id.criarFestabutton);
+        criarListeners(criarBtn);
+    }
+
+    private void criarListeners(Button criarBtn) {
         criarBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -35,6 +39,7 @@ public class CriarEventoActivity extends AppCompatActivity {
                 Evento evento = new Evento(nome, descricao, preco);
                 eventoServices.criarEvento(evento);
                 Intent backMenu = new Intent(CriarEventoActivity.this, ListaEventoActivity.class);
+                backMenu.setFlags(backMenu.getFlags() | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(backMenu);
             }
         });

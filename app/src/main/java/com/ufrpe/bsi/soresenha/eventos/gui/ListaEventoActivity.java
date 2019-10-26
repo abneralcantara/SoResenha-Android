@@ -20,21 +20,25 @@ public class ListaEventoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_festa);
-
-        getSupportActionBar().hide();
+        FloatingActionButton newFesta = (FloatingActionButton) findViewById(R.id.criarEventoFloatingButton);
         RecyclerView recyclerView = findViewById(R.id.recyclerfestas);
+        setupRecyclerView(recyclerView);
+        criarListeners(newFesta);
+        getSupportActionBar().hide();
+    }
 
+    private void setupRecyclerView(RecyclerView recyclerView) {
         RecyclerView.LayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
-
         recyclerView.setAdapter(new RecyclingAdapterFesta(createList(), this));
+    }
 
-        FloatingActionButton newFesta = (FloatingActionButton) findViewById(R.id.criarEventoFloatingButton);
-
+    private void criarListeners(FloatingActionButton newFesta) {
         newFesta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
             Intent insertIntent = new Intent(ListaEventoActivity.this, CriarEventoActivity.class);
+            insertIntent.setFlags(insertIntent.getFlags() | Intent.FLAG_ACTIVITY_NO_HISTORY);
             startActivity(insertIntent);
             }
         });

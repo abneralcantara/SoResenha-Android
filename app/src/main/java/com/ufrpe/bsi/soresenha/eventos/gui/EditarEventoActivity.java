@@ -45,6 +45,7 @@ public class EditarEventoActivity extends AppCompatActivity {
                 Evento eventoNew = new Evento(eventoOld.getId(), nome, descricao, preco);
                 eventoServices.save(eventoNew);
                 Intent backMenu = new Intent(EditarEventoActivity.this, ListaEventoActivity.class);
+                backMenu.setFlags(backMenu.getFlags() | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(backMenu);
             }
         });

@@ -28,17 +28,13 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-
         editNome = findViewById(R.id.editRegister_name);
         editEmail = findViewById(R.id.editRegister_email);
         editSenha = findViewById(R.id.editRegister_senha);
         editConfSenha = findViewById(R.id.editRegister_confsenha);
-
         registrarButton = findViewById(R.id.Registrarbutton);
-
         android.support.v7.app.ActionBar bar = getSupportActionBar();
         bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FF00BF")));
-
         registrarButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

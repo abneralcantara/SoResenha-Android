@@ -29,11 +29,14 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         android.support.v7.app.ActionBar bar = getSupportActionBar();
         bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FF00BF")));
-
         editEmail = findViewById(R.id.editEmail_login);
         editSenha = findViewById(R.id.editSenha_login);
         Button buttonEntrar = findViewById(R.id.logar_button);
+        Button cadastreSe = (Button) findViewById(R.id.Gotoregistrar_button);
+        configurarListeners(buttonEntrar, cadastreSe);
+    }
 
+    private void configurarListeners(Button buttonEntrar, Button cadastreSe) {
         buttonEntrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -41,8 +44,8 @@ public class LoginActivity extends AppCompatActivity {
             String senha = editSenha.getText().toString();
             Usuario res = usuarioServices.getUsuario(email,senha);
             if (res != null){
-                sessaoUser.setEmail(email);
-                sessaoUser.setSenha(senha);
+                //sessaoUser.setEmail(email);
+                //sessaoUser.setSenha(senha);
                 Toast.makeText(LoginActivity.this,"Login efetuado com sucesso", Toast.LENGTH_LONG).show();
                 Intent inicioIntent = new Intent(getApplicationContext(), MenuActivity.class);
                 startActivity(inicioIntent);
@@ -52,8 +55,6 @@ public class LoginActivity extends AppCompatActivity {
             }
             }
         });
-
-        Button cadastreSe = (Button) findViewById(R.id.Gotoregistrar_button);
         cadastreSe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

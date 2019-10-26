@@ -13,8 +13,9 @@ import com.ufrpe.bsi.soresenha.usuario.negocio.UsuarioServices;
 public class ConfigurationActivity extends AppCompatActivity {
 
     private UsuarioServices usuarioServices = new UsuarioServices(this);
-    private String emailatual = SessaoUser.getEmail();
-    private String senhaatual = SessaoUser.getSenha();
+    private SessaoUser sessaoUser;
+    private String emailatual = sessaoUser.getEmail();
+    private String senhaatual = sessaoUser.getSenha();
 
 // não precisa mexer aqui pois foi um erro meu achando que era o CRUD de usuario
     public void onCreate(Bundle savedInstanceState) {

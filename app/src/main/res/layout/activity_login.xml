@@ -10,18 +10,18 @@
         android:id="@+id/Gotoregistrar_button"
         android:layout_width="409dp"
         android:layout_height="55dp"
-        android:layout_marginTop="491dp"
-        android:layout_marginBottom="140dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="32dp"
         android:background="#FFFFFF"
         android:fontFamily="sans-serif-condensed-light"
         android:text="Ainda não é cadastrado? fazer cadastro!"
-        android:textSize="12sp"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.609" />
+        app:layout_constraintTop_toBottomOf="@+id/logar_button"
+        app:layout_constraintVertical_bias="0.32" />
 
     <EditText
         android:id="@+id/editEmail_login"

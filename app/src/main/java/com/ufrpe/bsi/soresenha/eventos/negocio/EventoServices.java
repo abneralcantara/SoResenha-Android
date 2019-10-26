@@ -15,15 +15,15 @@ public class EventoServices {
     }
 
     public Evento getEvento(long eventId) {
-        return eventoDAO.getEvento(eventId);
+        return eventoDAO.get(eventId);
     }
 
     public void save(Evento evento) {
-        eventoDAO.save(evento);
+        eventoDAO.update(evento);
     }
 
     public long criarEvento(Evento evento) {
-        return eventoDAO.cadastrarEvento(evento);
+        return eventoDAO.cadastrar(evento);
     }
 
     public void deletarEvento(Evento evento) { eventoDAO.deletar(evento);}
