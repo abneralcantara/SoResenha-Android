@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.ufrpe.bsi.soresenha">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".eventos.gui.CriarEventoActivity"></activity>
+        <activity android:name=".eventos.gui.ListaEventoActivity" android:launchMode="singleTop" />
+        <activity android:name=".eventos.gui.ConsultarEventoActivity" />
+        <activity android:name=".eventos.gui.EditarEventoActivity" />
+        <activity android:name=".infra.gui.ConfigurationActivity" />
+        <activity android:name=".infra.gui.MenuActivity" />
+        <activity android:name=".usuario.gui.RegisterActivity" />
+        <activity android:name=".usuario.gui.LoginActivity" />
+        <activity android:name=".infra.gui.SplashScreenActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

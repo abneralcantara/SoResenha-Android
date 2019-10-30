@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#880E4F"
+    tools:context=".infra.gui.ConfigurationActivity">
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="283dp"
+        android:layout_height="37dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="112dp"
+        android:text="> Configurações de conta"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/editNome_button"
+        android:layout_width="match_parent"
+        android:layout_height="85dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/configoptions"
+        android:fontFamily="sans-serif-medium"
+        android:paddingStart="30dp"
+        android:text="Editar Nome"
+        android:textAlignment="textStart"
+        android:textColor="#FFF8F8"
+        android:textSize="18sp"
+        app:layout_constraintTop_toBottomOf="@+id/textView4"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <Button
+        android:id="@+id/editEmail_button"
+        android:layout_width="match_parent"
+        android:layout_height="85dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/configoptions"
+        android:paddingStart="30dp"
+        android:text="Editar Email"
+        android:textAlignment="textStart"
+        android:textColor="#FFF8F8"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editNome_button" />
+
+    <Button
+        android:id="@+id/editSenha_button"
+        android:layout_width="match_parent"
+        android:layout_height="85dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/configoptions"
+        android:paddingStart="30dp"
+        android:text="Editar Senha"
+        android:textAlignment="textStart"
+        android:textColor="#FFF8F8"
+        android:textSize="18sp"
+        app:layout_constraintTop_toBottomOf="@+id/editEmail_button"
+        tools:layout_editor_absoluteX="123dp" />
+
+    <Button
+        android:id="@+id/deletaruser_button"
+        android:layout_width="202dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="115dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="112dp"
+        android:background="@drawable/deletaroption"
+        android:text="Deletar Usuario"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editSenha_button" />
+
+</android.support.constraint.ConstraintLayout>
