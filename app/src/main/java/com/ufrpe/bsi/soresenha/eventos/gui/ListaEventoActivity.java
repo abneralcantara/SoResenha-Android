@@ -6,6 +6,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.ufrpe.bsi.soresenha.R;
@@ -24,7 +25,7 @@ public class ListaEventoActivity extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.recyclerfestas);
         setupRecyclerView(recyclerView);
         criarListeners(newFesta);
-        getSupportActionBar().hide();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     private void setupRecyclerView(RecyclerView recyclerView) {
@@ -47,5 +48,15 @@ public class ListaEventoActivity extends AppCompatActivity {
     private List<Evento> createList() {
         EventoServices eventoServices = new EventoServices(this);
         return eventoServices.list();
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

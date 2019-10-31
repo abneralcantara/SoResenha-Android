@@ -29,6 +29,8 @@ public class RecyclingAdapterFesta extends RecyclerView.Adapter<RecyclingAdapter
         this.opcoesEventos = opcoesEventos;
         this.context = context;
         this.eventoServices = new EventoServices(context);
+
+
     }
 
 
@@ -119,4 +121,6 @@ public class RecyclingAdapterFesta extends RecyclerView.Adapter<RecyclingAdapter
 
         }
     }
+
+
 }

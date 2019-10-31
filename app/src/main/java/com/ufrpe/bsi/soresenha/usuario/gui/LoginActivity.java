@@ -11,7 +11,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.ufrpe.bsi.soresenha.R;
+import com.ufrpe.bsi.soresenha.infra.app.MecanismoPersistencia;
 import com.ufrpe.bsi.soresenha.infra.gui.MenuActivity;
+import com.ufrpe.bsi.soresenha.infra.negocio.SessaoUsuario;
 import com.ufrpe.bsi.soresenha.infra.persistencia.SessaoUser;
 import com.ufrpe.bsi.soresenha.usuario.dominio.Usuario;
 import com.ufrpe.bsi.soresenha.usuario.negocio.UsuarioServices;
@@ -19,8 +21,9 @@ import com.ufrpe.bsi.soresenha.usuario.negocio.UsuarioServices;
 public class LoginActivity extends AppCompatActivity {
     private EditText editEmail;
     private EditText editSenha;
+    private SessaoUsuario sessaoUsuario;
     private UsuarioServices usuarioServices = new UsuarioServices(this);
-    private SessaoUser sessaoUser ;
+
 
 
     @Override
@@ -44,8 +47,7 @@ public class LoginActivity extends AppCompatActivity {
             String senha = editSenha.getText().toString();
             Usuario res = usuarioServices.getUsuario(email,senha);
             if (res != null){
-                //sessaoUser.setEmail(email);
-                //sessaoUser.setSenha(senha);
+                sessaoUsuario.instance.setUsuario(res);
                 Toast.makeText(LoginActivity.this,"Login efetuado com sucesso", Toast.LENGTH_LONG).show();
                 Intent inicioIntent = new Intent(getApplicationContext(), MenuActivity.class);
                 startActivity(inicioIntent);

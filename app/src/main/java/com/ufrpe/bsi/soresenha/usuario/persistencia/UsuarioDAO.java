@@ -5,11 +5,13 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.ufrpe.bsi.soresenha.infra.negocio.SessaoUsuario;
 import com.ufrpe.bsi.soresenha.infra.persistencia.DBHelper;
 import com.ufrpe.bsi.soresenha.usuario.dominio.Usuario;
 
 public class UsuarioDAO {
     private DBHelper dbHelper;
+
 
     public UsuarioDAO(Context context) {
         this.dbHelper = new DBHelper(context);
@@ -63,4 +65,31 @@ public class UsuarioDAO {
         usuario.setNome(cursor.getString(cursor.getColumnIndex(DBHelper.COLUNA_NOME)));
         return usuario;
     }
+    public void alterarEmail(Usuario usuario) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(DBHelper.COLUNA_NOME, usuario.getEmail());
+        db.update(DBHelper.TABELA_USUARIO, values, DBHelper.COLUNA_ID + " = ?", new String[]{String.valueOf(usuario.getId())});
+        db.close();
+    }
+
+    //altera a senha
+    public void alterarSenha(Usuario usuario) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(DBHelper.COLUNA_SENHA, usuario.getSenha());
+        db.update(DBHelper.TABELA_USUARIO, values, DBHelper.COLUNA_ID + " = ?", new String[]{String.valueOf(usuario.getId())});
+        db.close();
+    }
+
+    //altera o nome
+    public void alterarNome(Usuario usuario) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(DBHelper.COLUNA_NOME, usuario.getNome());
+        db.update(DBHelper.TABELA_USUARIO, values, DBHelper.COLUNA_ID + " = ?", new String[]{String.valueOf(usuario.getId())});
+        db.close();
+    }
+
+
 }

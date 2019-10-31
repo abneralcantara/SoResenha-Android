@@ -3,59 +3,53 @@ package com.ufrpe.bsi.soresenha.infra.gui;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
 import com.ufrpe.bsi.soresenha.R;
+import com.ufrpe.bsi.soresenha.infra.negocio.SessaoUsuario;
 import com.ufrpe.bsi.soresenha.infra.persistencia.SessaoUser;
+import com.ufrpe.bsi.soresenha.usuario.dominio.Usuario;
+import com.ufrpe.bsi.soresenha.usuario.gui.EditUserActivity;
+import com.ufrpe.bsi.soresenha.usuario.gui.LoginActivity;
 import com.ufrpe.bsi.soresenha.usuario.negocio.UsuarioServices;
 
 public class ConfigurationActivity extends AppCompatActivity {
 
     private UsuarioServices usuarioServices = new UsuarioServices(this);
-    private SessaoUser sessaoUser;
-    private String emailatual = sessaoUser.getEmail();
-    private String senhaatual = sessaoUser.getSenha();
+    private SessaoUsuario sessaoUsuario;
 
-// não precisa mexer aqui pois foi um erro meu achando que era o CRUD de usuario
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_configuration);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        Button editnome = (Button) findViewById(R.id.editNome_button);
-        editnome.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent newNameIntent = new Intent(getApplicationContext(), MenuActivity.class);
-                startActivity(newNameIntent);
-            }
-        });
+    }
 
-        Button editemail = (Button) findViewById(R.id.editEmail_button);
-        editemail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent newEmailIntent = new Intent(getApplicationContext(), MenuActivity.class);
-                startActivity(newEmailIntent);
-            }
-        });
+    public void deleteUser(View view){
+        final Usuario usuario = sessaoUsuario.instance.getUsuario();
+        usuarioServices.deletarUser(usuario);
+        Intent newLogsIntent = new Intent(ConfigurationActivity.this, LoginActivity.class);
+        startActivity(newLogsIntent);
+    }
 
-        Button editsenha = (Button) findViewById(R.id.editSenha_button);
-        editsenha.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent newSenhaIntent = new Intent(getApplicationContext(), MenuActivity.class);
-                startActivity(newSenhaIntent);
-            }
-        });
 
-        Button deletuser = (Button) findViewById(R.id.deletaruser_button);
-        deletuser.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                usuarioServices.deletarUser(usuarioServices.getUsuario(emailatual, senhaatual));
-            }
-        });
+    public void callEdituser(View view){
+        Intent newLogsIntent = new Intent(ConfigurationActivity.this, EditUserActivity.class);
+        startActivity(newLogsIntent);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
 }

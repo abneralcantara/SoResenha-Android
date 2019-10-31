@@ -1,7 +1,15 @@
 package com.ufrpe.bsi.soresenha.infra.negocio;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.SharedPreferences;
+
+import com.ufrpe.bsi.soresenha.infra.app.MecanismoPersistencia;
+import com.ufrpe.bsi.soresenha.infra.app.SoResenhaApp;
 import com.ufrpe.bsi.soresenha.usuario.dominio.Usuario;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,3 +31,4 @@ public class SessaoUsuario {
         this.values.clear();
     }
 }
+

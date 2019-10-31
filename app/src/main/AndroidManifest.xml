@@ -4,14 +4,17 @@
 
     <application
         android:allowBackup="true"
+        android:hardwareAccelerated="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
-        android:hardwareAccelerated="false"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".eventos.gui.CriarEventoActivity"></activity>
-        <activity android:name=".eventos.gui.ListaEventoActivity" android:launchMode="singleTop" />
+        <activity android:name=".usuario.gui.EditUserActivity"></activity>
+        <activity android:name=".eventos.gui.CriarEventoActivity" />
+        <activity
+            android:name=".eventos.gui.ListaEventoActivity"
+            android:launchMode="singleTop" />
         <activity android:name=".eventos.gui.ConsultarEventoActivity" />
         <activity android:name=".eventos.gui.EditarEventoActivity" />
         <activity android:name=".infra.gui.ConfigurationActivity" />
