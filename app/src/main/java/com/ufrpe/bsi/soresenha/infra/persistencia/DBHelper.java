@@ -5,8 +5,11 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class DBHelper extends SQLiteOpenHelper {
-    public static final int VERSAO_BANCO = 21;
+    public static final int VERSAO_BANCO = 26;
     public static final String NOME_BANCO = "SORESENHA_BD";
     public static final String TABELA_USUARIO = "TB_USUARIO";
     public static final String COLUNA_ID = "ID";
@@ -20,7 +23,11 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String COLUNA_NOMEFESTA = "NOME_FESTA";
     public static final String COLUNA_DESCRICAOFESTA = "DESC_FESTA";
     public static final String COLUNA_PRECOFESTA = "PRECO_FESTA";
+    public static final String COLUNA_DATAFESTA = "DATA_FESTA";
     public static final String COLUNA_CRIADORFESTA = "CRIADOR_ID";
+
+    private Logger logger = Logger.getGlobal();
+
 
     private static final String[] TABELAS = {
             TABELA_USUARIO,
@@ -39,17 +46,19 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        logger.log(Level.INFO, "Upgrading DB from "+oldVersion+" to " +newVersion);
         dropTables(db);
         onCreate(db);
     }
 
     private void criarTabelaFesta(SQLiteDatabase db) {
-        String QUERY_COLUNAFESTA = "CREATE TABLE " + DBHelper.TABELA_FESTA + "("
-                + DBHelper.COLUNA_IDFESTA + " INTEGER PRIMARY KEY, "
-                + DBHelper.COLUNA_NOMEFESTA + " TEXT, "
-                + DBHelper.COLUNA_PRECOFESTA + " TEXT, "
-                + DBHelper.COLUNA_CRIADORFESTA + " INTEGER, "
-                + DBHelper.COLUNA_DESCRICAOFESTA + " TEXT)";
+        String QUERY_COLUNAFESTA = "CREATE TABLE " + TABELA_FESTA + "("
+                + COLUNA_IDFESTA + " INTEGER PRIMARY KEY, "
+                + COLUNA_NOMEFESTA + " TEXT, "
+                + COLUNA_PRECOFESTA + " TEXT, "
+                + COLUNA_DATAFESTA + " INTEGER, "
+                + COLUNA_CRIADORFESTA + " INTEGER, "
+                + COLUNA_DESCRICAOFESTA + " TEXT)";
         db.execSQL(QUERY_COLUNAFESTA);
     }
 
@@ -63,12 +72,8 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     private void dropTables(SQLiteDatabase db) {
-        StringBuilder dropTables = new StringBuilder();
         for (String tabela : TABELAS) {
-            dropTables.append(" DROP TABLE IF EXISTS ");
-            dropTables.append(tabela);
-            dropTables.append("; ");
+            db.execSQL("DROP TABLE IF EXISTS " + tabela + ";");
         }
-        db.execSQL(dropTables.toString());
     }
 }

@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
     tools:context=".eventos.gui.ListaEventoActivity">
 
     <android.support.v7.widget.RecyclerView
@@ -13,7 +12,6 @@
         android:layout_height="match_parent"
         android:layout_marginStart="0dp"
         android:layout_marginTop="5dp"
-        android:background="@drawable/fundoandscard"
         android:layout_marginEnd="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

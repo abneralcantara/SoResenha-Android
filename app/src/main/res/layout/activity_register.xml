@@ -70,15 +70,13 @@
         android:id="@+id/Registrarbutton"
         android:layout_width="300dp"
         android:layout_height="60dp"
-        android:layout_marginStart="55dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="55dp"
         android:background="#DF01A5"
         android:text="Registrar-se"
         android:textAlignment="center"
         android:textColor="#FFD"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editRegister_serparceiro" />
 
@@ -102,14 +100,15 @@
 
     <CheckBox
         android:id="@+id/editRegister_serparceiro"
-        android:layout_width="156dp"
-        android:layout_height="44dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="52dp"
+        android:layout_width="140dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="8dp"
         android:text="Ser Parceiro"
         android:textColor="#EE615E5E"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.9"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editRegister_confsenha" />
 
 

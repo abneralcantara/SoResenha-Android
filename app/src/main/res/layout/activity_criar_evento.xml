@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="2dp"
     tools:context=".eventos.gui.CriarEventoActivity">
 
     <TextView
@@ -21,33 +22,45 @@
 
     <EditText
         android:id="@+id/nomeFestaedit"
-        android:layout_width="409dp"
-        android:layout_height="wrap_content"
+        android:layout_width="360dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="73dp"
+        android:layout_marginEnd="8dp"
         android:ems="10"
-        android:hint="Nome do evento"
+        android:hint="Nome"
         android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textView6" />
 
     <EditText
         android:id="@+id/descFestaEdit"
-        android:layout_width="409dp"
-        android:layout_height="114dp"
+        android:layout_width="354dp"
+        android:layout_height="106dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="14dp"
+        android:layout_marginEnd="8dp"
         android:ems="10"
-        android:hint="Descricao do evento"
+        android:gravity="start"
+        android:hint="Descrição"
         android:inputType="textMultiLine"
         android:textAlignment="viewStart"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nomeFestaedit" />
 
     <EditText
         android:id="@+id/precoFestaedit"
-        android:layout_width="409dp"
-        android:layout_height="40dp"
+        android:layout_width="350dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="12dp"
+        android:layout_marginEnd="8dp"
         android:hint="Preço do ingresso"
+        android:inputType="numberDecimal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.466"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/descFestaEdit" />
 
@@ -61,7 +74,40 @@
         android:textColor="#FFFFFF"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dataFestaEdit" />
+
+    <EditText
+        android:id="@+id/dataFestaEdit"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="20dp"
+        android:clickable="true"
+        android:ems="10"
+        android:focusable="false"
+        android:hint="Data"
+        android:inputType="none"
+        app:layout_constraintEnd_toStartOf="@+id/horaFestaEdit"
+        app:layout_constraintHorizontal_bias="0.46"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/precoFestaedit" />
+
+    <EditText
+        android:id="@+id/horaFestaEdit"
+        android:layout_width="138dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        android:clickable="true"
+        android:ems="10"
+        android:focusable="false"
+        android:hint="Hora"
+        android:inputType="none"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/dataFestaEdit"
         app:layout_constraintTop_toBottomOf="@+id/precoFestaedit" />
 
 </android.support.constraint.ConstraintLayout>

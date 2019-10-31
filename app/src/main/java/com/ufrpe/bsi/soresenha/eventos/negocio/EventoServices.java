@@ -14,19 +14,17 @@ public class EventoServices {
         this.eventoDAO = new EventoDAO(context);
     }
 
-    public Evento getEvento(long eventId) {
+    public Evento get(long eventId) {
         return eventoDAO.get(eventId);
     }
 
-    public void save(Evento evento) {
-        eventoDAO.update(evento);
-    }
+    public void update(Evento evento) { eventoDAO.update(evento); }
 
-    public long criarEvento(Evento evento) {
+    public long criar(Evento evento) {
         return eventoDAO.cadastrar(evento);
     }
 
-    public void deletarEvento(Evento evento) { eventoDAO.deletar(evento);}
+    public void deletar(Evento evento) { eventoDAO.deletar(evento);}
 
     public List<Evento> list() {
         return eventoDAO.list();

@@ -2,26 +2,22 @@ package com.ufrpe.bsi.soresenha.eventos.gui;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.view.ContextMenu;
-import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.ufrpe.bsi.soresenha.R;
 import com.ufrpe.bsi.soresenha.eventos.dominio.Evento;
 import com.ufrpe.bsi.soresenha.eventos.negocio.EventoServices;
 
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 public class RecyclingAdapterFesta extends RecyclerView.Adapter<RecyclingAdapterFesta.RecyViewHolder> {
 
@@ -46,7 +42,9 @@ public class RecyclingAdapterFesta extends RecyclerView.Adapter<RecyclingAdapter
     @Override
     public void onBindViewHolder(@NonNull RecyViewHolder holder, final int position) {
         holder.titleFesta.setText(opcoesEventos.get(position).getNome());
-        holder.descFesta.setText("R$ " + opcoesEventos.get(position).getPreco());
+        NumberFormat realFormat = NumberFormat.getCurrencyInstance(new Locale( "pt", "BR" ));
+        String formatted = realFormat.format(opcoesEventos.get(position).getPreco());
+        holder.descFesta.setText(formatted);
         setOptionButtonListeners(holder, position);
     }
 
@@ -90,7 +88,7 @@ public class RecyclingAdapterFesta extends RecyclerView.Adapter<RecyclingAdapter
     }
 
     private void deleteEvent(int position) {
-        eventoServices.deletarEvento(opcoesEventos.get(position));
+        eventoServices.deletar(opcoesEventos.get(position));
         opcoesEventos.remove(position);
         notifyItemRemoved(position);
         notifyItemRangeChanged(position, opcoesEventos.size());

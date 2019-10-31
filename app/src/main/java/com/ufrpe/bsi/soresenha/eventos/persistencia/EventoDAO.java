@@ -8,7 +8,9 @@ import android.database.sqlite.SQLiteDatabase;
 import com.ufrpe.bsi.soresenha.eventos.dominio.Evento;
 import com.ufrpe.bsi.soresenha.infra.persistencia.DBHelper;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class EventoDAO {
@@ -23,7 +25,8 @@ public class EventoDAO {
         ContentValues values = new ContentValues();
         values.put(DBHelper.COLUNA_NOMEFESTA, evento.getNome());
         values.put(DBHelper.COLUNA_CRIADORFESTA, evento.getIdCriador());
-        values.put(DBHelper.COLUNA_PRECOFESTA, evento.getPreco());
+        values.put(DBHelper.COLUNA_PRECOFESTA, evento.getPreco().toString());
+        values.put(DBHelper.COLUNA_DATAFESTA, evento.getDate().getTime());
         values.put(DBHelper.COLUNA_DESCRICAOFESTA, evento.getDescricao());
         long res = db.insert(DBHelper.TABELA_FESTA, null, values);
         db.close();
@@ -48,12 +51,14 @@ public class EventoDAO {
         String sql = "UPDATE "+ DBHelper.TABELA_FESTA + " SET " +
                 DBHelper.COLUNA_NOMEFESTA  + "=?, " +
                 DBHelper.COLUNA_PRECOFESTA  + "=?, " +
-                DBHelper.COLUNA_DESCRICAOFESTA + "=? " +
+                DBHelper.COLUNA_DESCRICAOFESTA + "=?, " +
+                DBHelper.COLUNA_DATAFESTA + "=?" +
                 " WHERE " + DBHelper.COLUNA_IDFESTA + "=?;";
         db.execSQL(sql, new String[]{
                 evento.getNome(),
-                evento.getPreco(),
+                evento.getPreco().toString(),
                 evento.getDescricao(),
+                String.valueOf(evento.getDate().getTime()),
                 String.valueOf(evento.getId())
         });
         db.close();
@@ -85,7 +90,8 @@ public class EventoDAO {
         evento.setId(cursor.getInt(cursor.getColumnIndex(DBHelper.COLUNA_IDFESTA)));
         evento.setDescricao(cursor.getString(cursor.getColumnIndex(DBHelper.COLUNA_DESCRICAOFESTA)));
         evento.setIdCriador(cursor.getInt(cursor.getColumnIndex(DBHelper.COLUNA_CRIADORFESTA)));
-        evento.setPreco(cursor.getString(cursor.getColumnIndex(DBHelper.COLUNA_PRECOFESTA)));
+        evento.setPreco(new BigDecimal(cursor.getString(cursor.getColumnIndex(DBHelper.COLUNA_PRECOFESTA))));
+        evento.setDate(new Date(cursor.getLong(cursor.getColumnIndex(DBHelper.COLUNA_DATAFESTA))));
         return evento;
     }
 

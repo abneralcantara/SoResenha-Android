@@ -9,9 +9,14 @@ import com.ufrpe.bsi.soresenha.R;
 import com.ufrpe.bsi.soresenha.eventos.dominio.Evento;
 import com.ufrpe.bsi.soresenha.eventos.negocio.EventoServices;
 
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+
 public class ConsultarEventoActivity extends AppCompatActivity {
 
     private EventoServices eventoServices = new EventoServices(this);
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,12 +28,16 @@ public class ConsultarEventoActivity extends AppCompatActivity {
 
     private void configurarTela(Intent intent) {
         Bundle extras = intent.getExtras();
-        final Evento eventoOld = eventoServices.getEvento(extras.getLong("EventId"));
+        final Evento eventoOld = eventoServices.get(extras.getLong("EventId"));
         TextView precoFesta = findViewById(R.id.precoFesta);
         TextView nomeFesta = findViewById(R.id.nomeFesta);
         TextView descricaoFesta = findViewById(R.id.descricaoFesta);
+        TextView dataFesta = findViewById(R.id.dataFesta);
         nomeFesta.setText(eventoOld.getNome());
         descricaoFesta.setText(eventoOld.getDescricao());
-        precoFesta.setText("R$ " + eventoOld.getPreco());
+        NumberFormat realFormat = NumberFormat.getCurrencyInstance(new Locale( "pt", "BR" ));
+        String formatted = realFormat.format(eventoOld.getPreco());
+        precoFesta.setText(formatted);
+        dataFesta.setText(dateFormat.format(eventoOld.getDate()));
     }
 }
