@@ -30,6 +30,7 @@ public class CriarEventoActivity extends AppCompatActivity {
     private EventoServices eventoServices = new EventoServices(this);
     private Calendar eventoDate = Calendar.getInstance();
     private SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+    private SimpleDateFormat horaFormat = new SimpleDateFormat("kk:mm");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,11 +80,6 @@ public class CriarEventoActivity extends AppCompatActivity {
         final TimePickerDialog.OnTimeSetListener time = new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int i, int i1) {
-                StringBuilder hora = new StringBuilder();
-                hora.append(i);
-                hora.append(":");
-                hora.append(i1 > 9 ? i1 : "0" + i1);
-                editHora.setText(hora.toString());
                 eventoDate.set(
                         eventoDate.get(Calendar.YEAR),
                         eventoDate.get(Calendar.MONTH),
@@ -91,6 +87,8 @@ public class CriarEventoActivity extends AppCompatActivity {
                         i,
                         i1
                 );
+                String hora = horaFormat.format(eventoDate.getTime());
+                editHora.setText(hora);
                 editHora.setError(null);
             }
         };

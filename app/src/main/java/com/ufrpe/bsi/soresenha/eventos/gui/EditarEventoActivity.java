@@ -32,7 +32,7 @@ public class EditarEventoActivity extends AppCompatActivity {
     private EventoServices eventoServices = new EventoServices(this);
     private Calendar eventoDate = Calendar.getInstance();
     private SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-    private SimpleDateFormat horaFormat = new SimpleDateFormat("hh:mm");
+    private SimpleDateFormat horaFormat = new SimpleDateFormat("kk:mm");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

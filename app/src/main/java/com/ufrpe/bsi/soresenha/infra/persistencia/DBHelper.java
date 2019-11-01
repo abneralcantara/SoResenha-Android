@@ -5,12 +5,15 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class DBHelper extends SQLiteOpenHelper {
-    public static final int VERSAO_BANCO = 26;
+    public static final int VERSAO_BANCO = 27;
     public static final String NOME_BANCO = "SORESENHA_BD";
+    public static final SimpleDateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy kk:mm");
+
     public static final String TABELA_USUARIO = "TB_USUARIO";
     public static final String COLUNA_ID = "ID";
     public static final String COLUNA_NOME = "NOME";
@@ -56,7 +59,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 + COLUNA_IDFESTA + " INTEGER PRIMARY KEY, "
                 + COLUNA_NOMEFESTA + " TEXT, "
                 + COLUNA_PRECOFESTA + " TEXT, "
-                + COLUNA_DATAFESTA + " INTEGER, "
+                + COLUNA_DATAFESTA + " TEXT, "
                 + COLUNA_CRIADORFESTA + " INTEGER, "
                 + COLUNA_DESCRICAOFESTA + " TEXT)";
         db.execSQL(QUERY_COLUNAFESTA);

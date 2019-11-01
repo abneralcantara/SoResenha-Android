@@ -16,7 +16,7 @@ import java.util.Locale;
 public class ConsultarEventoActivity extends AppCompatActivity {
 
     private EventoServices eventoServices = new EventoServices(this);
-    private SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy kk:mm");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +35,7 @@ public class ConsultarEventoActivity extends AppCompatActivity {
         TextView dataFesta = findViewById(R.id.dataFesta);
         nomeFesta.setText(eventoOld.getNome());
         descricaoFesta.setText(eventoOld.getDescricao());
-        NumberFormat realFormat = NumberFormat.getCurrencyInstance(new Locale( "pt", "BR" ));
+        NumberFormat realFormat = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
         String formatted = realFormat.format(eventoOld.getPreco());
         precoFesta.setText(formatted);
         dataFesta.setText(dateFormat.format(eventoOld.getDate()));

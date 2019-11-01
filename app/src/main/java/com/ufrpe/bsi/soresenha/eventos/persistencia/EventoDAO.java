@@ -9,6 +9,7 @@ import com.ufrpe.bsi.soresenha.eventos.dominio.Evento;
 import com.ufrpe.bsi.soresenha.infra.persistencia.DBHelper;
 
 import java.math.BigDecimal;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -26,7 +27,7 @@ public class EventoDAO {
         values.put(DBHelper.COLUNA_NOMEFESTA, evento.getNome());
         values.put(DBHelper.COLUNA_CRIADORFESTA, evento.getIdCriador());
         values.put(DBHelper.COLUNA_PRECOFESTA, evento.getPreco().toString());
-        values.put(DBHelper.COLUNA_DATAFESTA, evento.getDate().getTime());
+        values.put(DBHelper.COLUNA_DATAFESTA, DBHelper.dateTimeFormat.format(evento.getDate()));
         values.put(DBHelper.COLUNA_DESCRICAOFESTA, evento.getDescricao());
         long res = db.insert(DBHelper.TABELA_FESTA, null, values);
         db.close();
@@ -58,7 +59,7 @@ public class EventoDAO {
                 evento.getNome(),
                 evento.getPreco().toString(),
                 evento.getDescricao(),
-                String.valueOf(evento.getDate().getTime()),
+                DBHelper.dateTimeFormat.format(evento.getDate()),
                 String.valueOf(evento.getId())
         });
         db.close();
@@ -91,7 +92,12 @@ public class EventoDAO {
         evento.setDescricao(cursor.getString(cursor.getColumnIndex(DBHelper.COLUNA_DESCRICAOFESTA)));
         evento.setIdCriador(cursor.getInt(cursor.getColumnIndex(DBHelper.COLUNA_CRIADORFESTA)));
         evento.setPreco(new BigDecimal(cursor.getString(cursor.getColumnIndex(DBHelper.COLUNA_PRECOFESTA))));
-        evento.setDate(new Date(cursor.getLong(cursor.getColumnIndex(DBHelper.COLUNA_DATAFESTA))));
+        try {
+            evento.setDate(DBHelper.dateTimeFormat.parse(cursor.getString(cursor.getColumnIndex(DBHelper.COLUNA_DATAFESTA))));
+        } catch (ParseException e) {
+            evento.setDate(new Date());
+            e.printStackTrace();
+        }
         return evento;
     }
 
