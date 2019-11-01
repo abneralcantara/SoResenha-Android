@@ -47,5 +47,9 @@ public class UsuarioServices {
             usuarioSessao.setSenha(usuario.getSenha());
             usuarioDAO.alterarSenha(usuarioSessao);
         }
+        if (!usuario.getParceiro().equals(null) && !usuario.getParceiro().equals(usuarioSessao.getParceiro())){
+            usuarioSessao.setParceiro(usuario.getParceiro());
+            usuarioDAO.alterarParceiro(usuarioSessao);
+        }
     }
 }

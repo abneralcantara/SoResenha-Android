@@ -12,6 +12,8 @@ import android.view.View;
 import com.ufrpe.bsi.soresenha.R;
 import com.ufrpe.bsi.soresenha.eventos.dominio.Evento;
 import com.ufrpe.bsi.soresenha.eventos.negocio.EventoServices;
+import com.ufrpe.bsi.soresenha.infra.gui.MenuActivity;
+import com.ufrpe.bsi.soresenha.infra.negocio.SessaoUsuario;
 
 import java.util.List;
 
@@ -24,7 +26,7 @@ public class ListaEventoActivity extends AppCompatActivity {
         FloatingActionButton newFesta = (FloatingActionButton) findViewById(R.id.criarEventoFloatingButton);
         RecyclerView recyclerView = findViewById(R.id.recyclerfestas);
         setupRecyclerView(recyclerView);
-        criarListeners(newFesta);
+        configurarTela(newFesta);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
@@ -34,15 +36,19 @@ public class ListaEventoActivity extends AppCompatActivity {
         recyclerView.setAdapter(new RecyclingAdapterFesta(createList(), this));
     }
 
-    private void criarListeners(FloatingActionButton newFesta) {
-        newFesta.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            Intent insertIntent = new Intent(ListaEventoActivity.this, CriarEventoActivity.class);
-            insertIntent.setFlags(insertIntent.getFlags() | Intent.FLAG_ACTIVITY_NO_HISTORY);
-            startActivity(insertIntent);
-            }
-        });
+    private void configurarTela(FloatingActionButton newFesta) {
+        if (!SessaoUsuario.instance.isParceiro()) {
+            ((View) newFesta).setVisibility(View.GONE);
+        } else {
+            newFesta.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent insertIntent = new Intent(ListaEventoActivity.this, CriarEventoActivity.class);
+                    insertIntent.setFlags(insertIntent.getFlags() | Intent.FLAG_ACTIVITY_NO_HISTORY);
+                    startActivity(insertIntent);
+                }
+            });
+        }
     }
 
     private List<Evento> createList() {
@@ -53,7 +59,7 @@ public class ListaEventoActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                onBackPressed();
+                startActivity(new Intent(this, MenuActivity.class));
                 return true;
         }
 

@@ -10,10 +10,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ufrpe.bsi.soresenha.R;
 import com.ufrpe.bsi.soresenha.eventos.dominio.Evento;
 import com.ufrpe.bsi.soresenha.eventos.negocio.EventoServices;
+import com.ufrpe.bsi.soresenha.infra.negocio.SessaoUsuario;
+import com.ufrpe.bsi.soresenha.infra.negocio.SoresenhaAppException;
 
 import java.text.NumberFormat;
 import java.util.List;
@@ -29,10 +32,7 @@ public class RecyclingAdapterFesta extends RecyclerView.Adapter<RecyclingAdapter
         this.opcoesEventos = opcoesEventos;
         this.context = context;
         this.eventoServices = new EventoServices(context);
-
-
     }
-
 
     @NonNull
     @Override
@@ -51,16 +51,18 @@ public class RecyclingAdapterFesta extends RecyclerView.Adapter<RecyclingAdapter
     }
 
     private void setOptionButtonListeners(@NonNull final RecyViewHolder holder, final int position) {
-        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View view) {
-                PopupMenu popup = new PopupMenu(holder.itemView.getContext(), holder.itemView.findViewById(R.id.listPopupAnchor));
-                popup.inflate(R.menu.evento_options);
-                popupActions(popup, position);
-                popup.show();
-                return true;
-            }
-        });
+        if (SessaoUsuario.instance.isParceiro()) {
+            holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    PopupMenu popup = new PopupMenu(holder.itemView.getContext(), holder.itemView.findViewById(R.id.listPopupAnchor));
+                    popup.inflate(R.menu.evento_options);
+                    popupActions(popup, position);
+                    popup.show();
+                    return true;
+                }
+            });
+        }
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -90,7 +92,13 @@ public class RecyclingAdapterFesta extends RecyclerView.Adapter<RecyclingAdapter
     }
 
     private void deleteEvent(int position) {
-        eventoServices.deletar(opcoesEventos.get(position));
+        try {
+            eventoServices.deletar(opcoesEventos.get(position));
+        } catch (SoresenhaAppException e) {
+            Toast.makeText(this.context, "Você não tem permissão para alterar eventos", Toast.LENGTH_LONG).show();
+            this.context.startActivity(new Intent(this.context, ListaEventoActivity.class));
+            e.printStackTrace();
+        }
         opcoesEventos.remove(position);
         notifyItemRemoved(position);
         notifyItemRangeChanged(position, opcoesEventos.size());

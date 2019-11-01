@@ -10,11 +10,13 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.ufrpe.bsi.soresenha.R;
 import com.ufrpe.bsi.soresenha.eventos.dominio.Evento;
 import com.ufrpe.bsi.soresenha.eventos.negocio.EventoServices;
 import com.ufrpe.bsi.soresenha.infra.helper.MoneyTextMask;
+import com.ufrpe.bsi.soresenha.infra.negocio.SoresenhaAppException;
 
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
@@ -58,7 +60,13 @@ public class CriarEventoActivity extends AppCompatActivity {
                         .setScale(2, BigDecimal.ROUND_FLOOR)
                         .divide(new BigDecimal(100), BigDecimal.ROUND_FLOOR);
                 Evento evento = new Evento(nome, descricao, parsed, eventoDate.getTime());
-                eventoServices.criar(evento);
+                try {
+                    eventoServices.criar(evento);
+                } catch (SoresenhaAppException e) {
+                    Toast.makeText(v.getContext(), "Você não tem permissão para alterar eventos", Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(v.getContext(), ListaEventoActivity.class));
+                    e.printStackTrace();
+                }
                 Intent backMenu = new Intent(CriarEventoActivity.this, ListaEventoActivity.class);
                 backMenu.setFlags(backMenu.getFlags() | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(backMenu);

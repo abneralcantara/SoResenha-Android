@@ -4,6 +4,8 @@ import android.content.Context;
 
 import com.ufrpe.bsi.soresenha.eventos.dominio.Evento;
 import com.ufrpe.bsi.soresenha.eventos.persistencia.EventoDAO;
+import com.ufrpe.bsi.soresenha.infra.negocio.SessaoUsuario;
+import com.ufrpe.bsi.soresenha.infra.negocio.SoresenhaAppException;
 
 import java.util.List;
 
@@ -18,13 +20,29 @@ public class EventoServices {
         return eventoDAO.get(eventId);
     }
 
-    public void update(Evento evento) { eventoDAO.update(evento); }
-
-    public long criar(Evento evento) {
-        return eventoDAO.cadastrar(evento);
+    public void update(Evento evento) throws SoresenhaAppException {
+        if (SessaoUsuario.instance.isParceiro()) {
+            eventoDAO.update(evento);
+        } else {
+            throw new SoresenhaAppException("Usuario tentou alterar banco sem ser parceiro");
+        }
     }
 
-    public void deletar(Evento evento) { eventoDAO.deletar(evento);}
+    public long criar(Evento evento) throws SoresenhaAppException {
+        if (SessaoUsuario.instance.isParceiro()) {
+            return eventoDAO.cadastrar(evento);
+        } else {
+            throw new SoresenhaAppException("Usuario tentou alterar banco sem ser parceiro");
+        }
+    }
+
+    public void deletar(Evento evento) throws SoresenhaAppException {
+        if (SessaoUsuario.instance.isParceiro()) {
+            eventoDAO.deletar(evento);
+        } else {
+            throw new SoresenhaAppException("Usuario tentou alterar banco sem ser parceiro");
+        }
+    }
 
     public List<Evento> list() {
         return eventoDAO.list();

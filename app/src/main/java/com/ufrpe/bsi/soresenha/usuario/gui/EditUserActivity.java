@@ -8,6 +8,7 @@ import android.util.Patterns;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -24,24 +25,25 @@ public class EditUserActivity extends AppCompatActivity {
     private EditText editEmail;
     private EditText editSenha;
     private Button btnSalvar;
+    private CheckBox isParceiro;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_user);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-
         editNome = findViewById(R.id.editarNome);
         editEmail = findViewById(R.id.editarEmail);
         editSenha = findViewById(R.id.editarSenha);
         btnSalvar = findViewById(R.id.btnSalvar);
+        isParceiro = findViewById(R.id.parceiroEditUser);
         btnSalvar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 editaSalvaDados();
             }
         });
+        isParceiro.setChecked(SessaoUsuario.instance.isParceiro());
     }
 
     private void editaSalvaDados() {
@@ -65,6 +67,7 @@ public class EditUserActivity extends AppCompatActivity {
         usuarioEditado.setNome(editNome.getText().toString());
         usuarioEditado.setEmail(editEmail.getText().toString());
         usuarioEditado.setSenha(editSenha.getText().toString());
+        usuarioEditado.setParceiro(isParceiro.isChecked() ? 1 : 0);
         return usuarioEditado;
     }
 
