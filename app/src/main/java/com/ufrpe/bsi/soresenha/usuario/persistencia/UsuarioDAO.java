@@ -5,8 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.ufrpe.bsi.soresenha.infra.negocio.SessaoUsuario;
 import com.ufrpe.bsi.soresenha.infra.persistencia.DBHelper;
+import com.ufrpe.bsi.soresenha.usuario.dominio.TipoUsuario;
 import com.ufrpe.bsi.soresenha.usuario.dominio.Usuario;
 
 public class UsuarioDAO {
@@ -23,7 +23,7 @@ public class UsuarioDAO {
         values.put(DBHelper.COLUNA_NOME, usuario.getNome());
         values.put(DBHelper.COLUNA_EMAIL, usuario.getEmail());
         values.put(DBHelper.COLUNA_SENHA, usuario.getSenha());
-        values.put(DBHelper.COLUNA_SERPARCEIRO, usuario.getParceiro());
+        values.put(DBHelper.COLUNA_TIPO, usuario.getTipo().toString());
         long res = db.insert(DBHelper.TABELA_USUARIO, null, values);
         db.close();
         return res;
@@ -57,45 +57,47 @@ public class UsuarioDAO {
         return !cursor.moveToNext();
     }
 
+    public void update(Usuario user) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        String sql = "UPDATE "+ DBHelper.TABELA_USUARIO + " SET " +
+                DBHelper.COLUNA_NOME  + "=?, " +
+                DBHelper.COLUNA_EMAIL  + "=?, " +
+                DBHelper.COLUNA_SENHA + "=?, " +
+                DBHelper.COLUNA_TIPO + "=?" +
+                " WHERE " + DBHelper.COLUNA_ID + "=?;";
+        db.execSQL(sql, new String[]{
+                user.getNome(),
+                user.getEmail(),
+                user.getSenha(),
+                user.getTipo().toString(),
+                String.valueOf(user.getId())
+        });
+        db.close();
+    }
+
     private Usuario createUsuario(Cursor cursor) {
         Usuario usuario = new Usuario();
+        TipoUsuario tipo = TipoUsuario.valueOf(cursor.getString(cursor.getColumnIndex(DBHelper.COLUNA_TIPO)));
         usuario.setEmail(cursor.getString(cursor.getColumnIndex(DBHelper.COLUNA_EMAIL)));
         usuario.setId(cursor.getInt(cursor.getColumnIndex(DBHelper.COLUNA_ID)));
         usuario.setSenha(cursor.getString(cursor.getColumnIndex(DBHelper.COLUNA_SENHA)));
         usuario.setNome(cursor.getString(cursor.getColumnIndex(DBHelper.COLUNA_NOME)));
-        usuario.setParceiro(cursor.getInt(cursor.getColumnIndex(DBHelper.COLUNA_SERPARCEIRO)));
+        usuario.setTipo(tipo);
         return usuario;
     }
-    public void alterarEmail(Usuario usuario) {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(DBHelper.COLUNA_NOME, usuario.getEmail());
-        db.update(DBHelper.TABELA_USUARIO, values, DBHelper.COLUNA_ID + " = ?", new String[]{String.valueOf(usuario.getId())});
-        db.close();
-    }
 
-    public void alterarSenha(Usuario usuario) {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(DBHelper.COLUNA_SENHA, usuario.getSenha());
-        db.update(DBHelper.TABELA_USUARIO, values, DBHelper.COLUNA_ID + " = ?", new String[]{String.valueOf(usuario.getId())});
+    public Usuario getByID(int id) {
+        Usuario result = null;
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        String sql = "SELECT * FROM " + DBHelper.TABELA_USUARIO
+                + " U WHERE U." + DBHelper.COLUNA_ID + "=?;";
+        Cursor cursor = db.rawQuery(sql, new String[]{String.valueOf(id)});
+        if (cursor.moveToFirst()) {
+            result =  createUsuario(cursor);
+        }
+        cursor.close();
         db.close();
+        return result;
     }
-
-    public void alterarNome(Usuario usuario) {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(DBHelper.COLUNA_NOME, usuario.getNome());
-        db.update(DBHelper.TABELA_USUARIO, values, DBHelper.COLUNA_ID + " = ?", new String[]{String.valueOf(usuario.getId())});
-        db.close();
-    }
-
-    public void alterarParceiro(Usuario usuario) {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(DBHelper.COLUNA_SERPARCEIRO, usuario.getParceiro());
-        db.update(DBHelper.TABELA_USUARIO, values, DBHelper.COLUNA_ID + " = ?", new String[]{String.valueOf(usuario.getId())});
-        db.close();
-    }
-
 }
+

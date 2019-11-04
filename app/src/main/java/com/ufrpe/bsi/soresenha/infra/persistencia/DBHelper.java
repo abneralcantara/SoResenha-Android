@@ -10,7 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class DBHelper extends SQLiteOpenHelper {
-    public static final int VERSAO_BANCO = 27;
+    public static final int VERSAO_BANCO = 29;
     public static final String NOME_BANCO = "SORESENHA_BD";
     public static final SimpleDateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy kk:mm");
 
@@ -19,7 +19,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String COLUNA_NOME = "NOME";
     public static final String COLUNA_EMAIL = "EMAIL";
     public static final String COLUNA_SENHA = "SENHA";
-    public static final String COLUNA_SERPARCEIRO = "SERPARCEIRO";
+    public static final String COLUNA_TIPO = "TIPO";
 
     public static final String TABELA_FESTA = "TB_FESTA";
     public static final String COLUNA_IDFESTA = "ID_FESTA";
@@ -67,10 +67,11 @@ public class DBHelper extends SQLiteOpenHelper {
 
     private void criarTabelaUsuario(SQLiteDatabase db) {
         String QUERY_COLUNAUSUARIO = "CREATE TABLE " + DBHelper.TABELA_USUARIO + "("
-                + DBHelper.COLUNA_ID + " INTEGER PRIMARY KEY, " + DBHelper.COLUNA_SERPARCEIRO
-                + " INTEGER DEFAULT 0, " + DBHelper.COLUNA_NOME + " TEXT, " + DBHelper.COLUNA_EMAIL
-                + " TEXT," + DBHelper.COLUNA_SENHA
-                + " TEXT)";
+                + DBHelper.COLUNA_ID + " INTEGER PRIMARY KEY, "
+                + DBHelper.COLUNA_TIPO + " TEXT, "
+                + DBHelper.COLUNA_NOME + " TEXT, "
+                + DBHelper.COLUNA_EMAIL + " TEXT,"
+                + DBHelper.COLUNA_SENHA + " TEXT)";
         db.execSQL(QUERY_COLUNAUSUARIO);
     }
 

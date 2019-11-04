@@ -16,6 +16,7 @@ import com.ufrpe.bsi.soresenha.R;
 import com.ufrpe.bsi.soresenha.eventos.dominio.Evento;
 import com.ufrpe.bsi.soresenha.eventos.negocio.EventoServices;
 import com.ufrpe.bsi.soresenha.infra.helper.MoneyTextMask;
+import com.ufrpe.bsi.soresenha.infra.negocio.SessaoUsuario;
 import com.ufrpe.bsi.soresenha.infra.negocio.SoresenhaAppException;
 
 import java.math.BigDecimal;
@@ -60,6 +61,7 @@ public class CriarEventoActivity extends AppCompatActivity {
                         .setScale(2, BigDecimal.ROUND_FLOOR)
                         .divide(new BigDecimal(100), BigDecimal.ROUND_FLOOR);
                 Evento evento = new Evento(nome, descricao, parsed, eventoDate.getTime());
+                evento.setCriador(SessaoUsuario.instance.getUsuario());
                 try {
                     eventoServices.criar(evento);
                 } catch (SoresenhaAppException e) {

@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.ufrpe.bsi.soresenha.R;
+import com.ufrpe.bsi.soresenha.usuario.dominio.TipoUsuario;
 import com.ufrpe.bsi.soresenha.usuario.dominio.Usuario;
 import com.ufrpe.bsi.soresenha.usuario.negocio.UsuarioServices;
 
@@ -122,7 +123,7 @@ public class RegisterActivity extends AppCompatActivity {
         String email = editEmail.getText().toString();
         String senha = editSenha.getText().toString();
         String confSenha = editConfSenha.getText().toString();
-        Integer isparceiro = validarparceiro();
+        TipoUsuario isparceiro = validarparceiro();
         if (validarCampos()) {
             Usuario usuario = new Usuario(nome, email, senha, isparceiro);
             if (usuarioServices.checarEmail(email)) {
@@ -136,9 +137,9 @@ public class RegisterActivity extends AppCompatActivity {
         }
     }
 
-    private Integer validarparceiro() {
-        if (checkParceiro.isChecked()) {return 1;}
-        return 0;
+    private TipoUsuario validarparceiro() {
+        if (checkParceiro.isChecked()) {return TipoUsuario.PARCEIRO;}
+        return TipoUsuario.NORMAL;
     }
 
     private void callloginIntent() {

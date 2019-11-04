@@ -5,14 +5,14 @@ public class Usuario {
     private String nome;
     private String email;
     private String senha;
-    private Integer parceiro;
+    private TipoUsuario tipo;
 
     public Usuario(){}
-    public Usuario(String nome, String email, String senha, Integer parceiro){
+    public Usuario(String nome, String email, String senha, TipoUsuario tipoUsuario){
         this.nome = nome;
         this.email = email;
         this.senha = senha;
-        this.parceiro = parceiro;
+        this.tipo = tipoUsuario;
     }
 
     public Usuario(String email, String senha){
@@ -48,8 +48,8 @@ public class Usuario {
         this.senha = senha;
     }
 
-    public Integer getParceiro() { return parceiro; }
-    public void setParceiro(Integer parceiro) { this.parceiro = parceiro; }
+    public TipoUsuario getTipo() { return tipo; }
+    public void setTipo(TipoUsuario tipoUsuario) { this.tipo = tipoUsuario; }
 
 
 }

@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.ufrpe.bsi.soresenha.eventos.dominio.Evento;
 import com.ufrpe.bsi.soresenha.infra.persistencia.DBHelper;
+import com.ufrpe.bsi.soresenha.usuario.dominio.Usuario;
+import com.ufrpe.bsi.soresenha.usuario.negocio.UsuarioServices;
 
 import java.math.BigDecimal;
 import java.text.ParseException;
@@ -16,16 +18,18 @@ import java.util.List;
 
 public class EventoDAO {
     private DBHelper dbHelper;
+    private UsuarioServices usuarioServices;
 
     public EventoDAO(Context context) {
         this.dbHelper = new DBHelper(context);
+        this.usuarioServices = new UsuarioServices(context);
     }
 
     public long cadastrar(Evento evento){
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(DBHelper.COLUNA_NOMEFESTA, evento.getNome());
-        values.put(DBHelper.COLUNA_CRIADORFESTA, evento.getIdCriador());
+        values.put(DBHelper.COLUNA_CRIADORFESTA, evento.getCriador().getId());
         values.put(DBHelper.COLUNA_PRECOFESTA, evento.getPreco().toString());
         values.put(DBHelper.COLUNA_DATAFESTA, DBHelper.dateTimeFormat.format(evento.getDate()));
         values.put(DBHelper.COLUNA_DESCRICAOFESTA, evento.getDescricao());
@@ -90,7 +94,8 @@ public class EventoDAO {
         evento.setNome(cursor.getString(cursor.getColumnIndex(DBHelper.COLUNA_NOMEFESTA)));
         evento.setId(cursor.getInt(cursor.getColumnIndex(DBHelper.COLUNA_IDFESTA)));
         evento.setDescricao(cursor.getString(cursor.getColumnIndex(DBHelper.COLUNA_DESCRICAOFESTA)));
-        evento.setIdCriador(cursor.getInt(cursor.getColumnIndex(DBHelper.COLUNA_CRIADORFESTA)));
+        Usuario criador = usuarioServices.getByID(cursor.getInt(cursor.getColumnIndex(DBHelper.COLUNA_CRIADORFESTA)));
+        evento.setCriador(criador);
         evento.setPreco(new BigDecimal(cursor.getString(cursor.getColumnIndex(DBHelper.COLUNA_PRECOFESTA))));
         try {
             evento.setDate(DBHelper.dateTimeFormat.parse(cursor.getString(cursor.getColumnIndex(DBHelper.COLUNA_DATAFESTA))));

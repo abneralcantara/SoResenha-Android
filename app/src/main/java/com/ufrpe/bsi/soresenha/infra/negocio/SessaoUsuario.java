@@ -1,5 +1,6 @@
 package com.ufrpe.bsi.soresenha.infra.negocio;
 
+import com.ufrpe.bsi.soresenha.usuario.dominio.TipoUsuario;
 import com.ufrpe.bsi.soresenha.usuario.dominio.Usuario;
 
 import java.util.HashMap;
@@ -24,7 +25,7 @@ public class SessaoUsuario {
     }
 
     public boolean isParceiro() {
-        return !getUsuario().equals(null) && getUsuario().getParceiro() > 0;
+        return !getUsuario().equals(null) && getUsuario().getTipo().equals(TipoUsuario.PARCEIRO);
     }
 }
 
