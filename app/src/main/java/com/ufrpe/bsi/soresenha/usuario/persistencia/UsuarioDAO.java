@@ -54,7 +54,10 @@ public class UsuarioDAO {
     public boolean checarEmail(String email){
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM " + DBHelper.TABELA_USUARIO + " WHERE " + DBHelper.COLUNA_EMAIL + "=?", new String[]{email});
-        return !cursor.moveToNext();
+        boolean result = !cursor.moveToNext();
+        db.close();
+        cursor.close();
+        return result;
     }
 
     public void update(Usuario user) {
@@ -86,7 +89,7 @@ public class UsuarioDAO {
         return usuario;
     }
 
-    public Usuario getByID(int id) {
+    public Usuario getByID(long id) {
         Usuario result = null;
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         String sql = "SELECT * FROM " + DBHelper.TABELA_USUARIO

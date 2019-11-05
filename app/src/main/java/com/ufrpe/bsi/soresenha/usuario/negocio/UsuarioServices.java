@@ -34,7 +34,7 @@ public class UsuarioServices {
         usuarioDAO.update(usuario);
     }
 
-    public Usuario getByID(int id) {
+    public Usuario getByID(long id) {
         return usuarioDAO.getByID(id);
     }
 }

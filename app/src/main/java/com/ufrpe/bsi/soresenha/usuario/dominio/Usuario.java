@@ -8,6 +8,11 @@ public class Usuario {
     private TipoUsuario tipo;
 
     public Usuario(){}
+
+    public Usuario(long id){
+        this.id = id;
+    }
+
     public Usuario(String nome, String email, String senha, TipoUsuario tipoUsuario){
         this.nome = nome;
         this.email = email;

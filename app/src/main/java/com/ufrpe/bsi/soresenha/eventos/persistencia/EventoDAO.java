@@ -8,7 +8,6 @@ import android.database.sqlite.SQLiteDatabase;
 import com.ufrpe.bsi.soresenha.eventos.dominio.Evento;
 import com.ufrpe.bsi.soresenha.infra.persistencia.DBHelper;
 import com.ufrpe.bsi.soresenha.usuario.dominio.Usuario;
-import com.ufrpe.bsi.soresenha.usuario.negocio.UsuarioServices;
 
 import java.math.BigDecimal;
 import java.text.ParseException;
@@ -18,11 +17,9 @@ import java.util.List;
 
 public class EventoDAO {
     private DBHelper dbHelper;
-    private UsuarioServices usuarioServices;
 
     public EventoDAO(Context context) {
         this.dbHelper = new DBHelper(context);
-        this.usuarioServices = new UsuarioServices(context);
     }
 
     public long cadastrar(Evento evento){
@@ -92,10 +89,9 @@ public class EventoDAO {
     private Evento createEvento(Cursor cursor) {
         Evento evento = new Evento();
         evento.setNome(cursor.getString(cursor.getColumnIndex(DBHelper.COLUNA_NOMEFESTA)));
-        evento.setId(cursor.getInt(cursor.getColumnIndex(DBHelper.COLUNA_IDFESTA)));
+        evento.setId(cursor.getLong(cursor.getColumnIndex(DBHelper.COLUNA_IDFESTA)));
         evento.setDescricao(cursor.getString(cursor.getColumnIndex(DBHelper.COLUNA_DESCRICAOFESTA)));
-        Usuario criador = usuarioServices.getByID(cursor.getInt(cursor.getColumnIndex(DBHelper.COLUNA_CRIADORFESTA)));
-        evento.setCriador(criador);
+        evento.setCriador(new Usuario(cursor.getLong(cursor.getColumnIndex(DBHelper.COLUNA_CRIADORFESTA))));
         evento.setPreco(new BigDecimal(cursor.getString(cursor.getColumnIndex(DBHelper.COLUNA_PRECOFESTA))));
         try {
             evento.setDate(DBHelper.dateTimeFormat.parse(cursor.getString(cursor.getColumnIndex(DBHelper.COLUNA_DATAFESTA))));

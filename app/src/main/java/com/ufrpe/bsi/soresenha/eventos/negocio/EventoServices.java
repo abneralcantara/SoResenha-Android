@@ -6,19 +6,25 @@ import com.ufrpe.bsi.soresenha.eventos.dominio.Evento;
 import com.ufrpe.bsi.soresenha.eventos.persistencia.EventoDAO;
 import com.ufrpe.bsi.soresenha.infra.negocio.SessaoUsuario;
 import com.ufrpe.bsi.soresenha.infra.negocio.SoresenhaAppException;
+import com.ufrpe.bsi.soresenha.usuario.dominio.Usuario;
+import com.ufrpe.bsi.soresenha.usuario.negocio.UsuarioServices;
 
 import java.util.Date;
 import java.util.List;
 
 public class EventoServices {
     private EventoDAO eventoDAO;
+    private UsuarioServices usuarioServices;
 
     public EventoServices(Context context) {
         this.eventoDAO = new EventoDAO(context);
+        this.usuarioServices = new UsuarioServices(context);
     }
 
     public Evento get(long eventId) {
-        return eventoDAO.get(eventId);
+        Evento evento = eventoDAO.get(eventId);
+        evento.setCriador(preencherCriador(evento));
+        return evento;
     }
 
     public void update(Evento evento) throws SoresenhaAppException {
@@ -52,7 +58,15 @@ public class EventoServices {
     }
 
     public List<Evento> list() {
-        return eventoDAO.list();
+        List<Evento> list = eventoDAO.list();
+        for (Evento e : list) {
+            e.setCriador(preencherCriador(e));
+        }
+        return list;
+    }
+
+    private Usuario preencherCriador(Evento e) {
+        return usuarioServices.getByID(e.getCriador().getId());
     }
 
 }
