@@ -7,6 +7,7 @@ import com.ufrpe.bsi.soresenha.eventos.persistencia.EventoDAO;
 import com.ufrpe.bsi.soresenha.infra.negocio.SessaoUsuario;
 import com.ufrpe.bsi.soresenha.infra.negocio.SoresenhaAppException;
 
+import java.util.Date;
 import java.util.List;
 
 public class EventoServices {
@@ -22,17 +23,23 @@ public class EventoServices {
 
     public void update(Evento evento) throws SoresenhaAppException {
         if (SessaoUsuario.instance.isParceiro()) {
+            if (evento.getDate().before(new Date())) {
+                throw new SoresenhaAppException("Data já passou");
+            }
             eventoDAO.update(evento);
         } else {
-            throw new SoresenhaAppException("Usuario tentou alterar banco sem ser parceiro");
+            throw new SoresenhaAppException("Não é parceiro");
         }
     }
 
     public long criar(Evento evento) throws SoresenhaAppException {
         if (SessaoUsuario.instance.isParceiro()) {
+            if (evento.getDate().before(new Date())) {
+                throw new SoresenhaAppException("Data já passou");
+            }
             return eventoDAO.cadastrar(evento);
         } else {
-            throw new SoresenhaAppException("Usuario tentou alterar banco sem ser parceiro");
+            throw new SoresenhaAppException("Não é parceiro");
         }
     }
 
@@ -40,7 +47,7 @@ public class EventoServices {
         if (SessaoUsuario.instance.isParceiro()) {
             eventoDAO.deletar(evento);
         } else {
-            throw new SoresenhaAppException("Usuario tentou alterar banco sem ser parceiro");
+            throw new SoresenhaAppException("Não é parceiro");
         }
     }
 

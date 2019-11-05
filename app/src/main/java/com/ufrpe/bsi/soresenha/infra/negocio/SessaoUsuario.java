@@ -28,4 +28,3 @@ public class SessaoUsuario {
         return !getUsuario().equals(null) && getUsuario().getTipo().equals(TipoUsuario.PARCEIRO);
     }
 }
-
