@@ -8,9 +8,11 @@ import android.widget.TextView;
 import com.ufrpe.bsi.soresenha.R;
 import com.ufrpe.bsi.soresenha.eventos.dominio.Evento;
 import com.ufrpe.bsi.soresenha.eventos.negocio.EventoServices;
+import com.ufrpe.bsi.soresenha.usuario.dominio.Usuario;
 
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.Locale;
 
 public class ConsultarEventoActivity extends AppCompatActivity {
@@ -24,11 +26,17 @@ public class ConsultarEventoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_consultar_festa);
         configurarTela(intent);
+        getListParticipantes(getEventoId(intent));
     }
 
+    private List<Usuario> getListParticipantes(Evento evento) {
+        EventoServices eventoServices = new EventoServices(this);
+        return eventoServices.listParticipantes(evento);
+    }
+
+
     private void configurarTela(Intent intent) {
-        Bundle extras = intent.getExtras();
-        final Evento eventoOld = eventoServices.get(extras.getLong("EventId"));
+        final Evento eventoOld = getEventoId(intent);
         TextView precoFesta = findViewById(R.id.precoFesta);
         TextView nomeFesta = findViewById(R.id.nomeFesta);
         TextView descricaoFesta = findViewById(R.id.descricaoFesta);
@@ -39,5 +47,14 @@ public class ConsultarEventoActivity extends AppCompatActivity {
         String formatted = realFormat.format(eventoOld.getPreco());
         precoFesta.setText(formatted);
         dataFesta.setText(dateFormat.format(eventoOld.getDate()));
+    }
+
+    private Evento getEventoId(Intent intent) {
+        Bundle extras = intent.getExtras();
+        return eventoServices.get(extras.getLong("EventId"));
+    }
+
+
+    private void entrarFesta(Usuario usuario){
     }
 }

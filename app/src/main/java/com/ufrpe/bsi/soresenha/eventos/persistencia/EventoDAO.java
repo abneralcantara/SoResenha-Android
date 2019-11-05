@@ -102,4 +102,10 @@ public class EventoDAO {
         return evento;
     }
 
+    public List<Usuario> getListParticipantes(Evento evento){
+        ArrayList<Usuario> listParticipantes = new ArrayList<Usuario>();
+        return listParticipantes;
+
+    }
+
 }
