@@ -28,6 +28,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String COLUNA_PRECOFESTA = "PRECO_FESTA";
     public static final String COLUNA_DATAFESTA = "DATA_FESTA";
     public static final String COLUNA_CRIADORFESTA = "CRIADOR_ID";
+    public static final String COLUNA_QNTLIKEFESTA = "LIKES_FESTA";
 
     private Logger logger = Logger.getGlobal();
 
@@ -61,6 +62,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 + COLUNA_PRECOFESTA + " TEXT, "
                 + COLUNA_DATAFESTA + " TEXT, "
                 + COLUNA_CRIADORFESTA + " INTEGER, "
+                + COLUNA_QNTLIKEFESTA + " TEXT, "
                 + COLUNA_DESCRICAOFESTA + " TEXT)";
         db.execSQL(QUERY_COLUNAFESTA);
     }

@@ -10,14 +10,14 @@
         android:id="@+id/nomeFesta"
         android:layout_width="355dp"
         android:layout_height="46dp"
-        android:layout_marginTop="53dp"
+        android:layout_marginTop="76dp"
         android:background="#3BCCBFBF"
         android:fontFamily="monospace"
         android:text="TextView"
         android:textAlignment="center"
         android:textSize="36sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.464"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -84,5 +84,30 @@
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dataFesta" />
+
+    <Button
+        android:id="@+id/darLikebutton"
+        android:layout_width="108dp"
+        android:layout_height="53dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="12dp"
+        android:background="#016306"
+        android:text="Like"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/qntLike"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/qntLike"
+        android:layout_width="87dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="13dp"
+        android:layout_marginEnd="32dp"
+        android:text="likes"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

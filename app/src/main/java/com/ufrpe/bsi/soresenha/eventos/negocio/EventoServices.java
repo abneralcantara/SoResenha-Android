@@ -27,6 +27,8 @@ public class EventoServices {
         return evento;
     }
 
+    public void likeupdate(Evento evento){eventoDAO.update(evento);}
+
     public void update(Evento evento) throws SoresenhaAppException {
         if (SessaoUsuario.instance.isParceiro()) {
             if (evento.getDate().before(new Date())) {
