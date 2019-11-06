@@ -4,7 +4,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 import com.ufrpe.bsi.soresenha.eventos.dominio.Evento;
 import com.ufrpe.bsi.soresenha.infra.persistencia.DBHelper;
@@ -31,7 +30,6 @@ public class EventoDAO {
         values.put(DBHelper.COLUNA_PRECOFESTA, evento.getPreco().toString());
         values.put(DBHelper.COLUNA_DATAFESTA, DBHelper.dateTimeFormat.format(evento.getDate()));
         values.put(DBHelper.COLUNA_DESCRICAOFESTA, evento.getDescricao());
-        values.put(DBHelper.COLUNA_QNTLIKEFESTA, String.valueOf(evento.getQntLikes()));
         long res = db.insert(DBHelper.TABELA_FESTA, null, values);
         db.close();
         return res;
@@ -56,18 +54,15 @@ public class EventoDAO {
                 DBHelper.COLUNA_NOMEFESTA  + "=?, " +
                 DBHelper.COLUNA_PRECOFESTA  + "=?, " +
                 DBHelper.COLUNA_DESCRICAOFESTA + "=?, " +
-                DBHelper.COLUNA_QNTLIKEFESTA + "=?, " +
                 DBHelper.COLUNA_DATAFESTA + "=?" +
                 " WHERE " + DBHelper.COLUNA_IDFESTA + "=?;";
         db.execSQL(sql, new String[]{
                 evento.getNome(),
                 evento.getPreco().toString(),
                 evento.getDescricao(),
-                String.valueOf(evento.getQntLikes()),
                 DBHelper.dateTimeFormat.format(evento.getDate()),
                 String.valueOf(evento.getId())
         });
-
         db.close();
     }
 

@@ -13,7 +13,6 @@ public class Evento {
     private BigDecimal preco;
     private Usuario criador;
     private Date date;
-    private static int qntLikes;
 
     public Evento(){}
 
@@ -23,12 +22,11 @@ public class Evento {
         this.preco = preco;
     }
 
-    public Evento(String nome, String descricao, BigDecimal preco, Date date, int qntLikes){
+    public Evento(String nome, String descricao, BigDecimal preco, Date date){
         this.nome = nome;
         this.descricao = descricao;
         this.preco = preco;
         this.date = date;
-        this.qntLikes = qntLikes;
     }
 
     public Evento(long id, String nome, String descricao, BigDecimal preco, Date date){
@@ -93,8 +91,4 @@ public class Evento {
     public void setCriador(Usuario criador) {
         this.criador = criador;
     }
-
-    public void plusLike() {this.qntLikes += 1;}
-
-    public int getQntLikes() {return qntLikes;}
 }

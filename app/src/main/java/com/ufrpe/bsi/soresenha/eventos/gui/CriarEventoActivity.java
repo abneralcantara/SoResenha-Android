@@ -59,7 +59,7 @@ public class CriarEventoActivity extends AppCompatActivity {
                 String descricao = editDesc.getText().toString();
                 String preco = editPreco.getText().toString();
                 BigDecimal parsed = BigDecimalUtil.fromBRLString(preco);
-                Evento evento = new Evento(nome, descricao, parsed, eventoDate.getTime(),0);
+                Evento evento = new Evento(nome, descricao, parsed, eventoDate.getTime());
                 evento.setCriador(SessaoUsuario.instance.getUsuario());
                 try {
                     eventoServices.criar(evento);
