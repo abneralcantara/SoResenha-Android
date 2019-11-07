@@ -29,12 +29,17 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String COLUNA_DATAFESTA = "DATA_FESTA";
     public static final String COLUNA_CRIADORFESTA = "CRIADOR_ID";
 
-    private Logger logger = Logger.getGlobal();
+    public static final String TABELA_AVALIACOES = "TB_AVALIACOES";
+    public static final String COLUNA_IDEVENTOAVALIACOES = "IDEVENTO_AVALIACOES";
+    public static final String COLUNA_IDUSERAVALIACOES = "IDUSER_AVALIACOES";
+    public static final String COLUNA_LIKE = "LIKE_AVALIACOES";
 
+    private Logger logger = Logger.getGlobal();
 
     private static final String[] TABELAS = {
             TABELA_USUARIO,
-            TABELA_FESTA
+            TABELA_FESTA,
+            TABELA_AVALIACOES
     };
 
     public DBHelper(Context context) {
@@ -45,6 +50,8 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         criarTabelaUsuario(db);
         criarTabelaFesta(db);
+        criarTabelaAvaliacoes(db);
+
     }
 
     @Override
@@ -52,6 +59,15 @@ public class DBHelper extends SQLiteOpenHelper {
         logger.log(Level.INFO, "Upgrading DB from "+oldVersion+" to " +newVersion);
         dropTables(db);
         onCreate(db);
+    }
+
+    private void criarTabelaAvaliacoes(SQLiteDatabase db) {
+        String QUERY_COLUNAAVALIACOES = "CREATE TABLE " + TABELA_AVALIACOES + "("
+                + DBHelper.COLUNA_IDUSERAVALIACOES + " TEXT, "
+                + DBHelper.COLUNA_IDEVENTOAVALIACOES + " TEXT, "
+                + DBHelper.COLUNA_LIKE + " TEXT)";
+        db.execSQL(QUERY_COLUNAAVALIACOES);
+
     }
 
     private void criarTabelaFesta(SQLiteDatabase db) {

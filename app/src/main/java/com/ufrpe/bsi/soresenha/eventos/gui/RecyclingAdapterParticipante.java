@@ -9,15 +9,16 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.ufrpe.bsi.soresenha.R;
+import com.ufrpe.bsi.soresenha.eventos.dominio.Avaliacao;
 import com.ufrpe.bsi.soresenha.usuario.dominio.Usuario;
 
 import java.util.List;
 
 public class RecyclingAdapterParticipante extends RecyclerView.Adapter<RecyclingAdapterParticipante.RecyViewHolder> {
-    private List<Usuario> opcoesUsuarios;
+    private List<Avaliacao> opcoesUsuarios;
 
 
-    public RecyclingAdapterParticipante(List<Usuario> opcoesUsuarios) {
+    public RecyclingAdapterParticipante(List<Avaliacao> opcoesUsuarios) {
         this.opcoesUsuarios = opcoesUsuarios;
 
     }
@@ -31,7 +32,7 @@ public class RecyclingAdapterParticipante extends RecyclerView.Adapter<Recycling
 
     @Override
     public void onBindViewHolder(@NonNull RecyViewHolder holder, int position) {
-        holder.titlePartipante.setText(opcoesUsuarios.get(position).getNome());
+        holder.titlePartipante.setText(opcoesUsuarios.get(position).getIdUser());
     }
 
     @Override

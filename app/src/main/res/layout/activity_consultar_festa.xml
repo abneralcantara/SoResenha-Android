@@ -10,16 +10,15 @@
         android:id="@+id/nomeFesta"
         android:layout_width="355dp"
         android:layout_height="46dp"
-        android:layout_marginTop="53dp"
+        android:layout_marginTop="16dp"
         android:background="#3BCCBFBF"
         android:fontFamily="monospace"
         android:text="TextView"
         android:textAlignment="center"
         android:textSize="36sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/btnIrfesta" />
 
     <TextView
         android:id="@+id/descricaoFesta"
@@ -64,7 +63,7 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/participantesFesta"
         android:layout_width="345dp"
-        android:layout_height="369dp"
+        android:layout_height="113dp"
         android:layout_marginStart="34dp"
         android:layout_marginTop="12dp"
         android:layout_marginEnd="32dp"
@@ -77,12 +76,51 @@
         android:id="@+id/textView12"
         android:layout_width="117dp"
         android:layout_height="24dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="60dp"
         android:text="Participantes"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dataFesta" />
+
+    <Button
+        android:id="@+id/btnDarlike"
+        android:layout_width="113dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
+        android:background="#1B521D"
+        android:text="Like"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/precoFesta" />
+
+    <TextView
+        android:id="@+id/qntLikes"
+        android:layout_width="95dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="31dp"
+        android:layout_marginTop="16dp"
+        android:text="likes"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dataFesta" />
+
+    <Button
+        android:id="@+id/btnIrfesta"
+        android:layout_width="228dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="92dp"
+        android:background="#742E00"
+        android:text="Confirmar Presença"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

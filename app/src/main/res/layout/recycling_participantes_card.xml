@@ -5,8 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="70dp"
-    android:background="#0E7A7A7A"
-    android:layout_weight="math_parent">
+    android:background="#0E7A7A7A">
 
     <TextView
         android:id="@+id/nomeParticipante"
