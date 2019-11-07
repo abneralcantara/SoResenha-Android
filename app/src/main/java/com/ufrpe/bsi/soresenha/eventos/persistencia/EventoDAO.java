@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.ufrpe.bsi.soresenha.eventos.dominio.Evento;
 import com.ufrpe.bsi.soresenha.infra.persistencia.DBHelper;
 import com.ufrpe.bsi.soresenha.usuario.dominio.Usuario;
+import com.ufrpe.bsi.soresenha.usuario.persistencia.UsuarioDAO;
 
 import java.math.BigDecimal;
 import java.text.ParseException;
@@ -17,9 +18,11 @@ import java.util.List;
 
 public class EventoDAO {
     private DBHelper dbHelper;
+    private UsuarioDAO usuarioDAO;
 
     public EventoDAO(Context context) {
         this.dbHelper = new DBHelper(context);
+        this.usuarioDAO = new UsuarioDAO(context);
     }
 
     public long cadastrar(Evento evento){
@@ -91,7 +94,7 @@ public class EventoDAO {
         evento.setNome(cursor.getString(cursor.getColumnIndex(DBHelper.COLUNA_NOMEFESTA)));
         evento.setId(cursor.getLong(cursor.getColumnIndex(DBHelper.COLUNA_IDFESTA)));
         evento.setDescricao(cursor.getString(cursor.getColumnIndex(DBHelper.COLUNA_DESCRICAOFESTA)));
-        evento.setCriador(new Usuario(cursor.getLong(cursor.getColumnIndex(DBHelper.COLUNA_CRIADORFESTA))));
+        evento.setCriador(usuarioDAO.getByID(cursor.getLong(cursor.getColumnIndex(DBHelper.COLUNA_CRIADORFESTA))));
         evento.setPreco(new BigDecimal(cursor.getString(cursor.getColumnIndex(DBHelper.COLUNA_PRECOFESTA))));
         try {
             evento.setDate(DBHelper.dateTimeFormat.parse(cursor.getString(cursor.getColumnIndex(DBHelper.COLUNA_DATAFESTA))));
@@ -103,9 +106,15 @@ public class EventoDAO {
     }
 
     public List<Usuario> getListParticipantes(Evento evento){
-        ArrayList<Usuario> listParticipantes = new ArrayList<Usuario>();
+        ArrayList<Usuario> listParticipantes = new ArrayList<>();
         return listParticipantes;
 
     }
 
+    public void deletarPorCriador(long id) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        String[] argumentos = {String.valueOf(id)};
+        db.delete(DBHelper.TABELA_FESTA, DBHelper.COLUNA_CRIADORFESTA + " =?", argumentos);
+        db.close();
+    }
 }

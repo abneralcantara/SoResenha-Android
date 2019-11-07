@@ -24,6 +24,7 @@ public class MoneyTextMask implements TextWatcher {
     public void onTextChanged(CharSequence s, int start, int before, int count) {
     }
 
+    //https://stackoverflow.com/questions/5107901/better-way-to-format-currency-input-edittext
     @Override
     public void afterTextChanged(Editable editable) {
         EditText editText = editTextWeakReference.get();
@@ -31,10 +32,7 @@ public class MoneyTextMask implements TextWatcher {
         String s = editable.toString();
         if (s.isEmpty()) return;
         editText.removeTextChangedListener(this);
-        String cleanString = s.replaceAll("[R$,.]", "");
-        BigDecimal parsed = new BigDecimal(cleanString)
-                .setScale(2, BigDecimal.ROUND_FLOOR)
-                .divide(new BigDecimal(100), BigDecimal.ROUND_FLOOR);
+        BigDecimal parsed = BigDecimalUtil.fromBRLString(s);
         String formatted = NumberFormat.getCurrencyInstance(new Locale( "pt", "BR" )).format(parsed);
         editText.setText(formatted);
         editText.setSelection(formatted.length());

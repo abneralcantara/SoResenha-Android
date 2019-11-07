@@ -13,6 +13,8 @@ public class SessaoUsuario {
 
     public Usuario getUsuario(){return (Usuario) values.get("sessao.Usuario");}
     public void setUsuario(Usuario usuario){setValue("sessao.Usuario", usuario);}
+    public void setLoginType(TipoUsuario type) {setValue("login", type);}
+    public TipoUsuario getLoginType() {return (TipoUsuario) values.get("login");}
 
 
     @SuppressWarnings("WeakerAccess")
@@ -25,6 +27,8 @@ public class SessaoUsuario {
     }
 
     public boolean isParceiro() {
-        return !getUsuario().equals(null) && getUsuario().getTipo().equals(TipoUsuario.PARCEIRO);
+        return !getUsuario().equals(null)
+                && getUsuario().getTipo().equals(TipoUsuario.PARCEIRO)
+                && getLoginType().equals(TipoUsuario.PARCEIRO);
     }
 }

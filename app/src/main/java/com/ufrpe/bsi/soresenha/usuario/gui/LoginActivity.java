@@ -7,18 +7,21 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.ufrpe.bsi.soresenha.R;
 import com.ufrpe.bsi.soresenha.infra.gui.MenuActivity;
 import com.ufrpe.bsi.soresenha.infra.negocio.SessaoUsuario;
+import com.ufrpe.bsi.soresenha.usuario.dominio.TipoUsuario;
 import com.ufrpe.bsi.soresenha.usuario.dominio.Usuario;
 import com.ufrpe.bsi.soresenha.usuario.negocio.UsuarioServices;
 
 public class LoginActivity extends AppCompatActivity {
     private EditText editEmail;
     private EditText editSenha;
+    private CheckBox parceiroCheck;
     private UsuarioServices usuarioServices = new UsuarioServices(this);
 
     @Override
@@ -29,6 +32,7 @@ public class LoginActivity extends AppCompatActivity {
         bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FF00BF")));
         editEmail = findViewById(R.id.editEmail_login);
         editSenha = findViewById(R.id.editSenha_login);
+        parceiroCheck = findViewById(R.id.loginParceiroCheck);
         Button buttonEntrar = findViewById(R.id.logar_button);
         Button cadastreSe = (Button) findViewById(R.id.Gotoregistrar_button);
         configurarListeners(buttonEntrar, cadastreSe);
@@ -43,6 +47,7 @@ public class LoginActivity extends AppCompatActivity {
             Usuario res = usuarioServices.getUsuario(email,senha);
             if (res != null){
                 SessaoUsuario.instance.setUsuario(res);
+                SessaoUsuario.instance.setLoginType(parceiroCheck.isChecked() ? TipoUsuario.PARCEIRO : TipoUsuario.NORMAL);
                 Toast.makeText(LoginActivity.this,"Login efetuado com sucesso", Toast.LENGTH_LONG).show();
                 Intent inicioIntent = new Intent(getApplicationContext(), MenuActivity.class);
                 startActivity(inicioIntent);
