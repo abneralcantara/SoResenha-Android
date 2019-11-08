@@ -13,9 +13,13 @@ import java.util.List;
 
 public class EventoServices {
     private EventoDAO eventoDAO;
+    private UsuarioServices usuarioServices;
+    private AvaliacaoServices avaliacaoServices;
 
     public EventoServices(Context context) {
         this.eventoDAO = new EventoDAO(context);
+        this.usuarioServices = new UsuarioServices(context);
+        this.avaliacaoServices = new AvaliacaoServices(context);
     }
 
     public Evento get(long eventId) {
@@ -46,7 +50,9 @@ public class EventoServices {
 
     public void deletar(Evento evento) throws SoresenhaAppException {
         if (SessaoUsuario.instance.isParceiro()) {
+            avaliacaoServices.deleteByEventoId(evento.getId());
             eventoDAO.deletar(evento);
+
         } else {
             throw new SoresenhaAppException("Não é parceiro");
         }
