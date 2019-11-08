@@ -1,9 +1,8 @@
 package com.ufrpe.bsi.soresenha.usuario.gui;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Patterns;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,6 +14,7 @@ import android.widget.Toast;
 import com.ufrpe.bsi.soresenha.R;
 import com.ufrpe.bsi.soresenha.infra.gui.ConfigurationActivity;
 import com.ufrpe.bsi.soresenha.infra.negocio.SessaoUsuario;
+import com.ufrpe.bsi.soresenha.usuario.dominio.TipoUsuario;
 import com.ufrpe.bsi.soresenha.usuario.dominio.Usuario;
 import com.ufrpe.bsi.soresenha.usuario.negocio.UsuarioServices;
 
@@ -47,27 +47,27 @@ public class EditUserActivity extends AppCompatActivity {
     }
 
     private void editaSalvaDados() {
-        Log.d("sara","0");
         if(validateFieldsUsuario()){
             Usuario userEditado = montarUsuario();
-            Log.d("sara","1,1");
-            if(usuarioServices.emailCadastrado(userEditado) == null){
-                Log.d("sara","2,1");
+            String emailOld = SessaoUsuario.instance.getUsuario().getEmail();
+            if(usuarioServices.emailCadastrado(userEditado) == null || emailOld.equals(userEditado.getEmail())){
                 usuarioServices.alterarDados(userEditado);
-                Log.d("sara","3");
                 atualizarIntent();
                 showToast("Os dados foram editados");
             } else{
-                showToast("já cadastrado");
+                showToast("Email já cadastrado");
             }
         }
     }
     private Usuario montarUsuario() {
-        Usuario usuarioEditado = new Usuario();
-        usuarioEditado.setNome(editNome.getText().toString());
-        usuarioEditado.setEmail(editEmail.getText().toString());
-        usuarioEditado.setSenha(editSenha.getText().toString());
-        usuarioEditado.setParceiro(isParceiro.isChecked() ? 1 : 0);
+        Usuario usuarioEditado = SessaoUsuario.instance.getUsuario();
+        String novoNome = editNome.getText().toString().isEmpty() ? usuarioEditado.getNome() : editNome.getText().toString();
+        String novoEmail = editEmail.getText().toString().isEmpty() ? usuarioEditado.getEmail() : editEmail.getText().toString();
+        String novaSenha = editSenha.getText().toString().isEmpty() ? usuarioEditado.getSenha() : editSenha.getText().toString();
+        usuarioEditado.setNome(novoNome);
+        usuarioEditado.setEmail(novoEmail);
+        usuarioEditado.setSenha(novaSenha);
+        usuarioEditado.setTipo(isParceiro.isChecked() ? TipoUsuario.PARCEIRO : TipoUsuario.NORMAL);
         return usuarioEditado;
     }
 
@@ -77,23 +77,21 @@ public class EditUserActivity extends AppCompatActivity {
         String senha = editSenha.getText().toString();
         resetError();
         boolean res = true;
-        View focusView = null;
+        res = validarCampos(nome, email, senha, res);
+        return res;
+    }
 
+    private boolean validarCampos(String nome, String email, String senha, boolean res) {
         if (!validarName(nome) ){
             editNome.setError("Nome inválido, não aceito caracteres especiais");
-            focusView = editNome;
             res = false;
         }
-        //valida tamanho minimo
         if(!validarLenght(senha) && !senha.isEmpty()) {
-            editSenha.setError("Senha inválida(menor que 5 caracteres");
-            focusView = editSenha;
+            editSenha.setError("Senha inválida (menor que 5 caracteres)");
             res = false;
         }
-        //valida email
         if(!validarEmail(email) && !email.isEmpty()){
             editEmail.setError("Email inválido");
-            focusView = editEmail;
             res = false;
         }
         return res;

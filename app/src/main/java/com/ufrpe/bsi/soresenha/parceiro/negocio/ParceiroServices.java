@@ -2,9 +2,7 @@ package com.ufrpe.bsi.soresenha.parceiro.negocio;
 
 import android.content.Context;
 
-import com.ufrpe.bsi.soresenha.parceiro.dominio.Parceiro;
 import com.ufrpe.bsi.soresenha.parceiro.persistencia.ParceiroDAO;
-import com.ufrpe.bsi.soresenha.usuario.dominio.Usuario;
 
 public class ParceiroServices {
     private ParceiroDAO parceiroDAO;

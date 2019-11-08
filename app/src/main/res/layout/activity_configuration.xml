@@ -6,6 +6,38 @@
     android:layout_height="match_parent"
     tools:context=".infra.gui.ConfigurationActivity">
 
+    <LinearLayout
+        android:layout_width="393dp"
+        android:layout_height="89dp"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="120dp"
+        android:layout_marginEnd="1dp"
+        android:clickable="true"
+        android:onClick="callLogout"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="match_parent"
+            android:layout_height="39dp"
+            android:text="Logout"
+            android:textAlignment="viewStart"
+            android:textColor="#C50909"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="1dp"
+            android:text="Finalizar sessão"
+            android:textSize="18sp" />
+    </LinearLayout>
+
     <TextView
         android:id="@+id/textView4"
         android:layout_width="283dp"
@@ -55,14 +87,15 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="393dp"
         android:layout_height="89dp"
         android:layout_marginStart="17dp"
         android:layout_marginTop="132dp"
         android:layout_marginEnd="1dp"
+        android:clickable="true"
         android:onClick="deleteUser"
         android:orientation="vertical"
-        android:clickable="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"

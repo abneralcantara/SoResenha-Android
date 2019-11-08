@@ -90,4 +90,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editSenha_login" />
 
+    <CheckBox
+        android:id="@+id/loginParceiroCheck"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Parceiro"
+        app:layout_constraintEnd_toEndOf="@+id/editSenha_login"
+        app:layout_constraintTop_toBottomOf="@+id/editSenha_login" />
+
 </android.support.constraint.ConstraintLayout>

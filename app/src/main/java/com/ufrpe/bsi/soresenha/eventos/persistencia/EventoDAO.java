@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.ufrpe.bsi.soresenha.eventos.dominio.Evento;
 import com.ufrpe.bsi.soresenha.infra.persistencia.DBHelper;
+import com.ufrpe.bsi.soresenha.usuario.dominio.Usuario;
+import com.ufrpe.bsi.soresenha.usuario.persistencia.UsuarioDAO;
 
 import java.math.BigDecimal;
 import java.text.ParseException;
@@ -16,16 +18,18 @@ import java.util.List;
 
 public class EventoDAO {
     private DBHelper dbHelper;
+    private UsuarioDAO usuarioDAO;
 
     public EventoDAO(Context context) {
         this.dbHelper = new DBHelper(context);
+        this.usuarioDAO = new UsuarioDAO(context);
     }
 
     public long cadastrar(Evento evento){
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(DBHelper.COLUNA_NOMEFESTA, evento.getNome());
-        values.put(DBHelper.COLUNA_CRIADORFESTA, evento.getIdCriador());
+        values.put(DBHelper.COLUNA_CRIADORFESTA, evento.getCriador().getId());
         values.put(DBHelper.COLUNA_PRECOFESTA, evento.getPreco().toString());
         values.put(DBHelper.COLUNA_DATAFESTA, DBHelper.dateTimeFormat.format(evento.getDate()));
         values.put(DBHelper.COLUNA_DESCRICAOFESTA, evento.getDescricao());
@@ -88,9 +92,9 @@ public class EventoDAO {
     private Evento createEvento(Cursor cursor) {
         Evento evento = new Evento();
         evento.setNome(cursor.getString(cursor.getColumnIndex(DBHelper.COLUNA_NOMEFESTA)));
-        evento.setId(cursor.getInt(cursor.getColumnIndex(DBHelper.COLUNA_IDFESTA)));
+        evento.setId(cursor.getLong(cursor.getColumnIndex(DBHelper.COLUNA_IDFESTA)));
         evento.setDescricao(cursor.getString(cursor.getColumnIndex(DBHelper.COLUNA_DESCRICAOFESTA)));
-        evento.setIdCriador(cursor.getInt(cursor.getColumnIndex(DBHelper.COLUNA_CRIADORFESTA)));
+        evento.setCriador(usuarioDAO.getByID(cursor.getLong(cursor.getColumnIndex(DBHelper.COLUNA_CRIADORFESTA))));
         evento.setPreco(new BigDecimal(cursor.getString(cursor.getColumnIndex(DBHelper.COLUNA_PRECOFESTA))));
         try {
             evento.setDate(DBHelper.dateTimeFormat.parse(cursor.getString(cursor.getColumnIndex(DBHelper.COLUNA_DATAFESTA))));
@@ -101,4 +105,16 @@ public class EventoDAO {
         return evento;
     }
 
+    public List<Usuario> getListParticipantes(Evento evento){
+        ArrayList<Usuario> listParticipantes = new ArrayList<>();
+        return listParticipantes;
+
+    }
+
+    public void deletarPorCriador(long id) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        String[] argumentos = {String.valueOf(id)};
+        db.delete(DBHelper.TABELA_FESTA, DBHelper.COLUNA_CRIADORFESTA + " =?", argumentos);
+        db.close();
+    }
 }

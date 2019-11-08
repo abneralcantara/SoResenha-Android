@@ -3,8 +3,9 @@ package com.ufrpe.bsi.soresenha.eventos.gui;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -15,7 +16,9 @@ import android.widget.Toast;
 import com.ufrpe.bsi.soresenha.R;
 import com.ufrpe.bsi.soresenha.eventos.dominio.Evento;
 import com.ufrpe.bsi.soresenha.eventos.negocio.EventoServices;
+import com.ufrpe.bsi.soresenha.infra.helper.BigDecimalUtil;
 import com.ufrpe.bsi.soresenha.infra.helper.MoneyTextMask;
+import com.ufrpe.bsi.soresenha.infra.negocio.SessaoUsuario;
 import com.ufrpe.bsi.soresenha.infra.negocio.SoresenhaAppException;
 
 import java.math.BigDecimal;
@@ -55,17 +58,15 @@ public class CriarEventoActivity extends AppCompatActivity {
                 String nome = editNome.getText().toString();
                 String descricao = editDesc.getText().toString();
                 String preco = editPreco.getText().toString();
-                String cleanString = preco.replaceAll("[R$,.]", "");
-                BigDecimal parsed = new BigDecimal(cleanString)
-                        .setScale(2, BigDecimal.ROUND_FLOOR)
-                        .divide(new BigDecimal(100), BigDecimal.ROUND_FLOOR);
+                BigDecimal parsed = BigDecimalUtil.fromBRLString(preco);
                 Evento evento = new Evento(nome, descricao, parsed, eventoDate.getTime());
+                evento.setCriador(SessaoUsuario.instance.getUsuario());
                 try {
                     eventoServices.criar(evento);
                 } catch (SoresenhaAppException e) {
-                    Toast.makeText(v.getContext(), "Você não tem permissão para alterar eventos", Toast.LENGTH_LONG).show();
-                    startActivity(new Intent(v.getContext(), ListaEventoActivity.class));
-                    e.printStackTrace();
+                    Toast.makeText(v.getContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+                    Log.e("UpdateEvento", e.getMessage());
+                    return;
                 }
                 Intent backMenu = new Intent(CriarEventoActivity.this, ListaEventoActivity.class);
                 backMenu.setFlags(backMenu.getFlags() | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -163,10 +164,7 @@ public class CriarEventoActivity extends AppCompatActivity {
             return false;
         }
         try {
-            String cleanString = preco.replaceAll("[R$,.]", "");
-            new BigDecimal(cleanString)
-                    .setScale(2, BigDecimal.ROUND_FLOOR)
-                    .divide(new BigDecimal(100), BigDecimal.ROUND_FLOOR);
+            BigDecimalUtil.fromBRLString(preco);
         } catch (Exception e) {
             editPreco.setError("Preço não é conversível em número");
             return false;
@@ -182,21 +180,14 @@ public class CriarEventoActivity extends AppCompatActivity {
         if (data.isEmpty()) {
             editDate.setError("Data não pode ser vazia");
             return false;
-        } else if (eventoDate.before(now)) {
-            editDate.setError("Esta data já passou");
-            return false;
         }
         return true;
     }
 
     private boolean validarHora() {
         String hora = editHora.getText().toString();
-        Calendar now = Calendar.getInstance();
         if (hora.isEmpty()) {
             editHora.setError("Hora não pode ser vazia");
-            return false;
-        } else if (eventoDate.before(now)) {
-            editHora.setError("Esta hora já passou");
             return false;
         }
         return true;

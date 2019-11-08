@@ -51,7 +51,8 @@ public class RecyclingAdapterFesta extends RecyclerView.Adapter<RecyclingAdapter
     }
 
     private void setOptionButtonListeners(@NonNull final RecyViewHolder holder, final int position) {
-        if (SessaoUsuario.instance.isParceiro()) {
+        if (SessaoUsuario.instance.isParceiro()
+                && SessaoUsuario.instance.getUsuario().getId() == opcoesEventos.get(position).getCriador().getId()) {
             holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
@@ -129,6 +130,4 @@ public class RecyclingAdapterFesta extends RecyclerView.Adapter<RecyclingAdapter
 
         }
     }
-
-
 }

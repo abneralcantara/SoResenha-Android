@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.ufrpe.bsi.soresenha.R;
+import com.ufrpe.bsi.soresenha.usuario.dominio.TipoUsuario;
 import com.ufrpe.bsi.soresenha.usuario.dominio.Usuario;
 import com.ufrpe.bsi.soresenha.usuario.negocio.UsuarioServices;
 
@@ -65,46 +66,36 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private boolean validarSenha(String senha, String confSenha) {
-        View focusView;
         if (senha.isEmpty()) {
             editSenha.setError("O Campo esta vazio");
-            focusView = editSenha;
             return false;
         } else if (!validarSenha(senha)) {
             editSenha.setError("Senha inválida");
-            focusView = editSenha;
             return false;
         } else if (!validarSenhaIguais(senha, confSenha)) {
             editSenha.setError("Senhas devem ser iguais");
-            focusView = editSenha;
             return false;
         }
         return true;
     }
 
     private boolean validarEmailExiste(String email) {
-        View focusView;
         if (email.isEmpty()) {
             editEmail.setError("O Campo esta vazio");
-            focusView = editEmail;
             return false;
         } else if (!validarEmail(email)) {
             editEmail.setError("Email inválido");
-            focusView = editEmail;
             return false;
         }
         return true;
     }
 
     private boolean validarNomeExiste(String nome) {
-        View focusView;
         if (nome.isEmpty()) {
             editNome.setError("O campo esta vazio!");
-            focusView = editNome;
             return false;
         } else if (!validarNome(nome)) {
             editNome.setError("Nome inválido, não aceito caracteres especiais");
-            focusView = editNome;
             return false;
         }
         return true;
@@ -122,7 +113,7 @@ public class RegisterActivity extends AppCompatActivity {
         String email = editEmail.getText().toString();
         String senha = editSenha.getText().toString();
         String confSenha = editConfSenha.getText().toString();
-        Integer isparceiro = validarparceiro();
+        TipoUsuario isparceiro = validarparceiro();
         if (validarCampos()) {
             Usuario usuario = new Usuario(nome, email, senha, isparceiro);
             if (usuarioServices.checarEmail(email)) {
@@ -136,9 +127,9 @@ public class RegisterActivity extends AppCompatActivity {
         }
     }
 
-    private Integer validarparceiro() {
-        if (checkParceiro.isChecked()) {return 1;}
-        return 0;
+    private TipoUsuario validarparceiro() {
+        if (checkParceiro.isChecked()) {return TipoUsuario.PARCEIRO;}
+        return TipoUsuario.NORMAL;
     }
 
     private void callloginIntent() {

@@ -1,5 +1,6 @@
 package com.ufrpe.bsi.soresenha.infra.negocio;
 
+import com.ufrpe.bsi.soresenha.usuario.dominio.TipoUsuario;
 import com.ufrpe.bsi.soresenha.usuario.dominio.Usuario;
 
 import java.util.HashMap;
@@ -12,6 +13,8 @@ public class SessaoUsuario {
 
     public Usuario getUsuario(){return (Usuario) values.get("sessao.Usuario");}
     public void setUsuario(Usuario usuario){setValue("sessao.Usuario", usuario);}
+    public void setLoginType(TipoUsuario type) {setValue("login", type);}
+    public TipoUsuario getLoginType() {return (TipoUsuario) values.get("login");}
 
 
     @SuppressWarnings("WeakerAccess")
@@ -24,7 +27,8 @@ public class SessaoUsuario {
     }
 
     public boolean isParceiro() {
-        return !getUsuario().equals(null) && getUsuario().getParceiro() > 0;
+        return !getUsuario().equals(null)
+                && getUsuario().getTipo().equals(TipoUsuario.PARCEIRO)
+                && getLoginType().equals(TipoUsuario.PARCEIRO);
     }
 }
-

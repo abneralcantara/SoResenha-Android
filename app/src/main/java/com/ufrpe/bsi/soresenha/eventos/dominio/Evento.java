@@ -1,5 +1,7 @@
 package com.ufrpe.bsi.soresenha.eventos.dominio;
 
+import com.ufrpe.bsi.soresenha.usuario.dominio.Usuario;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -9,16 +11,10 @@ public class Evento {
     private String nome;
     private String descricao;
     private BigDecimal preco;
-    private int idCriador;
+    private Usuario criador;
     private Date date;
 
     public Evento(){}
-
-    public Evento(String nome, String descricao, int idCriador){
-        this.nome = nome;
-        this.descricao = descricao;
-        this.idCriador = idCriador;
-    }
 
     public Evento(String nome, String descricao, BigDecimal preco){
         this.nome = nome;
@@ -88,11 +84,11 @@ public class Evento {
         this.id = id;
     }
 
-    public int getIdCriador() {
-        return idCriador;
+    public Usuario getCriador() {
+        return criador;
     }
 
-    public void setIdCriador(int idCriador) {
-        this.idCriador = idCriador;
+    public void setCriador(Usuario criador) {
+        this.criador = criador;
     }
 }
