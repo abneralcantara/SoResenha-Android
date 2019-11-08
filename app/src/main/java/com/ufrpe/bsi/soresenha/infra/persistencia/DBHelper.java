@@ -10,7 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class DBHelper extends SQLiteOpenHelper {
-    public static final int VERSAO_BANCO = 29;
+    public static final int VERSAO_BANCO = 31;
     public static final String NOME_BANCO = "SORESENHA_BD";
     public static final SimpleDateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy kk:mm");
 
@@ -30,6 +30,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String COLUNA_CRIADORFESTA = "CRIADOR_ID";
 
     public static final String TABELA_AVALIACOES = "TB_AVALIACOES";
+    public static final String COLUNA_IDAVALIACOES = "ID_AVALIACOES";
     public static final String COLUNA_IDEVENTOAVALIACOES = "IDEVENTO_AVALIACOES";
     public static final String COLUNA_IDUSERAVALIACOES = "IDUSER_AVALIACOES";
     public static final String COLUNA_LIKE = "LIKE_AVALIACOES";
@@ -63,9 +64,10 @@ public class DBHelper extends SQLiteOpenHelper {
 
     private void criarTabelaAvaliacoes(SQLiteDatabase db) {
         String QUERY_COLUNAAVALIACOES = "CREATE TABLE " + TABELA_AVALIACOES + "("
-                + DBHelper.COLUNA_IDUSERAVALIACOES + " TEXT, "
-                + DBHelper.COLUNA_IDEVENTOAVALIACOES + " TEXT, "
-                + DBHelper.COLUNA_LIKE + " TEXT)";
+                + COLUNA_IDAVALIACOES + " INTEGER PRIMARY KEY, "
+                + COLUNA_IDUSERAVALIACOES + " INTEGER, "
+                + COLUNA_IDEVENTOAVALIACOES + " INTEGER, "
+                + COLUNA_LIKE + " TEXT)";
         db.execSQL(QUERY_COLUNAAVALIACOES);
 
     }
@@ -83,11 +85,11 @@ public class DBHelper extends SQLiteOpenHelper {
 
     private void criarTabelaUsuario(SQLiteDatabase db) {
         String QUERY_COLUNAUSUARIO = "CREATE TABLE " + DBHelper.TABELA_USUARIO + "("
-                + DBHelper.COLUNA_ID + " INTEGER PRIMARY KEY, "
-                + DBHelper.COLUNA_TIPO + " TEXT, "
-                + DBHelper.COLUNA_NOME + " TEXT, "
-                + DBHelper.COLUNA_EMAIL + " TEXT,"
-                + DBHelper.COLUNA_SENHA + " TEXT)";
+                + COLUNA_ID + " INTEGER PRIMARY KEY, "
+                + COLUNA_TIPO + " TEXT, "
+                + COLUNA_NOME + " TEXT, "
+                + COLUNA_EMAIL + " TEXT,"
+                + COLUNA_SENHA + " TEXT)";
         db.execSQL(QUERY_COLUNAUSUARIO);
     }
 

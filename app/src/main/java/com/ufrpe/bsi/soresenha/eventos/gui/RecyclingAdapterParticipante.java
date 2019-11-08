@@ -1,6 +1,5 @@
 package com.ufrpe.bsi.soresenha.eventos.gui;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,11 +10,13 @@ import android.widget.TextView;
 import com.ufrpe.bsi.soresenha.R;
 import com.ufrpe.bsi.soresenha.eventos.dominio.Avaliacao;
 import com.ufrpe.bsi.soresenha.usuario.dominio.Usuario;
+import com.ufrpe.bsi.soresenha.usuario.negocio.UsuarioServices;
 
 import java.util.List;
 
 public class RecyclingAdapterParticipante extends RecyclerView.Adapter<RecyclingAdapterParticipante.RecyViewHolder> {
     private List<Avaliacao> opcoesUsuarios;
+    private UsuarioServices usuarioServices;
 
 
     public RecyclingAdapterParticipante(List<Avaliacao> opcoesUsuarios) {
@@ -27,12 +28,14 @@ public class RecyclingAdapterParticipante extends RecyclerView.Adapter<Recycling
     @Override
     public RecyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.recycling_participantes_card, viewGroup, false);
+        this.usuarioServices = new UsuarioServices(view.getContext());
         return new RecyViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyViewHolder holder, int position) {
-        holder.titlePartipante.setText(opcoesUsuarios.get(position).getIdUser());
+        Usuario usuario = usuarioServices.getByID(opcoesUsuarios.get(position).getIdUser());
+        holder.titlePartipante.setText(usuario.getNome());
     }
 
     @Override

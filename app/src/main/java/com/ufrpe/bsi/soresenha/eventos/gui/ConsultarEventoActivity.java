@@ -16,13 +16,11 @@ import com.ufrpe.bsi.soresenha.eventos.dominio.Evento;
 import com.ufrpe.bsi.soresenha.eventos.dominio.TipoAvaliacao;
 import com.ufrpe.bsi.soresenha.eventos.negocio.AvaliacaoServices;
 import com.ufrpe.bsi.soresenha.eventos.negocio.EventoServices;
-import com.ufrpe.bsi.soresenha.infra.gui.MenuActivity;
 import com.ufrpe.bsi.soresenha.infra.negocio.SessaoUsuario;
 import com.ufrpe.bsi.soresenha.usuario.dominio.Usuario;
 
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
-import java.util.List;
 import java.util.Locale;
 
 public class ConsultarEventoActivity extends AppCompatActivity {
@@ -37,18 +35,10 @@ public class ConsultarEventoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_consultar_festa);
         configurarTela(intent);
-        getListParticipantes(getEventoId(intent));
         RecyclerView recyclerView = findViewById(R.id.participantesFesta);
         setupRecyclerView(recyclerView, intent);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        Button btnIrfesta = (Button) findViewById(R.id.btnIrfesta);
-        btnIrfesta.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                avaliacaoServices.criar(new Avaliacao(String.valueOf(SessaoUsuario.instance.getUsuario().getId()), String.valueOf(getEventoId(intent)) , TipoAvaliacao.NAOLIKE));
-            }
-        });
     }
     private void setupRecyclerView(RecyclerView recyclerView, Intent intent) {
         RecyclerView.LayoutManager linearLayoutManager = new LinearLayoutManager(this);
@@ -56,31 +46,65 @@ public class ConsultarEventoActivity extends AppCompatActivity {
         recyclerView.setAdapter(new RecyclingAdapterParticipante(avaliacaoServices.list(getEventoId(intent))));
     }
 
-    private List<Usuario> getListParticipantes(Evento evento) {
-        EventoServices eventoServices = new EventoServices(this);
-        return eventoServices.listParticipantes(evento);
-    }
-
-
     private void configurarTela(Intent intent) {
         final Evento eventoOld = getEventoId(intent);
         TextView precoFesta = findViewById(R.id.precoFesta);
         TextView nomeFesta = findViewById(R.id.nomeFesta);
         TextView descricaoFesta = findViewById(R.id.descricaoFesta);
         TextView dataFesta = findViewById(R.id.dataFesta);
+        TextView likes = findViewById(R.id.qntLikes);
+        int qtdLikes = avaliacaoServices.countLikes(eventoOld);
+        likes.setText(qtdLikes + " likes");
         nomeFesta.setText(eventoOld.getNome());
         descricaoFesta.setText(eventoOld.getDescricao());
         NumberFormat realFormat = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
         String formatted = realFormat.format(eventoOld.getPreco());
         precoFesta.setText(formatted);
         dataFesta.setText(dateFormat.format(eventoOld.getDate()));
+        criarListeners(eventoOld);
+    }
+
+    private void criarListeners(final Evento eventoOld) {
+        Button btnIrfesta = (Button) findViewById(R.id.btnIrfesta);
+        btnIrfesta.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!avaliacaoServices.existePresenca(SessaoUsuario.instance.getUsuario(), eventoOld)) {
+                    criarEvento(eventoOld);
+                    reloadView();
+                }
+            }
+        });
+        Button btnLike = (Button) findViewById(R.id.btnDarlike);
+        btnLike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (avaliacaoServices.existePresenca(SessaoUsuario.instance.getUsuario(), eventoOld)) {
+                    likeEvent(eventoOld, SessaoUsuario.instance.getUsuario());
+                    reloadView();
+                }
+            }
+        });
+    }
+
+    private void likeEvent(Evento evento, Usuario usuario) {
+        Avaliacao avaliacao = avaliacaoServices.get(usuario.getId(), evento.getId());
+        avaliacao.setTipoAvaliacao(TipoAvaliacao.LIKE);
+        avaliacaoServices.update(avaliacao);
+    }
+
+    private void criarEvento(Evento eventoOld) {
+        Avaliacao avaliacao = new Avaliacao();
+        avaliacao.setIdEvento(eventoOld.getId());
+        avaliacao.setIdUser(SessaoUsuario.instance.getUsuario().getId());
+        avaliacao.setTipoAvaliacao(TipoAvaliacao.NAOLIKE);
+        avaliacaoServices.criar(avaliacao);
     }
 
     private Evento getEventoId(Intent intent) {
         Bundle extras = intent.getExtras();
         return eventoServices.get(extras.getLong("EventId"));
     }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -91,5 +115,11 @@ public class ConsultarEventoActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void reloadView() {
+        finish();
+        startActivity(getIntent());
+        this.overridePendingTransition(0, 0);
     }
 }

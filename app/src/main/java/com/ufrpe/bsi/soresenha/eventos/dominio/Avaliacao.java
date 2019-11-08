@@ -1,31 +1,32 @@
 package com.ufrpe.bsi.soresenha.eventos.dominio;
 
 public class Avaliacao {
-    public String idUser;
-    public String idEvento;
+    public long id;
+    public long idUser;
+    public long idEvento;
     public TipoAvaliacao tipoAvaliacao;
 
     public Avaliacao(){}
 
-    public Avaliacao(String idUser, String idEvento, TipoAvaliacao tipoAvaliacao){
+    public Avaliacao(long idUser, long idEvento, TipoAvaliacao tipoAvaliacao){
         this.idUser = idUser;
         this.idEvento = idEvento;
         this.tipoAvaliacao = tipoAvaliacao;
     }
 
-    public String getIdUser() {
+    public long getIdUser() {
         return idUser;
     }
 
-    public void setIdUser(String idUser) {
+    public void setIdUser(long idUser) {
         this.idUser = idUser;
     }
 
-    public String getIdEvento() {
+    public long getIdEvento() {
         return idEvento;
     }
 
-    public void setIdEvento(String idEvento) {
+    public void setIdEvento(long idEvento) {
         this.idEvento = idEvento;
     }
 
@@ -37,5 +38,11 @@ public class Avaliacao {
         this.tipoAvaliacao = tipoAvaliacao;
     }
 
+    public long getId() {
+        return id;
+    }
 
+    public void setId(long id) {
+        this.id = id;
+    }
 }
