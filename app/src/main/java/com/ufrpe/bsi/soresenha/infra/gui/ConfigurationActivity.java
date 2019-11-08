@@ -35,6 +35,13 @@ public class ConfigurationActivity extends AppCompatActivity {
         startActivity(newLogsIntent);
     }
 
+    public void callLogout(View view) {
+        SessaoUsuario.instance.reset();
+        Intent goToLogin = new Intent(ConfigurationActivity.this, LoginActivity.class);
+        goToLogin.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(goToLogin);
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

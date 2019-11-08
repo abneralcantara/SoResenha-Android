@@ -13,7 +13,7 @@
         android:layout_marginTop="120dp"
         android:layout_marginEnd="1dp"
         android:clickable="true"
-        android:onClick="deleteUser"
+        android:onClick="callLogout"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -21,7 +21,7 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
         <TextView
-            android:id="@+id/textView9"
+            android:id="@+id/textView12"
             android:layout_width="match_parent"
             android:layout_height="39dp"
             android:text="Logout"
@@ -30,7 +30,7 @@
             android:textSize="24sp" />
 
         <TextView
-            android:id="@+id/textView8"
+            android:id="@+id/textView11"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="1dp"
