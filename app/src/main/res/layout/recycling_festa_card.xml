@@ -4,10 +4,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/opca0"
     android:layout_width="match_parent"
-    android:layout_height="100dp"
+    android:layout_height="240dp"
     android:layout_marginBottom="2dp"
     android:background="#0E7A7A7A"
     android:padding="0dp">
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="0dp"
+        android:layout_height="147dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@mipmap/imagecvjas"
+        tools:srcCompat="@tools:sample/backgrounds/scenic[0]" />
 
     <View
         android:id="@+id/listPopupAnchor"
@@ -20,24 +34,24 @@
         android:id="@+id/eventTitle"
         android:layout_width="237dp"
         android:layout_height="34dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="8dp"
         android:textColor="#000000"
         android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/imageView3"
+        app:layout_constraintTop_toBottomOf="@+id/imageView3"
         tools:text="Nome festa" />
 
     <TextView
         android:id="@+id/eventDescription"
         android:layout_width="278dp"
         android:layout_height="31dp"
-        android:layout_marginStart="20dp"
+        android:layout_marginBottom="8dp"
         android:text="descricao festa"
         android:textColor="#090909"
         android:textColorLink="#00FFFFFF"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/eventTitle"
         app:layout_constraintTop_toBottomOf="@+id/eventTitle" />
 
 </android.support.constraint.ConstraintLayout>

@@ -1,4 +1,4 @@
-package com.ufrpe.bsi.soresenha.eventos.dominio;
+package com.ufrpe.bsi.soresenha.avaliacao.dominio;
 
 public enum TipoAvaliacao {
     NAOLIKE,

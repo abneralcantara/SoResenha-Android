@@ -43,7 +43,7 @@ public class ListaEventoActivity extends AppCompatActivity {
             newFesta.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent insertIntent = new Intent(ListaEventoActivity.this, CriarEventoActivity.class);
+                    Intent insertIntent = new Intent(ListaEventoActivity.this, SalvarEventoActivity.class);
                     insertIntent.setFlags(insertIntent.getFlags() | Intent.FLAG_ACTIVITY_NO_HISTORY);
                     startActivity(insertIntent);
                 }
@@ -57,10 +57,9 @@ public class ListaEventoActivity extends AppCompatActivity {
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                startActivity(new Intent(this, MenuActivity.class));
-                return true;
+        if (item.getItemId() == android.R.id.home) {
+            startActivity(new Intent(this, MenuActivity.class));
+            return true;
         }
 
         return super.onOptionsItemSelected(item);

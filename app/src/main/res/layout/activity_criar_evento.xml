@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="2dp"
-    tools:context=".eventos.gui.CriarEventoActivity">
+    tools:context=".eventos.gui.SalvarEventoActivity">
 
     <TextView
         android:id="@+id/textView6"
@@ -13,7 +13,7 @@
         android:layout_height="51dp"
         android:layout_marginTop="40dp"
         android:fontFamily="cursive"
-        android:text="Criar evento"
+        android:text="Salvar Evento"
         android:textAlignment="center"
         android:textSize="42sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -69,7 +69,7 @@
         android:layout_height="71dp"
         android:layout_marginTop="24dp"
         android:background="@drawable/buttonroundpurple"
-        android:text="Criar Evento"
+        android:text="Salvar Evento"
         android:textColor="#FFFFFF"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"

@@ -11,10 +11,10 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.ufrpe.bsi.soresenha.R;
-import com.ufrpe.bsi.soresenha.eventos.dominio.Avaliacao;
+import com.ufrpe.bsi.soresenha.avaliacao.dominio.Avaliacao;
+import com.ufrpe.bsi.soresenha.avaliacao.dominio.TipoAvaliacao;
+import com.ufrpe.bsi.soresenha.avaliacao.negocio.AvaliacaoServices;
 import com.ufrpe.bsi.soresenha.eventos.dominio.Evento;
-import com.ufrpe.bsi.soresenha.eventos.dominio.TipoAvaliacao;
-import com.ufrpe.bsi.soresenha.eventos.negocio.AvaliacaoServices;
 import com.ufrpe.bsi.soresenha.eventos.negocio.EventoServices;
 import com.ufrpe.bsi.soresenha.infra.negocio.SessaoUsuario;
 import com.ufrpe.bsi.soresenha.usuario.dominio.Usuario;
@@ -70,9 +70,13 @@ public class ConsultarEventoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (!avaliacaoServices.existePresenca(SessaoUsuario.instance.getUsuario(), eventoOld)) {
-                    criarEvento(eventoOld);
-                    reloadView();
+                    Avaliacao avaliacao = criarEvento(eventoOld);
+                    RecyclerView recyclerView = findViewById(R.id.participantesFesta);
+                    RecyclingAdapterParticipante adapter = (RecyclingAdapterParticipante) recyclerView.getAdapter();
+                    adapter.getItems().add(avaliacao);
+                    adapter.notifyDataSetChanged();
                 }
+                return;
             }
         });
         Button btnLike = (Button) findViewById(R.id.btnDarlike);
@@ -81,7 +85,8 @@ public class ConsultarEventoActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (avaliacaoServices.existePresenca(SessaoUsuario.instance.getUsuario(), eventoOld)) {
                     likeEvent(eventoOld, SessaoUsuario.instance.getUsuario());
-                    reloadView();
+                    TextView likes = findViewById(R.id.qntLikes);
+                    likes.setText(avaliacaoServices.countLikes(eventoOld) + " likes");
                 }
             }
         });
@@ -93,12 +98,13 @@ public class ConsultarEventoActivity extends AppCompatActivity {
         avaliacaoServices.update(avaliacao);
     }
 
-    private void criarEvento(Evento eventoOld) {
+    private Avaliacao criarEvento(Evento eventoOld) {
         Avaliacao avaliacao = new Avaliacao();
-        avaliacao.setIdEvento(eventoOld.getId());
-        avaliacao.setIdUser(SessaoUsuario.instance.getUsuario().getId());
+        avaliacao.setEvento(eventoOld);
+        avaliacao.setUsuario(SessaoUsuario.instance.getUsuario());
         avaliacao.setTipoAvaliacao(TipoAvaliacao.NAOLIKE);
         avaliacaoServices.criar(avaliacao);
+        return avaliacao;
     }
 
     private Evento getEventoId(Intent intent) {
@@ -108,18 +114,7 @@ public class ConsultarEventoActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                startActivity(new Intent(this, ListaEventoActivity.class));
-                return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    private void reloadView() {
-        finish();
-        startActivity(getIntent());
-        this.overridePendingTransition(0, 0);
+        startActivity(new Intent(this, ListaEventoActivity.class));
+        return true;
     }
 }

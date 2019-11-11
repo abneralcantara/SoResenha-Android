@@ -107,7 +107,7 @@ public class RecyclingAdapterFesta extends RecyclerView.Adapter<RecyclingAdapter
     }
 
     private void moveToEdit(int position) {
-        Intent editIntent = new Intent(context, EditarEventoActivity.class);
+        Intent editIntent = new Intent(context, SalvarEventoActivity.class);
         editIntent.setFlags(editIntent.getFlags() | Intent.FLAG_ACTIVITY_NO_HISTORY);
         Evento evento = opcoesEventos.get(position);
         editIntent.putExtra("EventId", evento.getId());

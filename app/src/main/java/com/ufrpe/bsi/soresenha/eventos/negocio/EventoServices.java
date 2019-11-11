@@ -2,6 +2,7 @@ package com.ufrpe.bsi.soresenha.eventos.negocio;
 
 import android.content.Context;
 
+import com.ufrpe.bsi.soresenha.avaliacao.negocio.AvaliacaoServices;
 import com.ufrpe.bsi.soresenha.eventos.dominio.Evento;
 import com.ufrpe.bsi.soresenha.eventos.persistencia.EventoDAO;
 import com.ufrpe.bsi.soresenha.infra.negocio.SessaoUsuario;
@@ -13,12 +14,10 @@ import java.util.List;
 
 public class EventoServices {
     private EventoDAO eventoDAO;
-    private UsuarioServices usuarioServices;
     private AvaliacaoServices avaliacaoServices;
 
     public EventoServices(Context context) {
         this.eventoDAO = new EventoDAO(context);
-        this.usuarioServices = new UsuarioServices(context);
         this.avaliacaoServices = new AvaliacaoServices(context);
     }
 

@@ -10,13 +10,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".usuario.gui.EditUserActivity"></activity>
-        <activity android:name=".eventos.gui.CriarEventoActivity" />
+        <activity android:name=".eventos.gui.SalvarEventoActivity" />
         <activity
             android:name=".eventos.gui.ListaEventoActivity"
             android:launchMode="singleTop" />
         <activity android:name=".eventos.gui.ConsultarEventoActivity" />
-        <activity android:name=".eventos.gui.EditarEventoActivity" />
         <activity android:name=".infra.gui.ConfigurationActivity" />
         <activity android:name=".infra.gui.MenuActivity" />
         <activity android:name=".usuario.gui.RegisterActivity" />

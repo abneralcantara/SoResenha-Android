@@ -22,10 +22,12 @@ import com.ufrpe.bsi.soresenha.infra.negocio.SessaoUsuario;
 import com.ufrpe.bsi.soresenha.infra.negocio.SoresenhaAppException;
 
 import java.math.BigDecimal;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Locale;
 
-public class CriarEventoActivity extends AppCompatActivity {
+public class SalvarEventoActivity extends AppCompatActivity {
 
     private EditText editNome;
     private EditText editDesc;
@@ -48,6 +50,29 @@ public class CriarEventoActivity extends AppCompatActivity {
         editHora = findViewById(R.id.horaFestaEdit);
         Button criarBtn = findViewById(R.id.criarFestabutton);
         criarListeners(criarBtn);
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
+        if (extras != null) {
+            long id = extras.getLong("EventId");
+            final Evento eventoOld = eventoServices.get(id);
+            preencherValores(eventoOld);
+        }
+    }
+
+    private void preencherValores(Evento eventoOld) {
+        eventoDate.setTime(eventoOld.getDate());
+        editNome = findViewById(R.id.nomeFestaedit);
+        editDesc = findViewById(R.id.descFestaEdit);
+        editPreco = findViewById(R.id.precoFestaedit);
+        editDate = findViewById(R.id.dataFestaEdit);
+        editHora = findViewById(R.id.horaFestaEdit);
+        editNome.setText(eventoOld.getNome());
+        editDesc.setText(eventoOld.getDescricao());
+        NumberFormat realFormat = NumberFormat.getCurrencyInstance(new Locale( "pt", "BR" ));
+        String formatted = realFormat.format(eventoOld.getPreco());
+        editPreco.setText(formatted);
+        editDate.setText(dateFormat.format(eventoDate.getTime()));
+        editHora.setText(horaFormat.format(eventoDate.getTime()));
     }
 
     private void criarListeners(Button criarBtn) {
@@ -62,13 +87,18 @@ public class CriarEventoActivity extends AppCompatActivity {
                 Evento evento = new Evento(nome, descricao, parsed, eventoDate.getTime());
                 evento.setCriador(SessaoUsuario.instance.getUsuario());
                 try {
-                    eventoServices.criar(evento);
+                    if (getIntent().getExtras() != null) {
+                        evento.setId(getIntent().getExtras().getLong("EventId"));
+                        eventoServices.update(evento);
+                    } else {
+                        eventoServices.criar(evento);
+                    }
                 } catch (SoresenhaAppException e) {
                     Toast.makeText(v.getContext(), e.getMessage(), Toast.LENGTH_LONG).show();
                     Log.e("UpdateEvento", e.getMessage());
                     return;
                 }
-                Intent backMenu = new Intent(CriarEventoActivity.this, ListaEventoActivity.class);
+                Intent backMenu = new Intent(SalvarEventoActivity.this, ListaEventoActivity.class);
                 backMenu.setFlags(backMenu.getFlags() | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(backMenu);
             }
