@@ -4,13 +4,12 @@ package com.ufrpe.bsi.soresenha.infra.persistencia;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.text.SimpleDateFormat;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class DBHelper extends SQLiteOpenHelper {
-    public static final int VERSAO_BANCO = 31;
+    public static final int VERSAO_BANCO = 32;
     public static final String NOME_BANCO = "SORESENHA_BD";
     public static final SimpleDateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy kk:mm");
 
@@ -35,12 +34,16 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String COLUNA_IDUSERAVALIACOES = "IDUSER_AVALIACOES";
     public static final String COLUNA_LIKE = "LIKE_AVALIACOES";
 
-    private Logger logger = Logger.getGlobal();
+    public static final String TABLE_IMAGEMEVENTO = "TB_IMAGEMEVENTO";
+    public static final String COLUNA_IDIMAGEMEVENTO = "IDIMAGEMEVENTO";
+    public static final String COLUNA_IDEVENTO = "IDEVENTO";
+    public static final String COLUNA_IMAGEM = "IMAGEM";
 
     private static final String[] TABELAS = {
             TABELA_USUARIO,
             TABELA_FESTA,
-            TABELA_AVALIACOES
+            TABELA_AVALIACOES,
+            TABLE_IMAGEMEVENTO
     };
 
     public DBHelper(Context context) {
@@ -52,12 +55,12 @@ public class DBHelper extends SQLiteOpenHelper {
         criarTabelaUsuario(db);
         criarTabelaFesta(db);
         criarTabelaAvaliacoes(db);
-
+        criarTabelaImagemEvento(db);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        logger.log(Level.INFO, "Upgrading DB from "+oldVersion+" to " +newVersion);
+        Log.i("DB Upgrade", "Upgrading DB from "+oldVersion+" to " +newVersion);
         dropTables(db);
         onCreate(db);
     }
@@ -67,9 +70,11 @@ public class DBHelper extends SQLiteOpenHelper {
                 + COLUNA_IDAVALIACOES + " INTEGER PRIMARY KEY, "
                 + COLUNA_IDUSERAVALIACOES + " INTEGER, "
                 + COLUNA_IDEVENTOAVALIACOES + " INTEGER, "
-                + COLUNA_LIKE + " TEXT)";
+                + COLUNA_LIKE + " TEXT, "
+                + "FOREIGN KEY(" + COLUNA_IDUSERAVALIACOES + ") REFERENCES "+ TABELA_USUARIO +"("+ COLUNA_ID +"), "
+                + "FOREIGN KEY(" + COLUNA_IDEVENTOAVALIACOES + ") REFERENCES "+ TABELA_FESTA +"("+ COLUNA_IDFESTA +") "
+                + ")";
         db.execSQL(QUERY_COLUNAAVALIACOES);
-
     }
 
     private void criarTabelaFesta(SQLiteDatabase db) {
@@ -84,13 +89,23 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     private void criarTabelaUsuario(SQLiteDatabase db) {
-        String QUERY_COLUNAUSUARIO = "CREATE TABLE " + DBHelper.TABELA_USUARIO + "("
+        String QUERY_COLUNAUSUARIO = "CREATE TABLE " + TABELA_USUARIO + "("
                 + COLUNA_ID + " INTEGER PRIMARY KEY, "
                 + COLUNA_TIPO + " TEXT, "
                 + COLUNA_NOME + " TEXT, "
                 + COLUNA_EMAIL + " TEXT,"
                 + COLUNA_SENHA + " TEXT)";
         db.execSQL(QUERY_COLUNAUSUARIO);
+    }
+
+    private void criarTabelaImagemEvento(SQLiteDatabase db) {
+        String QUERY_TABELAIMAGEM = "CREATE TABLE " + TABLE_IMAGEMEVENTO + "("
+                + COLUNA_IDIMAGEMEVENTO + " INTEGER PRIMARY KEY, "
+                + COLUNA_IDEVENTO + " INTEGER, "
+                + COLUNA_IMAGEM + " BLOB, "
+                + "FOREIGN KEY(" + COLUNA_IDEVENTO + ") REFERENCES "+ TABELA_FESTA +"("+ COLUNA_IDFESTA +") "
+                + ")";
+        db.execSQL(QUERY_TABELAIMAGEM);
     }
 
     private void dropTables(SQLiteDatabase db) {

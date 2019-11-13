@@ -44,7 +44,6 @@ public class ListaEventoActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     Intent insertIntent = new Intent(ListaEventoActivity.this, SalvarEventoActivity.class);
-                    insertIntent.setFlags(insertIntent.getFlags() | Intent.FLAG_ACTIVITY_NO_HISTORY);
                     startActivity(insertIntent);
                 }
             });
