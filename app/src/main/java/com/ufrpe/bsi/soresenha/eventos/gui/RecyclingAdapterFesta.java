@@ -51,6 +51,8 @@ public class RecyclingAdapterFesta extends RecyclerView.Adapter<RecyclingAdapter
         holder.descFesta.setText(formatted);
         if (!evento.getImagens().isEmpty()) {
             holder.mainImageEvento.setImageBitmap(evento.getImagens().get(0).getImagem());
+        } else {
+            holder.mainImageEvento.setImageResource(R.mipmap.imagecvjas);
         }
         setOptionButtonListeners(holder, position);
     }
