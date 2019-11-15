@@ -16,6 +16,7 @@ import com.ufrpe.bsi.soresenha.avaliacao.dominio.TipoAvaliacao;
 import com.ufrpe.bsi.soresenha.avaliacao.negocio.AvaliacaoServices;
 import com.ufrpe.bsi.soresenha.eventos.dominio.Evento;
 import com.ufrpe.bsi.soresenha.eventos.negocio.EventoServices;
+import com.ufrpe.bsi.soresenha.eventos.persistencia.ImagensDAO;
 import com.ufrpe.bsi.soresenha.infra.negocio.SessaoUsuario;
 import com.ufrpe.bsi.soresenha.usuario.dominio.Usuario;
 
@@ -28,6 +29,7 @@ public class ConsultarEventoActivity extends AppCompatActivity {
     private EventoServices eventoServices = new EventoServices(this);
     private AvaliacaoServices avaliacaoServices = new AvaliacaoServices(this);
     private SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy kk:mm");
+    private ImagensDAO imagensDAO = new ImagensDAO(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,14 +38,23 @@ public class ConsultarEventoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_consultar_festa);
         configurarTela(intent);
         RecyclerView recyclerView = findViewById(R.id.participantesFesta);
+        RecyclerView recyclerViewFotos = findViewById(R.id.fotosFesta);
+        setupRecyclerFotos(recyclerViewFotos, intent);
         setupRecyclerView(recyclerView, intent);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
     }
+
     private void setupRecyclerView(RecyclerView recyclerView, Intent intent) {
         RecyclerView.LayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setAdapter(new RecyclingAdapterParticipante(avaliacaoServices.list(getEventoId(intent))));
+        recyclerView.setAdapter(new RecyclingAdapterParticipanteFotos(avaliacaoServices.list(getEventoId(intent))));
+    }
+
+    private void setupRecyclerFotos(RecyclerView recyclerView, Intent intent) {
+        RecyclerView.LayoutManager layoutManager2 = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        recyclerView.setLayoutManager(layoutManager2);
+        recyclerView.setAdapter(new RecyclingAdapterFotosFesta(imagensDAO.getByEventoID(getEventoId(intent).getId())));
     }
 
     private void configurarTela(Intent intent) {
@@ -72,11 +83,10 @@ public class ConsultarEventoActivity extends AppCompatActivity {
                 if (!avaliacaoServices.existePresenca(SessaoUsuario.instance.getUsuario(), eventoOld)) {
                     Avaliacao avaliacao = criarEvento(eventoOld);
                     RecyclerView recyclerView = findViewById(R.id.participantesFesta);
-                    RecyclingAdapterParticipante adapter = (RecyclingAdapterParticipante) recyclerView.getAdapter();
+                    RecyclingAdapterParticipanteFotos adapter = (RecyclingAdapterParticipanteFotos) recyclerView.getAdapter();
                     adapter.getItems().add(avaliacao);
                     adapter.notifyDataSetChanged();
                 }
-                return;
             }
         });
         Button btnLike = (Button) findViewById(R.id.btnDarlike);

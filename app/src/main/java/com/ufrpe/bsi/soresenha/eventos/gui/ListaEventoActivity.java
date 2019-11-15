@@ -28,6 +28,7 @@ public class ListaEventoActivity extends AppCompatActivity {
         setupRecyclerView(recyclerView);
         configurarTela(newFesta);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
     }
 
     private void setupRecyclerView(RecyclerView recyclerView) {
