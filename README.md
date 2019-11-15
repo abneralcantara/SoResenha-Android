@@ -1,1 +1,0 @@
-# SoResenha-Android
