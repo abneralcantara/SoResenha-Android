@@ -39,6 +39,11 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String COLUNA_IDEVENTO = "IDEVENTO";
     public static final String COLUNA_IMAGEM = "IMAGEM";
 
+    private String sqlInsertUsers = "INSERT INTO " + TABELA_USUARIO + " ( " + COLUNA_ID + ", " + COLUNA_NOME  + ", " + COLUNA_TIPO + ") VALUES " + "(1,'Saulo','PARCEIRO')," + "(2,'Leonardo','PARCEIRO')," + "(3,'Carlos','PARCEIRO')," + "(4,'Abner','PARCEIRO')," + "(5,'Khalil','PARCEIRO')," + "(6, 'Luis Felipe','PARCEIRO')";
+    private String sqlInsertFesta = "INSERT INTO " + TABELA_FESTA + "( " + COLUNA_IDFESTA + "," + COLUNA_NOMEFESTA + "," + COLUNA_DESCRICAOFESTA + "," + COLUNA_CRIADORFESTA + "," + COLUNA_PRECOFESTA + "," + COLUNA_DATAFESTA + ") VALUES " + "(1,'Grande festa teste','Festa teste',1,'20.00','21/08/2082 19:15')," + "(2,'Carnaval','Festa teste',1,'2.00','21/08/2082 19:15')," + "(3,'Festa do Ru','Festa teste',2,'21.00','21/08/2082 19:15')," + "(4,'Villa Mix','Festa teste',2,'120.00','21/08/2082 19:15')";
+    private String sqlInsertAvali = "INSERT INTO " + TABELA_AVALIACOES + "( " + COLUNA_IDAVALIACOES + "," + COLUNA_IDUSERAVALIACOES + "," + COLUNA_IDEVENTOAVALIACOES + "," + COLUNA_LIKE + ") VALUES " + "(1, 1, 1, 'NAOLIKE')," + "(2, 2, 2, 'LIKE')," + "(3, 4, 2, 'LIKE')," + "(4, 2, 3, 'NAOLIKE')," + "(5, 5, 1, 'LIKE')," + "(6, 4, 4, 'LIKE')," +"(7, 3, 1, 'NAOLIKE')";
+
+
     private static final String[] TABELAS = {
             TABELA_USUARIO,
             TABELA_FESTA,
@@ -56,6 +61,9 @@ public class DBHelper extends SQLiteOpenHelper {
         criarTabelaFesta(db);
         criarTabelaAvaliacoes(db);
         criarTabelaImagemEvento(db);
+        db.execSQL(sqlInsertUsers);
+        db.execSQL(sqlInsertFesta);
+        db.execSQL(sqlInsertAvali);
     }
 
     @Override

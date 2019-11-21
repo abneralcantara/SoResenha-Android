@@ -61,6 +61,10 @@ public class EventoServices {
         return eventoDAO.list();
     }
 
+    public List<Evento> listEventoCriado(Usuario usuario){
+        return eventoDAO.getListCriado(usuario);
+    }
+
     public List<Usuario> listParticipantes(Evento evento){
         return eventoDAO.getListParticipantes(evento);
     }

@@ -122,7 +122,6 @@ public class EventoDAO {
     public List<Usuario> getListParticipantes(Evento evento){
         ArrayList<Usuario> listParticipantes = new ArrayList<>();
         return listParticipantes;
-
     }
 
     public void deletarPorCriador(long id) {
@@ -131,4 +130,21 @@ public class EventoDAO {
         db.delete(DBHelper.TABELA_FESTA, DBHelper.COLUNA_CRIADORFESTA + " =?", argumentos);
         db.close();
     }
+
+    public List<Evento> getListCriado(Usuario usuario) {
+        ArrayList<Evento> eventoList = new ArrayList<>();
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        String sql = "SELECT * FROM " + DBHelper.TABELA_FESTA;
+        Cursor cursor = db.rawQuery(sql, new String[]{});
+        while (cursor.moveToNext()) {
+            Evento newEvent = createEvento(cursor);
+            if (newEvent.getId() == usuario.getId()) {
+                eventoList.add(newEvent);
+            }
+        }
+        cursor.close();
+        db.close();
+        return eventoList;
+    }
+
 }
