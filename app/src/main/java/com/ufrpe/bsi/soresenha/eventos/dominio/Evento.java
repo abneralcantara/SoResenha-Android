@@ -18,6 +18,11 @@ public class Evento {
 
     public Evento(){}
 
+    public Evento(String nome){
+        this.nome = nome;
+    }
+
+
     public Evento(String nome, String descricao, BigDecimal preco){
         this.nome = nome;
         this.descricao = descricao;
