@@ -13,23 +13,23 @@ import com.ufrpe.bsi.soresenha.usuario.dominio.Usuario;
 
 import java.util.List;
 
-public class RecyclingAdapterParticipante extends RecyclerView.Adapter<RecyclingAdapterParticipante.RecyViewHolder> {
+public class RecyclingAdapterParticipanteFotos extends RecyclerView.Adapter<RecyclingAdapterParticipanteFotos.RecyViewHolderFotos> {
     private List<Avaliacao> opcoesUsuarios;
 
-    public RecyclingAdapterParticipante(List<Avaliacao> opcoesUsuarios) {
+    public RecyclingAdapterParticipanteFotos(List<Avaliacao> opcoesUsuarios) {
         this.opcoesUsuarios = opcoesUsuarios;
 
     }
 
     @NonNull
     @Override
-    public RecyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public RecyViewHolderFotos onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.recycling_participantes_card, viewGroup, false);
-        return new RecyViewHolder(view);
+        return new RecyViewHolderFotos(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyViewHolderFotos holder, int position) {
         Usuario usuario = opcoesUsuarios.get(position).getUsuario();
         holder.titlePartipante.setText(usuario.getNome());
     }
@@ -43,10 +43,10 @@ public class RecyclingAdapterParticipante extends RecyclerView.Adapter<Recycling
         return opcoesUsuarios;
     }
 
-    static class RecyViewHolder extends RecyclerView.ViewHolder {
+    static class RecyViewHolderFotos extends RecyclerView.ViewHolder {
         private TextView titlePartipante;
 
-        public RecyViewHolder(@NonNull View itemView) {
+        public RecyViewHolderFotos(@NonNull View itemView) {
             super(itemView);
             titlePartipante = itemView.findViewById(R.id.nomeParticipante);
         }

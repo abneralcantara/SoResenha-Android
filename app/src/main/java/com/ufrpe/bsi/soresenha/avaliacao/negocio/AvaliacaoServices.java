@@ -1,10 +1,10 @@
-package com.ufrpe.bsi.soresenha.eventos.negocio;
+package com.ufrpe.bsi.soresenha.avaliacao.negocio;
 
 import android.content.Context;
 
-import com.ufrpe.bsi.soresenha.eventos.dominio.Avaliacao;
+import com.ufrpe.bsi.soresenha.avaliacao.dominio.Avaliacao;
+import com.ufrpe.bsi.soresenha.avaliacao.persistencia.AvaliacaoDAO;
 import com.ufrpe.bsi.soresenha.eventos.dominio.Evento;
-import com.ufrpe.bsi.soresenha.eventos.persistencia.AvaliacaoDAO;
 import com.ufrpe.bsi.soresenha.usuario.dominio.Usuario;
 
 import java.util.List;
@@ -22,8 +22,7 @@ public class AvaliacaoServices {
     }
 
     public List<Avaliacao> list(Evento evento) {
-        List<Avaliacao> list = avaliacaoDAO.list(evento.getId());
-        return list;
+        return avaliacaoDAO.list(evento.getId());
     }
 
     public boolean existePresenca(Usuario usuario, Evento evento) {
@@ -45,4 +44,6 @@ public class AvaliacaoServices {
     public int countLikes(Evento evento) {
         return avaliacaoDAO.countLikes(evento.getId());
     }
+
+    public List<Avaliacao> list() { return avaliacaoDAO.list(); }
 }

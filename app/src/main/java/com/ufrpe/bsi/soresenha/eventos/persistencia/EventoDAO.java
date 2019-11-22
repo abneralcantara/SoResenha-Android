@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.ufrpe.bsi.soresenha.eventos.dominio.Evento;
+import com.ufrpe.bsi.soresenha.eventos.dominio.ImagemEvento;
 import com.ufrpe.bsi.soresenha.infra.persistencia.DBHelper;
 import com.ufrpe.bsi.soresenha.usuario.dominio.Usuario;
 import com.ufrpe.bsi.soresenha.usuario.persistencia.UsuarioDAO;
@@ -19,10 +20,12 @@ import java.util.List;
 public class EventoDAO {
     private DBHelper dbHelper;
     private UsuarioDAO usuarioDAO;
+    private ImagensDAO imagensDAO;
 
     public EventoDAO(Context context) {
         this.dbHelper = new DBHelper(context);
         this.usuarioDAO = new UsuarioDAO(context);
+        this.imagensDAO = new ImagensDAO(context);
     }
 
     public long cadastrar(Evento evento){
@@ -34,6 +37,9 @@ public class EventoDAO {
         values.put(DBHelper.COLUNA_DATAFESTA, DBHelper.dateTimeFormat.format(evento.getDate()));
         values.put(DBHelper.COLUNA_DESCRICAOFESTA, evento.getDescricao());
         long res = db.insert(DBHelper.TABELA_FESTA, null, values);
+        for (ImagemEvento image : evento.getImagens()) {
+            imagensDAO.inserir(res, image);
+        }
         db.close();
         return res;
     }
@@ -66,6 +72,13 @@ public class EventoDAO {
                 DBHelper.dateTimeFormat.format(evento.getDate()),
                 String.valueOf(evento.getId())
         });
+        for (ImagemEvento image : evento.getImagens()) {
+            if (image.getId() != 0) {
+                imagensDAO.update(evento.getId(), image);
+            } else {
+                imagensDAO.inserir(evento.getId(), image);
+            }
+        }
         db.close();
     }
 
@@ -96,6 +109,7 @@ public class EventoDAO {
         evento.setDescricao(cursor.getString(cursor.getColumnIndex(DBHelper.COLUNA_DESCRICAOFESTA)));
         evento.setCriador(usuarioDAO.getByID(cursor.getLong(cursor.getColumnIndex(DBHelper.COLUNA_CRIADORFESTA))));
         evento.setPreco(new BigDecimal(cursor.getString(cursor.getColumnIndex(DBHelper.COLUNA_PRECOFESTA))));
+        evento.setImagens(imagensDAO.getByEventoID(evento.getId()));
         try {
             evento.setDate(DBHelper.dateTimeFormat.parse(cursor.getString(cursor.getColumnIndex(DBHelper.COLUNA_DATAFESTA))));
         } catch (ParseException e) {
@@ -108,7 +122,6 @@ public class EventoDAO {
     public List<Usuario> getListParticipantes(Evento evento){
         ArrayList<Usuario> listParticipantes = new ArrayList<>();
         return listParticipantes;
-
     }
 
     public void deletarPorCriador(long id) {
@@ -117,4 +130,21 @@ public class EventoDAO {
         db.delete(DBHelper.TABELA_FESTA, DBHelper.COLUNA_CRIADORFESTA + " =?", argumentos);
         db.close();
     }
+
+    public List<Evento> getListCriado(Usuario usuario) {
+        ArrayList<Evento> eventoList = new ArrayList<>();
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        String sql = "SELECT * FROM " + DBHelper.TABELA_FESTA;
+        Cursor cursor = db.rawQuery(sql, new String[]{});
+        while (cursor.moveToNext()) {
+            Evento newEvent = createEvento(cursor);
+            if (newEvent.getId() == usuario.getId()) {
+                eventoList.add(newEvent);
+            }
+        }
+        cursor.close();
+        db.close();
+        return eventoList;
+    }
+
 }

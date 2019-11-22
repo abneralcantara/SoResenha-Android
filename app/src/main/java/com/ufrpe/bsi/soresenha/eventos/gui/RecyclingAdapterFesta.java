@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,10 +44,14 @@ public class RecyclingAdapterFesta extends RecyclerView.Adapter<RecyclingAdapter
 
     @Override
     public void onBindViewHolder(@NonNull RecyViewHolder holder, final int position) {
-        holder.titleFesta.setText(opcoesEventos.get(position).getNome());
+        Evento evento = opcoesEventos.get(position);
+        holder.titleFesta.setText(evento.getNome());
         NumberFormat realFormat = NumberFormat.getCurrencyInstance(new Locale( "pt", "BR" ));
-        String formatted = realFormat.format(opcoesEventos.get(position).getPreco());
+        String formatted = realFormat.format(evento.getPreco());
         holder.descFesta.setText(formatted);
+        if (!evento.getImagens().isEmpty()) {
+            holder.mainImageEvento.setImageBitmap(evento.getImagens().get(0).getImagem());
+        }
         setOptionButtonListeners(holder, position);
     }
 
@@ -107,8 +112,7 @@ public class RecyclingAdapterFesta extends RecyclerView.Adapter<RecyclingAdapter
     }
 
     private void moveToEdit(int position) {
-        Intent editIntent = new Intent(context, EditarEventoActivity.class);
-        editIntent.setFlags(editIntent.getFlags() | Intent.FLAG_ACTIVITY_NO_HISTORY);
+        Intent editIntent = new Intent(context, SalvarEventoActivity.class);
         Evento evento = opcoesEventos.get(position);
         editIntent.putExtra("EventId", evento.getId());
         context.startActivity(editIntent);
@@ -122,12 +126,13 @@ public class RecyclingAdapterFesta extends RecyclerView.Adapter<RecyclingAdapter
     static class RecyViewHolder extends RecyclerView.ViewHolder {
         private TextView titleFesta;
         private TextView descFesta;
+        private ImageView mainImageEvento;
 
         public RecyViewHolder(@NonNull View itemView) {
             super(itemView);
             titleFesta = itemView.findViewById(R.id.eventTitle);
+            mainImageEvento = itemView.findViewById(R.id.mainImageEvento);
             descFesta = itemView.findViewById(R.id.eventDescription);
-
         }
     }
 }

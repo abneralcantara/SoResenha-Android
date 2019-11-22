@@ -4,6 +4,7 @@ import com.ufrpe.bsi.soresenha.usuario.dominio.Usuario;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 public class Evento {
 
@@ -13,8 +14,14 @@ public class Evento {
     private BigDecimal preco;
     private Usuario criador;
     private Date date;
+    private List<ImagemEvento> imagens;
 
     public Evento(){}
+
+    public Evento(String nome){
+        this.nome = nome;
+    }
+
 
     public Evento(String nome, String descricao, BigDecimal preco){
         this.nome = nome;
@@ -90,5 +97,13 @@ public class Evento {
 
     public void setCriador(Usuario criador) {
         this.criador = criador;
+    }
+
+    public List<ImagemEvento> getImagens() {
+        return imagens;
+    }
+
+    public void setImagens(List<ImagemEvento> imagens) {
+        this.imagens = imagens;
     }
 }

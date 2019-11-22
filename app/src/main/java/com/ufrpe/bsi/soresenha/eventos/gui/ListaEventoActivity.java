@@ -19,15 +19,22 @@ import java.util.List;
 
 public class ListaEventoActivity extends AppCompatActivity {
 
+    private boolean shouldRecommend;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        final Intent intent = getIntent();
+        if (intent.getExtras() != null) {
+            shouldRecommend = intent.getBooleanExtra("recommend", false);
+        }
         setContentView(R.layout.activity_lista_festa);
         FloatingActionButton newFesta = (FloatingActionButton) findViewById(R.id.criarEventoFloatingButton);
         RecyclerView recyclerView = findViewById(R.id.recyclerfestas);
         setupRecyclerView(recyclerView);
         configurarTela(newFesta);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
     }
 
     private void setupRecyclerView(RecyclerView recyclerView) {
@@ -43,8 +50,7 @@ public class ListaEventoActivity extends AppCompatActivity {
             newFesta.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent insertIntent = new Intent(ListaEventoActivity.this, CriarEventoActivity.class);
-                    insertIntent.setFlags(insertIntent.getFlags() | Intent.FLAG_ACTIVITY_NO_HISTORY);
+                    Intent insertIntent = new Intent(ListaEventoActivity.this, SalvarEventoActivity.class);
                     startActivity(insertIntent);
                 }
             });
@@ -53,14 +59,19 @@ public class ListaEventoActivity extends AppCompatActivity {
 
     private List<Evento> createList() {
         EventoServices eventoServices = new EventoServices(this);
-        return eventoServices.list();
+        List<Evento> eventos = null;
+        if (shouldRecommend) {
+            eventos = eventoServices.recommend(SessaoUsuario.instance.getUsuario());
+        } else {
+            eventos = eventoServices.list();
+        }
+        return eventos;
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                startActivity(new Intent(this, MenuActivity.class));
-                return true;
+        if (item.getItemId() == android.R.id.home) {
+            startActivity(new Intent(this, MenuActivity.class));
+            return true;
         }
 
         return super.onOptionsItemSelected(item);

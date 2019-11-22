@@ -82,6 +82,7 @@
         android:background="#DF097B"
         android:fontFamily="sans-serif"
         android:text="Logar"
+        android:foreground="?attr/selectableItemBackground"
         android:textColor="#FFFFFF"
         android:textSize="18sp"
         android:textStyle="bold"

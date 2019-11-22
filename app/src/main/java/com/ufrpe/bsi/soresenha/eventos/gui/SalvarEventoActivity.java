@@ -3,7 +3,9 @@ package com.ufrpe.bsi.soresenha.eventos.gui;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -15,6 +17,7 @@ import android.widget.Toast;
 
 import com.ufrpe.bsi.soresenha.R;
 import com.ufrpe.bsi.soresenha.eventos.dominio.Evento;
+import com.ufrpe.bsi.soresenha.eventos.dominio.ImagemEvento;
 import com.ufrpe.bsi.soresenha.eventos.negocio.EventoServices;
 import com.ufrpe.bsi.soresenha.infra.helper.BigDecimalUtil;
 import com.ufrpe.bsi.soresenha.infra.helper.MoneyTextMask;
@@ -22,32 +25,67 @@ import com.ufrpe.bsi.soresenha.infra.negocio.SessaoUsuario;
 import com.ufrpe.bsi.soresenha.infra.negocio.SoresenhaAppException;
 
 import java.math.BigDecimal;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
+import java.util.Locale;
 
-public class CriarEventoActivity extends AppCompatActivity {
+import external.ImagePicker;
+
+public class SalvarEventoActivity extends AppCompatActivity {
 
     private EditText editNome;
     private EditText editDesc;
     private EditText editPreco;
     private EditText editDate;
     private EditText editHora;
+    private FloatingActionButton addImg;
+
     private EventoServices eventoServices = new EventoServices(this);
     private Calendar eventoDate = Calendar.getInstance();
     private SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
     private SimpleDateFormat horaFormat = new SimpleDateFormat("kk:mm");
+    private List<ImagemEvento> images;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        images = new ArrayList<>();
         setContentView(R.layout.activity_criar_evento);
         editNome = findViewById(R.id.nomeFestaedit);
         editPreco = findViewById(R.id.precoFestaedit);
         editDesc = findViewById(R.id.descFestaEdit);
         editDate = findViewById(R.id.dataFestaEdit);
         editHora = findViewById(R.id.horaFestaEdit);
+        addImg = findViewById(R.id.addImg);
         Button criarBtn = findViewById(R.id.criarFestabutton);
         criarListeners(criarBtn);
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
+        if (extras != null) {
+            long id = extras.getLong("EventId");
+            final Evento eventoOld = eventoServices.get(id);
+            preencherValores(eventoOld);
+        }
+    }
+
+    private void preencherValores(Evento eventoOld) {
+        eventoDate.setTime(eventoOld.getDate());
+        editNome = findViewById(R.id.nomeFestaedit);
+        editDesc = findViewById(R.id.descFestaEdit);
+        editPreco = findViewById(R.id.precoFestaedit);
+        editDate = findViewById(R.id.dataFestaEdit);
+        editHora = findViewById(R.id.horaFestaEdit);
+        editNome.setText(eventoOld.getNome());
+        editDesc.setText(eventoOld.getDescricao());
+        NumberFormat realFormat = NumberFormat.getCurrencyInstance(new Locale( "pt", "BR" ));
+        String formatted = realFormat.format(eventoOld.getPreco());
+        editPreco.setText(formatted);
+        editDate.setText(dateFormat.format(eventoDate.getTime()));
+        editHora.setText(horaFormat.format(eventoDate.getTime()));
+        images = eventoOld.getImagens();
     }
 
     private void criarListeners(Button criarBtn) {
@@ -61,16 +99,28 @@ public class CriarEventoActivity extends AppCompatActivity {
                 BigDecimal parsed = BigDecimalUtil.fromBRLString(preco);
                 Evento evento = new Evento(nome, descricao, parsed, eventoDate.getTime());
                 evento.setCriador(SessaoUsuario.instance.getUsuario());
+                evento.setImagens(images);
                 try {
-                    eventoServices.criar(evento);
+                    if (getIntent().getExtras() != null) {
+                        evento.setId(getIntent().getExtras().getLong("EventId"));
+                        eventoServices.update(evento);
+                    } else {
+                        eventoServices.criar(evento);
+                    }
                 } catch (SoresenhaAppException e) {
                     Toast.makeText(v.getContext(), e.getMessage(), Toast.LENGTH_LONG).show();
                     Log.e("UpdateEvento", e.getMessage());
                     return;
                 }
-                Intent backMenu = new Intent(CriarEventoActivity.this, ListaEventoActivity.class);
+                Intent backMenu = new Intent(SalvarEventoActivity.this, ListaEventoActivity.class);
                 backMenu.setFlags(backMenu.getFlags() | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(backMenu);
+            }
+        });
+        addImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onPickImage(v);
             }
         });
         listenersData();
@@ -121,6 +171,24 @@ public class CriarEventoActivity extends AppCompatActivity {
                 .show();
             }
         });
+    }
+
+    public void onPickImage(View view) {
+        Intent chooseImageIntent = ImagePicker.getPickImageIntent(this);
+        startActivityForResult(chooseImageIntent, 13131);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch(requestCode) {
+            case 13131:
+                Bitmap bitmap = ImagePicker.getImageFromResult(this, resultCode, data);
+                images.add(new ImagemEvento(bitmap));
+                break;
+            default:
+                super.onActivityResult(requestCode, resultCode, data);
+                break;
+        }
     }
 
     private boolean validate() {
