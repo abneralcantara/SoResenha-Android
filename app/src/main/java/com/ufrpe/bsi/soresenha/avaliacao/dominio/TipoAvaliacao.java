@@ -1,8 +1,8 @@
 package com.ufrpe.bsi.soresenha.avaliacao.dominio;
 
 public enum TipoAvaliacao {
-    NAOLIKE(0),
-    LIKE(1);
+    NAOLIKE(1),
+    LIKE(2);
 
     private Double value;
 

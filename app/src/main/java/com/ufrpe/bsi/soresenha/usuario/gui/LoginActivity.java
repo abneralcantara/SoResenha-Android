@@ -18,8 +18,6 @@ import com.ufrpe.bsi.soresenha.usuario.dominio.TipoUsuario;
 import com.ufrpe.bsi.soresenha.usuario.dominio.Usuario;
 import com.ufrpe.bsi.soresenha.usuario.negocio.UsuarioServices;
 
-import external.slopeone.SlopeOne;
-
 public class LoginActivity extends AppCompatActivity {
     private EditText editEmail;
     private EditText editSenha;
@@ -29,7 +27,6 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        SlopeOne.slopeOne();
         setContentView(R.layout.activity_login);
         android.support.v7.app.ActionBar bar = getSupportActionBar();
         bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FF00BF")));

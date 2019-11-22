@@ -76,6 +76,20 @@ public class AvaliacaoDAO {
         return avaliacaoList;
     }
 
+    public List<Avaliacao> list() {
+        ArrayList<Avaliacao> avaliacaoList = new ArrayList<>();
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        String sql = "SELECT * FROM " + DBHelper.TABELA_AVALIACOES;
+        Cursor cursor = db.rawQuery(sql, new String[]{});
+        while (cursor.moveToNext()) {
+            Avaliacao checkevento = createAvaliacao(cursor);
+            avaliacaoList.add(checkevento);
+        }
+        cursor.close();
+        db.close();
+        return avaliacaoList;
+    }
+
     public void update(Avaliacao avaliacao) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         String sql = "UPDATE "+ DBHelper.TABELA_AVALIACOES + " SET " +
