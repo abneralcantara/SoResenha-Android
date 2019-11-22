@@ -9,7 +9,7 @@ import android.util.Log;
 import java.text.SimpleDateFormat;
 
 public class DBHelper extends SQLiteOpenHelper {
-    public static final int VERSAO_BANCO = 32;
+    public static final int VERSAO_BANCO = 34;
     public static final String NOME_BANCO = "SORESENHA_BD";
     public static final SimpleDateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy kk:mm");
 
@@ -39,9 +39,29 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String COLUNA_IDEVENTO = "IDEVENTO";
     public static final String COLUNA_IMAGEM = "IMAGEM";
 
-    private String sqlInsertUsers = "INSERT INTO " + TABELA_USUARIO + " ( " + COLUNA_ID + ", " + COLUNA_NOME  + ", " + COLUNA_TIPO + ") VALUES " + "(1,'Saulo','PARCEIRO')," + "(2,'Leonardo','PARCEIRO')," + "(3,'Carlos','PARCEIRO')," + "(4,'Abner','PARCEIRO')," + "(5,'Khalil','PARCEIRO')," + "(6, 'Luis Felipe','PARCEIRO')";
-    private String sqlInsertFesta = "INSERT INTO " + TABELA_FESTA + "( " + COLUNA_IDFESTA + "," + COLUNA_NOMEFESTA + "," + COLUNA_DESCRICAOFESTA + "," + COLUNA_CRIADORFESTA + "," + COLUNA_PRECOFESTA + "," + COLUNA_DATAFESTA + ") VALUES " + "(1,'Grande festa teste','Festa teste',1,'20.00','21/08/2082 19:15')," + "(2,'Carnaval','Festa teste',1,'2.00','21/08/2082 19:15')," + "(3,'Festa do Ru','Festa teste',2,'21.00','21/08/2082 19:15')," + "(4,'Villa Mix','Festa teste',2,'120.00','21/08/2082 19:15')";
-    private String sqlInsertAvali = "INSERT INTO " + TABELA_AVALIACOES + "( " + COLUNA_IDAVALIACOES + "," + COLUNA_IDUSERAVALIACOES + "," + COLUNA_IDEVENTOAVALIACOES + "," + COLUNA_LIKE + ") VALUES " + "(1, 1, 1, 'NAOLIKE')," + "(2, 2, 2, 'LIKE')," + "(3, 4, 2, 'LIKE')," + "(4, 2, 3, 'NAOLIKE')," + "(5, 5, 1, 'LIKE')," + "(6, 4, 4, 'LIKE')," +"(7, 3, 1, 'NAOLIKE')";
+    private String sqlInsertUsers = "INSERT INTO " + TABELA_USUARIO + " ( " + COLUNA_ID + ", " + COLUNA_NOME  + ", " + COLUNA_TIPO + ", " + COLUNA_SENHA + ") VALUES "
+            + "(1,'Saulo','PARCEIRO', '123123'),"
+            + "(2,'Leonardo','PARCEIRO', '123123'),"
+            + "(3,'Carlos','PARCEIRO', '123123'),"
+            + "(4,'Abner','PARCEIRO', '123123'),"
+            + "(5,'Khalil','PARCEIRO', '123123'),"
+            + "(6, 'Luis Felipe','PARCEIRO', '123123')";
+    private String sqlInsertFesta = "INSERT INTO " + TABELA_FESTA + "( " + COLUNA_IDFESTA + "," + COLUNA_NOMEFESTA + "," + COLUNA_DESCRICAOFESTA + "," + COLUNA_CRIADORFESTA + "," + COLUNA_PRECOFESTA + "," + COLUNA_DATAFESTA + ") VALUES "
+            + "(1,'Grande festa teste','Festa teste',1,'20.00','21/08/2082 19:15'),"
+            + "(2,'Carnaval','Festa teste',1,'2.00','21/08/2082 19:15'),"
+            + "(3,'Festa do Ru','Festa teste',2,'21.00','21/08/2082 19:15'),"
+            + "(4,'Rec n Play','teste',2,'21.00','21/08/2082 19:15'),"
+            + "(5,'Villa Mix','Festa teste',2,'120.00','21/08/2082 19:15')";
+    private String sqlInsertAvali = "INSERT INTO " + TABELA_AVALIACOES + "( " + COLUNA_IDAVALIACOES + "," + COLUNA_IDUSERAVALIACOES + "," + COLUNA_IDEVENTOAVALIACOES + "," + COLUNA_LIKE + ") VALUES "
+            + "(1, 1, 1, 'NAOLIKE'),"
+            + "(2, 2, 2, 'LIKE'),"
+            + "(3, 4, 2, 'LIKE'),"
+            + "(4, 2, 3, 'NAOLIKE'),"
+            + "(9, 2, 5, 'NAOLIKE'),"
+            + "(5, 5, 1, 'LIKE'),"
+            + "(6, 4, 5, 'LIKE'),"
+            + "(8, 4, 4, 'LIKE'),"
+            + "(7, 3, 1, 'NAOLIKE')";
 
 
     private static final String[] TABELAS = {

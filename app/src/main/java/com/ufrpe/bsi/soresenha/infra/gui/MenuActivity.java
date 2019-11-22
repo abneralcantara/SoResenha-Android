@@ -10,7 +10,6 @@ import android.widget.ImageButton;
 
 import com.ufrpe.bsi.soresenha.R;
 import com.ufrpe.bsi.soresenha.eventos.gui.ListaEventoActivity;
-import com.ufrpe.bsi.soresenha.eventos.gui.ListaEventoCriadoActivity;
 import com.ufrpe.bsi.soresenha.infra.negocio.SessaoUsuario;
 
 public class MenuActivity extends AppCompatActivity {
@@ -45,8 +44,9 @@ public class MenuActivity extends AppCompatActivity {
         if (sessaoUsuario.instance.isParceiro()) {btnListCriados.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent eventoCItent = new Intent(MenuActivity.this, ListaEventoCriadoActivity.class);
-                startActivity(eventoCItent);
+                Intent conIntent = new Intent(MenuActivity.this, ListaEventoActivity.class);
+                conIntent.putExtra("recommend", true);
+                startActivity(conIntent);
             }
         });
         } else {

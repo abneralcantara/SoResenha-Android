@@ -44,4 +44,6 @@ public class AvaliacaoServices {
     public int countLikes(Evento evento) {
         return avaliacaoDAO.countLikes(evento.getId());
     }
+
+    public List<Avaliacao> list() { return avaliacaoDAO.list(); }
 }
